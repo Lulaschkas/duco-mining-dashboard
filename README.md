@@ -1,5 +1,4 @@
 # duino-coin-mining-dashboard
-<img src="logo.png" style="width:50%">
 ![Dashboard preview](/dashboard.png)
 ## Features
 The duino-coin mining dashboard provides a lot of advanced features to monitor your miners, shows help if it detects a problem and can do much more. 
@@ -28,3 +27,4 @@ Just open the website to the Dashboard: [Mining dashboard website](https://lulas
 
 
 ## More soon
+![Dashboard preview](/logo.png)

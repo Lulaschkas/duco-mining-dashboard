@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Duino-Coin Dashboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+
+        <link rel="shortcut icon" type="image/x-icon" href="/website/img/ducominingdashboard.png">
+        <link type="text/css" rel="stylesheet" href="/website/css/main.css">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css?ver=5.7.1' type='text/css'>
+        <script src="https://bernii.github.io/gauge.js/dist/gauge.min.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js" type="text/javascript"></script>
+        <!--Main JS code-->
+        <script type="text/javascript" src="/website/js/gauges.js"></script>
+        <script type="text/javascript" src="/website/js/charts.js"></script>
+        <script type="text/javascript" src="/website/js/buttonfunctions.js"></script>
+        <script type="text/javascript" src="/website/js/main.js"></script>
+        
+    </head>
+    <body>
+        <div class="pageloader" id="pageloader"><center><img src="/website/img/ducominingdashboard.png" style="max-width:200px;"></center><span class="title">Fetching data -  Please wait</span>
+        </div>
+        <div class="container1" id="myd2">
+
+
+
+        <article class="middle2">
+            <div id="dashboard">
+                
+                <p id="login_header">Duino-Coin mining dashboard</p>
+                <center>
+                    <div class="tabs">
+                        <ul>
+                          <li id="tab1" class="is-active"><a onclick="showmy();">My Data</a></li>
+                          <li id="tab2" class=""><a onclick="shownetwork();">Network data</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div id="myd">
+                        <div class="container is-fluid">
+                            <div class="tile is-ancestor">
+                                <div class="tile is-vertical is-12">
+                                    <div class="tile">
+                                        <div class="tile is-parent is-vertical">
+                                            <article class="tile is-child has-background-light2">
+                                                <p class="title">User Balance Graph</p>
+                                                <div style="width: 90%">
+                                                    <canvas id="chart1" class="frontchart" width="200" height="120"></canvas>
+                                                </div>
+                                                <div id="balance">
+                                                    <p id="balance_dashboard" class="middletext">Loading</p>
+                                                    <p id="ducoprice"></p>
+                                                </div>
+
+
+
+                                            </article>
+                                        
+                                        <article class="tile is-child has-background-light2">
+                                            <p class="title">Efficiency</p>
+                                            <div id="efficiency">
+                                                <p><b>Your Miners efficiency</b></p>
+                                                <p id="efficiency_avr" class="middletext">Loading</p>
+                                                <p id="efficiency_pc" class="middletext">Loading</p>
+                                            </div>
+                                        </article>
+                                     </div>
+                                        <div class="tile is-parent is-vertical">
+                                            <article class="tile is-child has-background-light2">
+                                                <p class="title">Hashrate</p>
+                                                <center>
+                                                    <div class="columns">
+                                                        <div class="column is-half">
+                                                            <p><b>Hashrate:</b></p>
+                                                            <canvas id="gauge07" class="gauge" style="width: 70%;"></canvas>
+                                                            <p id="gauge07_val">Loading, please wait</p>
+
+                                                            <p><b>Connections:</b></p>
+                                                            <canvas id="gauge08" class="gauge" style="width: 70%;"></canvas>
+                                                            <p id="gauge08_val">Loading, please wait</p>
+                                                            
+                                                        </div>
+                                                        <div class="column is-half" >
+                                                            <div id="hashratetab">
+                                                                    <p id="avr">Loading</p>
+                                           
+                                                                    <div class="line3"></div>
+                                                         
+                                                                    <p id="esp">Loading</p>
+                                                      
+                                                                    <div class="line3"></div>
+                                                 
+                                                                    <p id="pc">Loading</p>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </center>
+                                            </article>
+                                            <article class="tile is-child has-background-light2">
+                                                <p class="title">All Miners</p>
+                                                <table>
+                                                    <tr>
+                                                        <td> <a href="javascript:showesp()"> <img class="imgi" src="/website/img/esp.png"></a></td>
+                                                        <td><a href="javascript:showavr()"><img class="imgi" src="/website/img/arduino.png"></a></td>
+                                                        <td><a href="javascript:showpc()"><img class="imgi" src="/website/img/pc.png"></a></td>
+
+                                                    </tr>
+                                                </table>
+                                                <p>Click on an image to see all your miners.</p>
+                                            </article>
+                                        </div>
+                                        <div class="tile is-parent is-vertical">
+                                            <article class="tile is-child has-background-light2">
+                                                <p class="title">Estimated</p>
+                                                <table id="estimatedtable">
+                                                    <tr>
+                                                        <td class="subtitle">daily:</td>
+                                                        <b><td id="perday" class="estimated">Loading...(15s)</td></b>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="subtitle">Avg. daily:</td>
+                                                        <b><td id="perdayc" class="estimated">Loading...(15s)</td></b>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="subtitle">Per week:</td>
+                                                        <b><td id="perweek" class="estimated">Loading...(15s)</td></b>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="subtitle">Per month:</td>
+                                                        <b><td id="permonth" class="estimated">Loading...(15s)</td></b>
+                                                    </tr>
+                                                </table>
+                                                
+                                            </article>
+                                            <article class="tile is-child has-background-light2">
+                                                <p class="title" id="probtitle">Problems (0)</p>
+                                                <div class="subtitle" id="problemt" style="height: 200px; overflow:auto;">We have not been able to analyse your Miners. </p>
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="tile is-ancestor ">
+                                <div class="tile is-vertical is-12">
+                                    <div class="tile">
+                                        <article class="tile is-child has-background-light2">
+                                            <p class="title">Hashrate & Connection Graphs</p>
+                                            <div class="tabs">
+                                                <ul>
+                                                  <li id="tab3" class="is-active"><a onclick="showhashrate();">Hashrate and Daily</a></li>
+                                                  <li id="tab4" class=""><a onclick="showconnections();">Connections</a></li>
+                                                </ul>
+                                            </div>
+                                            <div id="chart">
+                                                <div id="hashrate_chart_div">
+                                                    <div class="chart-container">
+                                                        <canvas  id="hashrate_chart"></canvas>
+                                                    </div>        
+                                                </div>
+                                                <div id="connection_chart_div">
+                                                    <div class="chart-container">
+                                                        <canvas  id="connection_chart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <table>
+                                <tr>
+                                    <td> <a href="https://discord.gg/QpAnyWdxjk"> <img class="imgi" src="/website/img/discord.png"></a></td>
+                                    <td><a href="https://server.duinocoin.com/webminer.html"><img class="imgi" src="/website/img/webminer.png"></a></td>
+                                    <td><a href="https://duinocoin.com"><img class="imgi" src="/website/img/duco.png"></a></td>
+                                    <td><a href="https://wallet.duinocoin.com"><img class="imgi" src="/website/img/wallet.png"></a></td>
+                                    <td><a href="https://github.com/Lulaschkas/duco-mining-dashboard"><img class="imgi" src="/website/img/github.png"></a></td>
+                                </tr>
+
+                            </table>
+                            <p id="footer">
+                                <a href="privacy.html">Privcy policy/Legal Notice</a> | 
+                                <a href="about.html">About</a> | 
+                                <a href="fixes.html">Fix problems</a>
+                            
+                            </p>
+                        </div>
+                    </div>
+                    <div id="dashboardd">
+                        <div class="columns">
+                            <div class="column">
+                            
+                                    <div id="gauge">
+                                        <p id="dashboard_title">Registered</p>
+                                        <canvas id="gauge01" class="gauge">
+                                            
+                                        </canvas>
+                                        <p id="gauge01_val" class="gaugeval"></p>
+                                    </div>
+                                    
+                            
+                            </div>
+                            <div class="column">
+                        
+                                    <div id="gauge">
+                                        <p id="dashboard_title">Connections</p>
+                                        <canvas id="gauge02" class="gauge" width="100px" height="100px">
+                                            
+                                        </canvas>
+                                        <p id="gauge02_val" class="gaugeval"></p>
+                                    </div>
+                            
+                            </div>
+                            <div class="column">
+                        
+                                    <div id="gauge">
+                                        <p id="dashboard_title">Hashrate</p>
+                                        <canvas id="gauge03" class="gauge">
+                                            
+                                        </canvas>
+                                        <p id="gauge03_val" class="gaugeval"></p>
+                                    </div>
+                        
+                            </div>
+                            <div class="column">
+                            
+                                    <div id="gauge">
+                                        <p id="dashboard_title">Price</p>
+                                        <canvas id="gauge04" class="gauge">
+                                            
+                                        </canvas>
+                                        <p id="gauge04_val" class="gaugeval"></p>
+                                    </div>
+                            
+                            </div>
+                            <div class="column">
+                        
+                                    <div id="gauge">
+                                        <p id="dashboard_title">CPU</p>
+                                        <canvas id="gauge05" class="gauge">
+                                            
+                                        </canvas>
+                                        <p id="gauge05_val" class="gaugeval"></p>
+                                    </div>
+                        
+                            </div>
+                            <div class="column">
+                        
+                                    <div id="gauge">
+                                        <p id="dashboard_title">All-time</p>
+                                        <canvas id="gauge06" class="gauge">
+                                            
+                                        </canvas>
+                                        <p id="gauge06_val" class="gaugeval"></p>
+                                    </div>
+                            </div>
+
+                        </div>
+                        <div class="chart-container" id="chart">
+                            <canvas id="net_chart"></canvas>
+                        </div>
+                        <p id="footer">
+                            <a href="privacy.html">Privcy policy/Legal Notice</a> | 
+                            <a href="about.html">About</a> | 
+                            <a href="fixes.html">Fix problems</a>
+                        
+                        </p>
+                    </div>
+
+
+                </center>
+                <br>
+                <a href="index.html">
+                    <button id="btn">
+                        <span class="icon">
+                            <i class="fas fa-arrow-circle-left fa-3x"></i>
+                        </span>    
+                    </button>
+                </a>
+            </div>
+        </article>
+        <!-- MIner data popup here-->
+       
+            <div id="minerdata">
+                <button onclick="closeminerdata()"id="btnback">
+                    <span class="icon">
+                        <i class="fas fa-times-circle fa-3x"></i>
+                    </span>
+                </button>
+                <p class="title" id="minerdata_title">Loading</p>
+                <div class="line"></div>
+                <div style="height: 400px; overflow:auto;">
+                    <table class="table" id="minerdata_data">
+                    </table>
+                </div>
+            </div>
+  
+        <!--Server check page here-->
+
+        <article class="middle">
+            <div id="ping">
+               <p id="login_header">Checking server</p>
+                
+                <div class="line"></div>
+
+                <table id="ping_table">
+                    <tr>
+                        <td>Duino-Coin Main Server</td>
+                        <td>Duino-Coin APIs</td>
+                    </tr>
+                    <tr>
+                        <td><img id="s1" src="/website/img/Spinner-2.gif"></td>
+                        <td><img id="s2" src="/website/img/Spinner-2.gif"></td>
+                    </tr>
+                </table>
+                <div id="loadingbar_1">
+                    <div id="loadingbar_2">
+                        
+                    </div>
+                    <div id="loadingbar_3">
+                        
+                    </div>
+                </div>
+                <br>
+            
+
+                <br>
+                <center>
+                    <div id="consoleu">
+                        <p id="inputz">[Info] Waiting for username verification</p>
+                        <p id="console"></p>
+
+                    </div>
+                </center>
+                <br>
+            
+                <button id="btn" onclick="btnfuncback()">
+                    <span class="icon">
+                        <i class="fas fa-arrow-circle-left fa-3x"></i>
+                    </span>
+                </button>
+
+                <button onclick="showdebug()"id="btn">
+                    <span class="icon">
+                        <i class="fas fa-bug fa-3x"></i>
+                    </span>
+                </button>
+                
+                <button id="btn" onclick="btnfuncret()">
+                    <span class="icon">
+                        <i class="fas fa-redo fa-3x"></i>
+                    </span>
+                </button>
+
+                <p id="info"></p>
+            </div>
+        </article>
+        <article class="middle">
+            <div id="login">
+                <a href="https://duinocoin.com"><img id="ducoimg" src="/website/img/duco.png"></a>
+                <img id="ducoimg2" src="/website/img/ducominingdashboarddark.png">
+                <p id="login_header">Duino-Coin mining Dashboard</p>
+                
+                <div class="line"></div>
+
+                <div id="usrname_input"> 
+                    <input type="text" id="inputt" placeholder="username">
+                    <button id="btn" onclick="btnfunc()">
+                        <span class="icon has-text-success">
+                            <i class="fas fa-check-circle fa-3x"></i>
+                        </span>
+                    </button>
+                </div>
+                
+                <br>
+                <p id="footer">
+                    <a href="privacy.html">Privcy policy/Legal Notice</a> | 
+                    <a href="about.html">About</a> | 
+                    <a href="fixes.html">Fix problems</a>
+                
+                </p>
+
+
+                
+            </div>
+        </article>
+    </div>
+
+ 
+
+
+
+
+    
+    </body>
+</html>

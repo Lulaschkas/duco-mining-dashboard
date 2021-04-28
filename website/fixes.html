@@ -1,0 +1,286 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/ducominingdashboard.png">
+    <link rel="stylesheet" href="/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <title>Mining Fixes</title>
+</head>
+<body>
+    <div class="container1" id="myd2">
+        <article class="middle2">
+            <div id="fixes">
+                <div class="fixedtainer">
+                    <a href="index.html">
+                    <button id="btn">
+                        <span class="icon">
+                            <i class="fas fa-arrow-circle-left fa-3x"></i>
+                            
+                        </span>
+                    </button>
+                </a>
+                    Back to dashboard
+                </div>
+           
+    
+            
+            <div class="card" style="padding-left: 30px; padding-right: 30px;">
+                <p>Thanks for reading the Duinocoin problem fixer guide. Hopefully you can fix your problems with it. 
+                    If you face any other issues please write in the official Duinocoin Discord Server. </p>
+                <p>Also i want to make clear that this is NO how to get started guide. You can read the basic tuorial here: <a href="https://duinocoin.com/getting-started">Getting started step by step</a></p>
+                <br>
+                Fix problems while mining with...
+                <ol>
+                    <li><a href="#pc">PC</a></li>
+                    <li><a href="#avr">Arduino</a></li>
+                    <li><a href="#esp">ESP</a></li>
+                </ol>
+                <center>
+                <p id="pc" class="title">Problems while mining with PC</p>
+                <div class="line"></div>
+                <br>
+                <p class="subtitle"><b>Too high hashrate</b></p>
+                </center>
+                <p>Yes, you've heard that right. Mining with too high hashrate is not good. DuinoCoin is using a 
+                    System called 'Kolka' to make fair rewards for strong and weak miners. This system is for example raising the difficulty if someone is mining with a really powerful pc,
+                    so it is not possible for people with GPUs or very strong CPUs to earn more than a few Arduinos would do.
+                    Mining with strong devices also isn't the point of duinocoin. As the name suggests DuinoCoin is mostly
+                    for Arduinos and other low power devices. What's more, hashrate isn't equal to earning more Coins in Duinocoin.
+                    <br>
+                    If the mining dashboard showed you the Error, that you are mining with too high hashrate, you probably wont make more than 30-40 
+                    Coiny per day but spend a lot of energy on your device. In this case you should think about:
+                </p>
+                <ol>
+                    <li>Setting the difficulty setting to Net or Extreme depending on your device</li>
+                    <li>Not mining with big CPUs / GPUs</li>
+                    <li>Lowering mining intensity</li>
+                </ol>
+                <br>
+                <center><p class="subtitle">Too low Hashrate</p></center>
+                <p>Sometimes it can happen that you are mining with too low hashrate. This 
+                    is mostly caused by a high difficult that got sended to your device or wrong difficult settings.
+                    If you are mining with Raspberry Pi and other low Power devices, please double check your Miner settings.
+                    (For example not setting difficulty to Network)
+                </p>
+
+                <br>
+                <center><p class="subtitle">Too many rejected Shares</p></center>
+                <p>If this Error pops up, one of your devices has more than 5% of his shares rejected by the main server.
+                    This can be caused by:
+
+                </p>
+                <ol>
+                    <li>Old miner Version</li>
+                    <li>Server has temporary issues</li>
+                    <li>Using wrong difficult tier</li>
+                    <li>Hashing algorythm error </li>
+                    <li>Mining much to fast so Kolka limits you</li>
+                </ol>
+                <br>
+                <center><p class="subtitle">Does not start mining</p></center>
+                <p>Somtimes your miner connects to the server but doesnt submit any shares or stucks after the first one.
+                    This was a problem with some old miner versions please upgrade and try again.
+                </p>
+                <br>
+                <center><p class="subtitle">Too low efficiency</p></center>
+                <p>Duino-Coin uses a System called Kolka to keep mining fair for everyone.
+                This system prevents GPU mining as well as huge mining farms.</p>
+                <p>And it does this by cutting down profit for every new mining connection</p>
+                
+                <p>New mining connections from PCs are cut down by 20% for each new connection.</p>
+                <p>This looks like this: Miner1-100%, Miner2-80%, Miner3-64%, Miner4-51%...</p>
+                <p>For Arduinos and ESPs, the cut down for every new connection is only 4%</p>
+                <p>This looks like this: Miner1-100%, Miner2-96%, Miner3-92%, Miner4-88%...</p>
+                <p>With this system it is still possibl to make good profit with AVR mining, which obviously is the key aspect of DUINO-coin.</p>
+                <br>
+                <br>
+                <center>
+                <p id="avr" class="title">Problems while mining with AVR</p>
+                <div class="line"></div>
+                <br>
+                <p class="subtitle"><b>Too high hashrate</b></p>
+                </center>
+                <p>If you get the error, that you are mining too fast with your Arduino this is mostly no reason to worry about.
+                    Sometimes the hashrate spikes very short or the server has an issue but if the problem stays you should take a look.
+                    Check if you are using an unoffical miner which maybe tries to bypass Kolka limits (which doesnt work since V4).
+                </p>
+                <br>
+                <center><p class="subtitle">Too low Hashrate</p></center>
+                <p>Sometimes your Arduino might mine with a hashrate lower than 100H/s. This can be caused by 
+                    a short connection issue but also because the Arduino isnt flashed to the newest AVR code. 
+                    You can download the new Arduino file with the newest duco release: <a href="https://github.com/revoxhere/duino-coin/releases">DuinoCoin Releases</a>
+                </p>
+
+                <br>
+                <center><p class="subtitle">Too many rejected Shares</p></center>
+                <p>If this Error pops up, your Arduino has more than 5% of his shares rejected by the main server.
+                    This can be caused by:
+                </p>
+                <ol>
+                    <li>Old Arduino code</li>
+                    <li>Server has temporary issues</li>
+                    <li>Old AVR_Miner code</li>
+                    <li>Your arduino acts strange. Try another arduino board</li>
+                    <li>Try changing USB Port</li>
+                </ol>
+                <br>
+                <center><p class="subtitle">Does not start mining</p></center>
+                <p>The most problems while mining with Arduinos come from even starting the miner for the first time. 
+                    If you start the connect software on linux and try to select your board you might get a permission error.
+                    This can easily be fixed by running the program with root or adding your user to the dialout groupe with: <code>sudo usermod -a -G dialout USERNAME</code> 
+                    then relogin and try again.
+                </p>
+                <p>Also before using the software you might have to download some packages. If you havent python3 installed, do this first. Then install the requiered packages the software has shown you with <code>python3 -m pip install packagename</code></p>
+        <br>
+                <center>
+                    <p id="esp" class="title">Problems while mining with ESP</p>
+                    <div class="line"></div>
+                    <br>
+                    <p class="subtitle"><b>Too high hashrate</b></p>
+                    </center>
+                    <p>If you get the error, that you are mining too fast with your ESP this is mostly no reason to worry about.
+                        Sometimes the hashrate spikes very short or the server has an issue but if the problem stays you should take a look at it.
+                        Check if you are using an unoffical miner which maybe tries to bypass Kolka limits (which doesnt work since V4).
+                    </p>
+                    <center><p class="subtitle">Too low efficiency</p></center>
+                    <p>Duino-Coin uses a System called Kolka to keep mining fair for everyone.
+                    This system prevents GPU mining as well as huge mining farms.</p>
+                    <p>And it does this by cutting down profit for every new mining connection</p>
+                    
+                    <p>New mining connections from PCs are cut down always by 20% for each new connection.</p>
+                    <p>This looks like this: Miner1-100%, Miner2-80%, Miner3-64%, Miner4-51%...</p>
+                    <p>For Arduinos and ESPs, the cut down for every new connection is only 4%</p>
+                    <p>This looks like this: Miner1-100%, Miner2-96%, Miner3-92%, Miner4-88%...</p>
+                    <p>With this system it is still possibl to make good profit with AVR mining, which obviously is the key aspect of DUINO-coin.</p>
+                    <p>If you get this Error your total efficiency is under 50%, which means, that you just have to many boards running and so a too low efficiency. More boards arent directly equal to more coins. There will be a point where mining with more devices just makes no sense.<p>
+                    <p>A table with a predone calculation is at the end of this page.</p>
+                    <br>
+                    <center><p class="subtitle">Too low Hashrate</p></center>
+                    <p>If you are using ESP32 and the hashrate drops you are very likely using an old version of the miner.
+                        Because the old Versions didnt have a reset build in if the hashrate goes to low.</p>
+                        <p>You should be able to get better resulty by improoving wifi quality and always upgrading to the newest Version.
+                        You can download the new ESP32/8266 file with the newest duco release: <a href="https://github.com/revoxhere/duino-coin/releases">DuinoCoin Releases</a>
+                    </p>
+        
+                    <br>
+                    <center><p class="subtitle">Too many rejected Shares</p></center>
+                    <p>If this Error pops up, your ESP has more than 5% of his shares rejected by the main server.
+                        This can be caused by:
+                    </p>
+                    <ol>
+                        <li>Old ESP code</li>
+                        <li>Server has temporary issues</li>
+                        <li>(Really bad WiFi connection quality)</li>
+                    </ol>
+                    <br>
+                    <center><p class="subtitle">Does not start mining</p></center>
+                    <p>First you whould check if your ESP did even connect to the server. You can do this while looking in the serial console of the ESP while it is connected to the PC. Or by looking in your Router Web Interface.
+                    <p>Then check if you have entered the correct username and watch the serial console to recieve jobs. </p>
+                    <p>If you have more problems please contact the Developers directly.</p>
+                    <br>
+                    <center><p class="subtitle">Too low efficiency</p></center>
+                    <p>Duino-Coin uses a System called Kolka to keep mining fair for everyone.
+                    This system prevents GPU mining as well as huge mining farms.</p>
+                    <p>And it does this by cutting down profit for every new mining connection</p>
+                    
+                    <p>New mining connections from PCs are cut down always by 20% for each new connection.</p>
+                    <p>This looks like this: Miner1-100%, Miner2-80%, Miner3-64%, Miner4-51%...</p>
+                    <p>For Arduinos and ESPs, the cut down for every new connection is only 4%</p>
+                    <p>This looks like this: Miner1-100%, Miner2-96%, Miner3-92%, Miner4-88%...</p>
+                    <p>With this system it is still possibl to make good profit with AVR mining, which obviously is the key aspect of DUINO-coin.</p>
+                    <p>If you get this Error your total efficiency is under 50%, which means, that you just have to many boards running and so a too low efficiency. More boards arent directly equal to more coins. There will be a point where mining with more devices just makes no sense.<p>
+                    <p>A table with a predone calculation is at the end of this page.</p>
+               
+               
+                    <br>
+                    <center><p class="subtitle">Table for Efficiency of every new miner - only AVR and ESP</p></center>
+                    <p>This table shows you the efficiency of the mining device, not the total efficiency</p>
+                 <br>   
+                    <table id="devices">
+                        <tr>
+                            <td>Device Number</td>
+                            <td>Efficiency</td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>96%</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>92%</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>88%</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>84%</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>81%</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>78%</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>75%</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>72%</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>69%</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>66%</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>64%</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>61%</td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>58%</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>56%</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>54%</td>
+                        </tr>                      
+
+
+                    </table>
+                <br>
+                <p id="footer">
+                    <a href="privacy.html">Privcy policy/Legal Notice</a> | 
+                    <a href="about.html">About</a> | 
+                    <a href="fixes.html">Fix problems</a>
+                
+                </p>
+
+        </div>
+    </article>
+    </div>
+</div>
+</body>
+</html>

@@ -89,7 +89,7 @@ body{
     transition: opacity 1s ease-in-out;
     opacity:0;
     display: "none";
-    overflow: auto;
+    overflow: hidden;
     height: 95vh; 
 
 
@@ -300,7 +300,7 @@ input[type=text]:focus {
 /*Styling the balance card */
 #balance{
     width: 80%;
-    box-shadow: 0px 5px 20px 3px rgba(68, 68, 68, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14), 0 6px 6px rgba(0, 0, 0, 0.18);
     background-color:rgba(233, 233, 233, 0.521);
     border: solid 4px rgba(233, 233, 233, 0.521);
     border-radius: 10px;

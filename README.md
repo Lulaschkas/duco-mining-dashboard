@@ -3,7 +3,7 @@
    <table>
       <tr>
          <td style="max-width: 40%"><img src="https://raw.githubusercontent.com/Lulaschkas/duco-mining-dashboard/main/dashboard.png" ></td>
-         <td style="max-width: 30%"><img src="https://raw.githubusercontent.com/Lulaschkas/duco-mining-dashboard/main/login.png"></td>
+         <td style="max-width: 30%"><img src="https://raw.githubusercontent.com/Lulaschkas/duco-mining-dashboard/main/ducomining.png"></td>
       </tr>
    </table>
 </p>

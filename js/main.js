@@ -189,9 +189,11 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
     document.getElementById("problemt").innerHTML="";
     var problems = 0;
     if(geseffavr<50){
+        problems++;
         document.getElementById("problemt").innerHTML+="<p id='problems'><b>Too low efficiency on AVR/ESP:</b> Kolka V4 controls the reward of miners. Every new miner connection mines 4% less duco than the miner before. 1.=100%, 2.=96%, 3.=92%..<a href='fixes.html'>How to fix</a></p>"
     }
     if(geseffpc<50){
+        problems++;
         document.getElementById("problemt").innerHTML+="<p id='problems'><b>Too low efficiency on PC/other:</b> Kolka V4 controls the reward of miners. Every new PC miner connection mines 20% less duco than the miner before. 1.=100%, 2.=80%, 3.=64%...<a href='fixes.html'>How to fix</a></p>"
     }
     miners.forEach(//For each mining device

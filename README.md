@@ -2,12 +2,13 @@
 <p align = "center">
    <table>
       <tr>
-         <td style="max-width: 30%"><img src="https://raw.githubusercontent.com/Lulaschkas/duco-mining-dashboard/main/logo.png" ></td>
          <td style="max-width: 40%"><img src="https://raw.githubusercontent.com/Lulaschkas/duco-mining-dashboard/main/dashboard.png" ></td>
          <td style="max-width: 30%"><img src="https://raw.githubusercontent.com/Lulaschkas/duco-mining-dashboard/main/login.png"></td>
       </tr>
    </table>
 </p>
+<br>
+
 ## Features
 The [Duino-Coin mining dashboard](https://lulaschkas.github.io/duco-mining-dashboard/) provides a lot of advanced features to monitor your miners, shows help if it detects a problem and can do much more. 
 Here is a list of its features:

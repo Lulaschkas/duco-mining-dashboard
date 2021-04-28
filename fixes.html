@@ -134,7 +134,21 @@
                     then relogin and try again.
                 </p>
                 <p>Also before using the software you might have to download some packages. If you havent python3 installed, do this first. Then install the requiered packages the software has shown you with <code>python3 -m pip install packagename</code></p>
-        <br>
+                <br>
+                <center><p class="subtitle">Too low efficiency</p></center>
+                <p>Duino-Coin uses a System called Kolka to keep mining fair for everyone.
+                This system prevents GPU mining as well as huge mining farms.</p>
+                <p>And it does this by cutting down profit for every new mining connection</p>
+                
+                <p>New mining connections from PCs are cut down always by 20% for each new connection.</p>
+                <p>This looks like this: Miner1-100%, Miner2-80%, Miner3-64%, Miner4-51%...</p>
+                <p>For Arduinos and ESPs, the cut down for every new connection is only 4%</p>
+                <p>This looks like this: Miner1-100%, Miner2-96%, Miner3-92%, Miner4-88%...</p>
+                <p>With this system it is still possibl to make good profit with AVR mining, which obviously is the key aspect of DUINO-coin.</p>
+                <p>If you get this Error your total efficiency is under 50%, which means, that you just have to many boards running and so a too low efficiency. More boards arent directly equal to more coins. There will be a point where mining with more devices just makes no sense.<p>
+                <p>A table with a predone calculation is at the end of this page.</p>
+                <br>
+                <br>
                 <center>
                     <p id="esp" class="title">Problems while mining with ESP</p>
                     <div class="line"></div>
@@ -145,18 +159,6 @@
                         Sometimes the hashrate spikes very short or the server has an issue but if the problem stays you should take a look at it.
                         Check if you are using an unoffical miner which maybe tries to bypass Kolka limits (which doesnt work since V4).
                     </p>
-                    <center><p class="subtitle">Too low efficiency</p></center>
-                    <p>Duino-Coin uses a System called Kolka to keep mining fair for everyone.
-                    This system prevents GPU mining as well as huge mining farms.</p>
-                    <p>And it does this by cutting down profit for every new mining connection</p>
-                    
-                    <p>New mining connections from PCs are cut down always by 20% for each new connection.</p>
-                    <p>This looks like this: Miner1-100%, Miner2-80%, Miner3-64%, Miner4-51%...</p>
-                    <p>For Arduinos and ESPs, the cut down for every new connection is only 4%</p>
-                    <p>This looks like this: Miner1-100%, Miner2-96%, Miner3-92%, Miner4-88%...</p>
-                    <p>With this system it is still possibl to make good profit with AVR mining, which obviously is the key aspect of DUINO-coin.</p>
-                    <p>If you get this Error your total efficiency is under 50%, which means, that you just have to many boards running and so a too low efficiency. More boards arent directly equal to more coins. There will be a point where mining with more devices just makes no sense.<p>
-                    <p>A table with a predone calculation is at the end of this page.</p>
                     <br>
                     <center><p class="subtitle">Too low Hashrate</p></center>
                     <p>If you are using ESP32 and the hashrate drops you are very likely using an old version of the miner.

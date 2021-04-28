@@ -374,16 +374,16 @@ function minerdata(username, chart_hash, chart_con){  //This function is sorting
                 geseffpc=100;
             }
             document.getElementById("efficiency_pc").innerHTML= "PC: " + Math.round(geseffpc*10)/10 + "%";
-            if(geseffpc>60){
+            if(geseffpc>50){
                 document.getElementById("efficiency_pc").style.color = "green";
             }
-            if(geseffpc<60){
+            if(geseffpc<=50){
                 document.getElementById("efficiency_pc").style.color= "red";
             }
-            if(geseffavr>60){
+            if(geseffavr>50){
                 document.getElementById("efficiency_avr").style.color = "green";
             }
-            if(geseffavr<60){
+            if(geseffavr<=50){
                 document.getElementById("efficiency_avr").style.color= "red";
             }
 

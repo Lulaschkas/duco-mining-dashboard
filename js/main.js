@@ -43,13 +43,18 @@ function showesp(){
     },500); 
     document.getElementById("minerdata_title").innerHTML="Mining ESPs:";
     document.getElementById("minerdata_data").innerHTML=tabletitle;
+    var i = false;
     miners.forEach(
         function(element){
             if(element[0].includes("ESP")){
+                i =true;
                 document.getElementById("minerdata_data").innerHTML+="<tr><td><b>"+element[0]+"</b></td><td>" +element[7] +"</td><td>" +Math.round((element[1]/1000)*10)/10 +"KH/s</td><td>" + element[2] + "/" + element[3] + " (" + Math.round(element[3]/element[2]*10000)/100  + "%)</td><td>" +  element[4] + "</td><td>" + element[5] + "</td><td>" + element[6] + "</td>";
             }
         }
     );
+    if(!i){
+        document.getElementById("minerdata_data").innerHTML+="<tr><td><b>nothing here</b></td><td>nothing here</td><td>? KH/s</td><td>?/? (?%)</td><td>nothing here</td><td>Nothing here</td><td>Nothing here</td>";
+    }
 
 }
 function showavr(){ //Show all miners (with popup) that are in the category Arduino 
@@ -60,13 +65,18 @@ function showavr(){ //Show all miners (with popup) that are in the category Ardu
     },500);
    document.getElementById("minerdata_title").innerHTML="Mining Arduinos:";
    document.getElementById("minerdata_data").innerHTML=tabletitle;
+   var i = false;
    miners.forEach(
        function(element){
            if(element[0].includes("AVR")){ //For every miner with AVR in sofware name add a new row in the table
                document.getElementById("minerdata_data").innerHTML+="<tr><td><b>"+element[0]+"</b></td><td>" +element[7] +"</td><td>" +element[1] +"H/s</td><td>" + element[2] + "/" + element[3] + " (" + Math.round(element[3]/element[2]*10000)/100  + "%)</td><td>" +  element[4] + "</td><td>" + element[5] + "</td><td>" + element[6] + "</td>";
-           }
+                i=true;
+            }
        }
    );
+   if(!i){
+    document.getElementById("minerdata_data").innerHTML+="<tr><td><b>nothing here</b></td><td>nothing here</td><td>? KH/s</td><td>?/? (?%)</td><td>nothing here</td><td>Nothing here</td><td>Nothing here</td>";
+}
 
 }
 function showpc(){ // Show ALl miners (with the popup) that are in the category PC/other
@@ -77,13 +87,18 @@ function showpc(){ // Show ALl miners (with the popup) that are in the category 
     },500);
    document.getElementById("minerdata_title").innerHTML="Mining PCs and other devices:";
    document.getElementById("minerdata_data").innerHTML=tabletitle;
+   var i =false;
    miners.forEach(
        function(element){
            if(!element[0].includes("ESP") && !element[0].includes("AVR")){ //Show every other element that doesnt include ESP and AVR in softwarename
                document.getElementById("minerdata_data").innerHTML+="<tr><td><b>"+element[0]+"</b></td><td>" +element[7]+"</td><td>" +Math.round((element[1]/1000000)*100)/100 +"MH/s</td><td>" + element[2] + "/" + element[3] + " (" + Math.round(element[3]/element[2]*10000)/100  + "%)</td><td>" +  element[4] + "</td><td>" + element[5] + "</td><td>" + element[6] + "</td>";
-           }
+                i=true;
+            }
        }
    );
+   if(!i){
+    document.getElementById("minerdata_data").innerHTML+="<tr><td><b>nothing here</b></td><td>nothing here</td><td>? KH/s</td><td>?/? (?%)</td><td>nothing here</td><td>Nothing here</td><td>Nothing here</td>";
+}
 
 }
 

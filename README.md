@@ -1,4 +1,5 @@
 # duino-coin-mining-dashboard
+# STILL IN ALPHA - MUCH HAS TO BE FIXED
 <p align = "center">
    <table>
       <tr>

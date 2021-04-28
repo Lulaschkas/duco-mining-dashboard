@@ -407,6 +407,7 @@ border-collapse: separate;
 
 /* style the table for estimated duco*/
 #estimatedtable{
+    text-align: center;
     padding: 10px;
     width: 80%;
     color:rgb(124, 124, 124);

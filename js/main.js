@@ -521,7 +521,7 @@ function ping(username){
     let socket = new WebSocket("wss://server.duinocoin.com:15808", null, 5000, 5);
     socket.onmessage = function(event) {
         if(parseFloat(event.data) >= 2.4){
-            document.getElementById("s1").src = "check.png";
+            document.getElementById("s1").src = "img/check.png";
 
             clearTimeout(tim01);
             callback++;

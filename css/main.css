@@ -18,7 +18,7 @@ body{
 
 
 /*Middle position for the login and ping window*/
-@media (orientation: landscape) {
+@media only screen and (orientation: landscape) {
     .middle {
         position:absolute;
         top: 50%;
@@ -34,7 +34,7 @@ body{
         padding: 3vh;
     }
 }
-@media (orientation: portrait) and (max-width: 480px) {
+@media only screen and (min-width: 393px) and (max-width: 767px) and (orientation: portrait) {
     .middle {
         position:absolute;
         top: 50%;
@@ -364,7 +364,8 @@ input[type=text]:focus {
 /*chnage the backgorund of the cards/tiles*/
 .has-background-light2{
     background-color:rgb(248, 248, 248) !important;
-    box-shadow: 2px 3px 20px 1px rgba(68, 68, 68, 0.2);
+    -webkit-box-shadow: 0px 10px 10px 2px rgba(74,74,74,0.99); 
+    box-shadow: 0px 10px 10px 2px rgba(74,74,74,0.99);
 }
 
 /*The table for all minng devices*/

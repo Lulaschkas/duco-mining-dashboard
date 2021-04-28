@@ -18,7 +18,7 @@ body{
 
 
 /*Middle position for the login and ping window*/
-@media only screen and (orientation: landscape) {
+@media (orientation: landscape) {
     .middle {
         position:absolute;
         top: 50%;
@@ -26,18 +26,6 @@ body{
         transform: translate(-50%, -50%);
         min-width: 50%;   
     }
-}
-@media only screen and (orientation: portrait) {
-    .middle {
-        position:absolute;
-        top: 50%;
-        left: 50%; 
-        transform: translate(-50%, -50%);
-        min-width: 90%;
-    }
-  }
-/*Setting position for the dashboard */
-  @media only screen and (orientation: landscape) {
     .middle2 {
         margin-left: auto;
         margin-right: auto;
@@ -46,7 +34,14 @@ body{
         padding: 3vh;
     }
 }
-@media only screen and (orientation: portrait) {
+@media (orientation: portrait) and (max-width: 480px) {
+    .middle {
+        position:absolute;
+        top: 50%;
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        min-width: 90%;
+    }
     .middle2 {
         margin-left: auto;
         margin-right: auto;
@@ -55,6 +50,7 @@ body{
         height:100%;
     }
   }
+
 
 /*Styling the login */
 #login {
@@ -310,7 +306,7 @@ input[type=text]:focus {
     border-radius: 10px;
     min-height: 80px;
     color: rgb(99, 99, 99);
-    font-size:  3rem;
+    font-size:  2.8rem;
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -359,6 +355,11 @@ input[type=text]:focus {
 .imgi{
     margin: 10px;
     max-height: 80px;
+}
+/*Small images for icons below dashboard */
+.imgi2{
+    margin: 10px;
+    max-height:40px;
 }
 /*chnage the backgorund of the cards/tiles*/
 .has-background-light2{

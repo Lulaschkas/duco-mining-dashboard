@@ -264,7 +264,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                     document.getElementById("problemt").innerHTML+=info +  " is mining too slow. " + fix;
                     problems++;
                 }
-                if(element[1]>1000000){              //Too high hashrate
+                if(element[1]>2000000){              //Too high hashrate
                     document.getElementById("problemt").innerHTML+=info +  " is mining too fast (thats not better). " + fix;
                     problems++;
                 }
@@ -284,7 +284,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                     document.getElementById("problemt").innerHTML+= info + " is mining too slow. " + fix;
                     problems++;
                 }
-                if(element[1]>150000){              //Too high hashrate
+                if(element[1]>20000){              //Too high hashrate
                     document.getElementById("problemt").innerHTML+= info + " is mining too fast (thats not better)." + fix;
                     problems++;
                 }

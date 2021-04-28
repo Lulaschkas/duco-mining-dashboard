@@ -445,8 +445,8 @@ function btnfunc(){
     callback = 0;                           //reset the callback
 
     document.getElementById("login").style.opacity = 0;   // dimm off the login side
-    document.getElementById("s1").src = "/website/img/Spinner-2.gif";  // add a spinner to server check
-    document.getElementById("s2").src = "/website/img/Spinner-2.gif";  // add a spinner to API check
+    document.getElementById("s1").src = "/docs/img/Spinner-2.gif";  // add a spinner to server check
+    document.getElementById("s2").src = "/docs/img/Spinner-2.gif";  // add a spinner to API check
     
     //Add the loading bar anmation
     document.getElementById("loadingbar_2").style.animationName= "loading";  
@@ -521,7 +521,7 @@ function ping(username){
     let socket = new WebSocket("wss://server.duinocoin.com:15808", null, 5000, 5);
     socket.onmessage = function(event) {
         if(parseFloat(event.data) >= 2.4){
-            document.getElementById("s1").src = "/website/img/check.png";
+            document.getElementById("s1").src = "/docs/img/check.png";
 
             clearTimeout(tim01);
             callback++;
@@ -534,18 +534,18 @@ function ping(username){
         }
         else{
             console.log("Error with socket")
-            document.getElementById("s1").src = "/website/img/error.png";
+            document.getElementById("s1").src = "/docs/img/error.png";
             document.getElementById("console").innerHTML += "[Socket] The server returned an invalid version number<br>";
         }
     };
     socket.onerror = function(error) {
         document.getElementById("console").innerHTML += "[Socket] Server socket connection error";
-        document.getElementById("s1").src = "/website/img/error.png";
+        document.getElementById("s1").src = "/docs/img/error.png";
     };
 
     tim01 = setTimeout(function(){
         if(socketcon==0){
-            document.getElementById("s1").src = "/website/img/error.png";
+            document.getElementById("s1").src = "/docs/img/error.png";
             document.getElementById("loadingbar_2").style.animationName= "load3";
             document.getElementById("loadingbar_2").style.backgroundColor= "red";
             document.getElementById("loadingbar_2").style.animationIterationCount= 1;
@@ -560,13 +560,13 @@ function ping(username){
             
         if (this.readyState == "4") {   //Check if the website is not loading anymore and webserver returns status code 200
             if(this.status == 200){
-                document.getElementById("s2").src = "/website/img/check.png";
+                document.getElementById("s2").src = "/docs/img/check.png";
                 callback++;
                 var balanc = undefined;
                 balanc = xmlhttp.response;
 
                 if(balanc == null){
-                    document.getElementById("s2").src = "/website/img/error.png";
+                    document.getElementById("s2").src = "/docs/img/error.png";
                     document.getElementById("console").innerHTML += "[WebAPI] The response of the balances API is null <br>";
                     document.getElementById("console").innerHTML += "[WebAPI] There was an error downloading the API please try again.<br>";
                 }
@@ -591,7 +591,7 @@ function ping(username){
             else{
                 console.log("[WebAPI] Error while fetching data from API file - balances.json");
                 document.getElementById("console").innerHTML += "[WebAPI] The Server for balances.json returned an invalid status code: "+ this.status +" and loading status: " + this.readyState+"<br>";
-                document.getElementById("s2").src = "/website/img/error.png";
+                document.getElementById("s2").src = "/docs/img/error.png";
                 document.getElementById("loadingbar_2").style.animationName= "load3";
                 document.getElementById("loadingbar_2").style.backgroundColor= "red";
                 document.getElementById("loadingbar_2").style.animationIterationCount= 1;

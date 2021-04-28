@@ -89,7 +89,7 @@ body{
     transition: opacity 1s ease-in-out;
     opacity:0;
     display: "none";
-    overflow: hidden;
+    overflow: auto;
     height: 95vh; 
 
 

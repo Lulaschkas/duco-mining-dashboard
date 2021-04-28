@@ -12,7 +12,7 @@ var oldb = 0;
 var time = 0;
 var daily = 0;
 var miners = [];
-var tabletitle = "<tr><th style='width:100px;'>Device</th><th>Identifier</th><th>Hashrate</th><th>Accepted / Rejected</th><th>Last time per share</th><th>Algorythm</th><th>Difficulty</th></tr>"
+var tabletitle = "<tr><th style='width:100px;'>Device</th><th>Identifier</th><th>Hashrate</th><th>Accepted / Rejected</th><th>Last time per share</th><th>Algorithm</th><th>Difficulty</th></tr>"
 var ducomadesincesartdaily=0;
 
 var start;

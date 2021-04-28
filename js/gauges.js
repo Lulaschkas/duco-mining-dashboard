@@ -41,7 +41,6 @@ function gauge01(inputval){//Registered Gauge
     gauge.maxValue = 7000; // set max gauge value
     gauge.minValue = 0;  // Prefer setter over gauge.minValue = 0
     gauge.animationSpeed = 1; // set animation speed (32 is default value)
-    console.log(inputval);
     gauge.set(inputval); // set actual value
 
     
@@ -83,8 +82,6 @@ function gauge02(inputval){ //Connection Gauge for Network
     var target = document.getElementById('gauge02'); // your canvas element
     var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
 
-
-    console.log("gauge2");
     
     gauge.maxValue = 6000; // set max gauge value
     gauge.minValue = 0;  // Prefer setter over gauge.minValue = 0

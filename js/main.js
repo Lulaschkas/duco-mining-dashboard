@@ -24,7 +24,7 @@ var balance;
 function dashboardloop(chart,user,chart_net, chart_hash, chart_con){ //Every 3 seconds
     var current = new Date();
     time = current.getHours() + ":" + current.getMinutes() +":" + current.getSeconds(); //calulcate time (global var)
-    console.log("Executing dashboard update");  
+     
 
     updateuserbalance(user, chart, time);            //Fetch data from balances.json AND Update the userbalance and graph
     networkgauges(chart_net);                    //Fetch data from api.json AND Update the network gauges and graph 
@@ -174,10 +174,10 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
     document.getElementById("problemt").innerHTML="";
     var problems = 0;
     if(geseffavr<50){
-        document.getElementById("problemt").innerHTML+="<p id='problems'><b>Too low efficiency on AVR/ESP:</b> Kolka V4 controls the reward of miners. Every new miner connection mines 4% less duco than the miner before. 1.=100%, 2.=96%, 3.=92%...</p>"
+        document.getElementById("problemt").innerHTML+="<p id='problems'><b>Too low efficiency on AVR/ESP:</b> Kolka V4 controls the reward of miners. Every new miner connection mines 4% less duco than the miner before. 1.=100%, 2.=96%, 3.=92%..<a href='fixes.html'>How to fix</a></p>"
     }
     if(geseffpc<50){
-        document.getElementById("problemt").innerHTML+="<p id='problems'><b>Too low efficiency on PC/other:</b> Kolka V4 controls the reward of miners. Every new PC miner connection mines 20% less duco than the miner before. 1.=100%, 2.=80%, 3.=64%...</p>"
+        document.getElementById("problemt").innerHTML+="<p id='problems'><b>Too low efficiency on PC/other:</b> Kolka V4 controls the reward of miners. Every new PC miner connection mines 20% less duco than the miner before. 1.=100%, 2.=80%, 3.=64%...<a href='fixes.html'>How to fix</a></p>"
     }
     miners.forEach(//For each mining device
         function(element){                        
@@ -375,7 +375,7 @@ function minerdata(username, chart_hash, chart_con){  //This function is sorting
             if(max==0){ //If the user is not mining set maximal hashrate to 1 (otherwise the gauge looks broken)
                 max = 1;
             }
-            console.log("Maximum Hashrate for this user: " + max);
+           
 
             //Feed the HTML data tile (hashrate) with data to each device groupe
             document.getElementById("avr").innerHTML = "<b>Arduino: </b><br>" + Math.round((avr[1] / 1000)*1000)/1000 + " kH/s" + " (" + avr[0] + ")";
@@ -412,7 +412,7 @@ function minerdata(username, chart_hash, chart_con){  //This function is sorting
 
 //Calculate daily ducos 
 function calculdaily(newb, oldb){
-    console.log("Newduco:" + newb + "Oldduco: " + oldb);
+ 
     //Duco made in last 15 seconds
     var ducomadein = newb - oldb;
     //Calculate per day
@@ -424,7 +424,7 @@ function calculdaily(newb, oldb){
     
     var ducomadesincestart = newb-balance;
     var secondssincestart = (Date.now() - start) / 1000; //MIlliseconds since sart of the page
-    console.log(ducomadesincestart +"&" +  secondssincestart);
+  
     ducomadesincesartdaily = Math.round(((86400/secondssincestart)*ducomadesincestart)*10)/10;
     //Update the tile "Estimated" with data
     document.getElementById("perday").innerHTML = daily + " ᕲ";
@@ -516,7 +516,7 @@ function checker(username){ //Callback function
 function ping(username){
     var check = 0;
 
-    console.log("Connecing");
+
 
     let socket = new WebSocket("wss://server.duinocoin.com:15808", null, 5000, 5);
     socket.onmessage = function(event) {
@@ -533,7 +533,7 @@ function ping(username){
             
         }
         else{
-            console.log("Error with socket")
+
             document.getElementById("s1").src = "img/error.png";
             document.getElementById("console").innerHTML += "[Socket] The server returned an invalid version number<br>";
         }
@@ -574,7 +574,7 @@ function ping(username){
                 if(balanc[username]!= undefined){
                     callback++;
                     document.getElementById("console").innerHTML += "[WebAPI] Username: ✅ <br>";
-                    console.log("Found!");
+                
                     start = Date.now();
                     balance = balanc[username].split(" ")[0];
                 }
@@ -585,11 +585,11 @@ function ping(username){
                     document.getElementById("console").innerHTML += "[WebAPI] Username: 🚫 <br>";
                     document.getElementById("console").innerHTML += "[WebAPI] Your username was not found<br>";
                     
-                    console.log("No found");
+                   
                 }
             }
             else{
-                console.log("[WebAPI] Error while fetching data from API file - balances.json");
+              
                 document.getElementById("console").innerHTML += "[WebAPI] The Server for balances.json returned an invalid status code: "+ this.status +" and loading status: " + this.readyState+"<br>";
                 document.getElementById("s2").src = "img/error.png";
                 document.getElementById("loadingbar_2").style.animationName= "load3";

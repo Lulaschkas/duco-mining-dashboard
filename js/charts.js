@@ -23,7 +23,7 @@ var datanull12 = new Array(100).fill(null);
 var labelnull9 = new Array(100).fill("");
 
 
-console.log(datanull);
+
 
 const data = {
   labels: labelnull,
@@ -358,7 +358,6 @@ function addgraph(newlabel, data, chart){
 }
 
 function addgraphnet(newlabel, data1, data2, data3, chart){
-  console.log("Metdata recieved" + data1 +"+" + data2 + "+" + data3)
   chart.data.labels.shift();
   chart.data.labels.push(newlabel);
   var d1 = chart.data.datasets[0].data;

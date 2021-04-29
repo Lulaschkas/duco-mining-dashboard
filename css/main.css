@@ -35,7 +35,7 @@ body{
     }
 }
 
-@media only screen and (orientation: portrait) {
+@media only screen and (min-width: 393px) and (max-width: 767px) and (orientation: portrait) {
     .middle {
         position:absolute;
         top: 50%;

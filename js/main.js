@@ -1,51 +1,43 @@
-var callback = 0;
-var inv1 = 0;
-var inv2 = 0;
-var socketcon=0;
-var tim01 = 0;
-var userbalance=null;
-var cpu = null;
-var hashrate = null;
-var connections = null;
-var i =0;
-var oldb = 0;
-var time = 0;
-var daily = 0;
-var miners = [];
-var tabletitle = "<tr><th style='width:100px;'>Device</th><th>Identifier</th><th>Hashrate</th><th>Accepted / Rejected</th><th>Last time per share</th><th>Algorithm</th><th>Difficulty</th></tr>"
-var ducomadesincesartdaily=0;
+//#####################################################################################################################################//
+//     | |                               (_)     (_)                     | |         | |   | |                       | |               //
+//   __| |_   _  ___ ___ ______ _ __ ___  _ _ __  _ _ __   __ _ ______ __| | __ _ ___| |__ | |__   ___   __ _ _ __ __| |               //
+//  / _` | | | |/ __/ _ \______| '_ ` _ \| | '_ \| | '_ \ / _` |______/ _` |/ _` / __| '_ \| '_ \ / _ \ / _` | '__/ _` |               //
+// | (_| | |_| | (_| (_) |     | | | | | | | | | | | | | | (_| |     | (_| | (_| \__ \ | | | |_) | (_) | (_| | | | (_| |               //
+//  \__,_|\__,_|\___\___/      |_| |_| |_|_|_| |_|_|_| |_|\__, |      \__,_|\__,_|___/_| |_|_.__/ \___/ \__,_|_|  \__,_|               //
+//                                                         __/ |                                                                       //
+//                                                        |___/                                                                        //
+//#####################################################################################################################################//
 
-var start;
-var balance;
-
+let miners = [];              // Global miners array. Needs to be accessed by all different functions
+let start;                    // Global variable for the beginning time
+let balance;                  // Global variable for the start userbalance - (Avg. daily calculation)
+let ducomadesincesartdaily;   // Global variable for the total ducos made since start (Avg. daily calculation)
 
 
 //The general function that gets executed every 3 seonds and calls all other functions to update smth on the dashboard
 function dashboardloop(chart,user,chart_net, chart_hash, chart_con){ //Every 3 seconds
     var current = new Date();
-    time = current.getHours() + ":" + current.getMinutes() +":" + current.getSeconds(); //calulcate time (global var)
-     
-
+    var time = current.getHours() + ":" + current.getMinutes() +":" + current.getSeconds(); //calulcate time 
     updateuserbalance(user, chart, time);            //Fetch data from balances.json AND Update the userbalance and graph
-    networkgauges(chart_net);                    //Fetch data from api.json AND Update the network gauges and graph 
-    minerdata(user, chart_hash, chart_con);       //Fetch data from miners.json AND Update the minerdata, call the problems function...
+    networkgauges(chart_net, time);                    //Fetch data from api.json AND Update the network gauges and graph 
+    minerdata(user, chart_hash, chart_con, time);       //Fetch data from miners.json AND Update the minerdata, call the problems function...
 }
 
 
 //Show all devices which belong to category X 
+const tabletitle = "<tr><th style='width:100px;'>Device</th><th>Identifier</th><th>Hashrate</th><th>Accepted / Rejected</th><th>Last time per share</th><th>Algorithm</th><th>Difficulty</th></tr>"
 //Not in buttonfunctions.js because these depend on the global miner array
 function showesp(){
      //Array miners 0=sotware 1=hashrate 2=accepted shares 3= rejected shares 4=sharetime 5=algo 6=difficult 7=identifier
      document.getElementById("minerdata").style.display="block";
     
-    setTimeout(function(){
+    setTimeout(()=>{
         document.getElementById("minerdata").style.opacity=80;
     },500); 
     document.getElementById("minerdata_title").innerHTML="Mining ESPs:";
     document.getElementById("minerdata_data").innerHTML=tabletitle;
-    var i = false;
-    miners.forEach(
-        function(element){
+    let i = false;
+    miners.forEach(() => {
             if(element[0].includes("ESP")){
                 i =true;
                 document.getElementById("minerdata_data").innerHTML+="<tr><td><b>"+element[0]+"</b></td><td>" +element[7] +"</td><td>" +Math.round((element[1]/1000)*10)/10 +"KH/s</td><td>" + element[2] + "/" + element[3] + " (" + Math.round(element[3]/element[2]*10000)/100  + "%)</td><td>" +  element[4] + "</td><td>" + element[5] + "</td><td>" + element[6] + "</td>";
@@ -60,12 +52,12 @@ function showesp(){
 function showavr(){ //Show all miners (with popup) that are in the category Arduino 
     //Array miners 0=sotware 1=hashrate 2=accepted shares 3= rejected shares 4=sharetime 5=algo 6=difficult 7=identifier
     document.getElementById("minerdata").style.display="block";
-    setTimeout(function(){
+    setTimeout(()=>{
         document.getElementById("minerdata").style.opacity=80;
     },500);
    document.getElementById("minerdata_title").innerHTML="Mining Arduinos:";
    document.getElementById("minerdata_data").innerHTML=tabletitle;
-   var i = false;
+   let i = false;
    miners.forEach(
        function(element){
            if(element[0].includes("AVR")){ //For every miner with AVR in sofware name add a new row in the table
@@ -76,18 +68,18 @@ function showavr(){ //Show all miners (with popup) that are in the category Ardu
    );
    if(!i){
     document.getElementById("minerdata_data").innerHTML+="<tr><td><b>nothing here</b></td><td>nothing here</td><td>? KH/s</td><td>?/? (?%)</td><td>nothing here</td><td>Nothing here</td><td>Nothing here</td>";
-}
+    }
 
 }
 function showpc(){ // Show ALl miners (with the popup) that are in the category PC/other
     //Array miners 0=sotware 1=hashrate 2=accepted shares 3= rejected shares 4=sharetime 5=algo 6=difficult 7=identifier
     document.getElementById("minerdata").style.display="block";
-        setTimeout(function(){
+        setTimeout(()=>{
         document.getElementById("minerdata").style.opacity=80;
     },500);
    document.getElementById("minerdata_title").innerHTML="Mining PCs and other devices:";
    document.getElementById("minerdata_data").innerHTML=tabletitle;
-   var i =false;
+   let i =false;
    miners.forEach(
        function(element){
            if(!element[0].includes("ESP") && !element[0].includes("AVR")){ //Show every other element that doesnt include ESP and AVR in softwarename
@@ -98,19 +90,22 @@ function showpc(){ // Show ALl miners (with the popup) that are in the category 
    );
    if(!i){
     document.getElementById("minerdata_data").innerHTML+="<tr><td><b>nothing here</b></td><td>nothing here</td><td>? KH/s</td><td>?/? (?%)</td><td>nothing here</td><td>Nothing here</td><td>Nothing here</td>";
-}
+    }
 
 }
 
 
-
+//Global vars which get actualised from this function:
+let cpu;
+let hashrate;
+let connections;
 //Function to update the network gauges and also update the network graph - Data from the duco api "api.json"
-function networkgauges(chart_net){
+function networkgauges(chart_net, time){
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
+    xmlhttp.onreadystatechange = function(){
+        if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200#
                 var api = xmlhttp.response;
-
+                
                 //Get data from the JSON file and put it in Variables - First pass everything to validate function to prevent XSS
                 var registeredusers = validate(api["Registered users"].toString());
                 connections = validate(api["Active connections"].toString());
@@ -156,24 +151,28 @@ function networkgauges(chart_net){
 }
 
 
+//Global variables by this function:
+let wait=0;
+let oldb = 0;
+let userbalance;
 //This function updates the userbalane text and userbalance graph 
-
 function updateuserbalance(user, graph, time){
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange =function(){
     if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
             userbalance = parseFloat(validate(xmlhttp.response[user].split(" ")[0].toString())); //Update the global var
             var rounded = Math.round(userbalance * 100) / 100;
             document.getElementById("balance_dashboard").innerHTML = rounded + "ᕲ"; //Update userbalance text box
-            if(i==0){                   //set the firt userbalance for the Duco per day valculation tool
+            
+            if(wait==0){                   //set the firt userbalance for the Duco per day valculation tool
                 oldb = userbalance; 
             }
-            if(i==5){                   //After 30s (because this gets executed every 3s) call the calculatedaily funtion and reset the counter
-                i=0;
+            if(wait==5){                   //After 30s (because this gets executed every 3s) call the calculatedaily funtion and reset the counter
+                wait=0;
                 calculdaily(userbalance, oldb)
             }
             else{                       //If shorter than 15s since last recalculation add 1 to i
-                i++;
+                wait++;
             }
             addgraph(time, userbalance, graph);  //Update the userbalance graph
 
@@ -260,11 +259,11 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
             }
             if(element[0].includes("PC Miner") && element[5].includes("XXHASH")){
                 var info = "<p id='problems'><b>PC (XXHASH) with Rigname: </b>" + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
-                if(element[1]<200000){              //Too low Hashrate
+                if(element[1]<30000){              //Too low Hashrate
                     document.getElementById("problemt").innerHTML+=info +  " is mining too slow. " + fix;
                     problems++;
                 }
-                if(element[1]>2000000){              //Too high hashrate
+                if(element[1]>200000){              //Too high hashrate
                     document.getElementById("problemt").innerHTML+=info +  " is mining too fast (thats not better). " + fix;
                     problems++;
                 }
@@ -284,7 +283,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                     document.getElementById("problemt").innerHTML+= info + " is mining too slow. " + fix;
                     problems++;
                 }
-                if(element[1]>20000){              //Too high hashrate
+                if(element[1]>200000){              //Too high hashrate
                     document.getElementById("problemt").innerHTML+= info + " is mining too fast (thats not better)." + fix;
                     problems++;
                 }
@@ -312,9 +311,9 @@ if(hashrate<100 || cpu>90 || connections<500){   //Show an extra error-message i
 
 }
 
-function minerdata(username, chart_hash, chart_con){  //This function is sorting all miners for the given username
+function minerdata(username, chart_hash, chart_con, time){  //This function is sorting all miners for the given username
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function(){
     if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
             allminer = xmlhttp.response;
             miners = [];
@@ -345,6 +344,24 @@ function minerdata(username, chart_hash, chart_con){  //This function is sorting
                     }
                 }
                 );
+            if(esp[0]==0){
+                document.getElementById("notification_on_1").style.display = "none";
+            }
+            else{
+                document.getElementById("notification_on_1").style.display = "block";
+            }
+            if(avr[0]==0){
+                document.getElementById("notification_on_2").style.display = "none";
+            }
+            else{
+                document.getElementById("notification_on_2").style.display = "block";
+            }
+            if(pc[0]==0){
+                document.getElementById("notification_on_3").style.display = "none";
+            }
+            else{
+                document.getElementById("notification_on_3").style.display = "block";
+            }
             addgraphashnew(time, daily, avr[1], esp[1], pc[1], ducomadesincesartdaily, chart_hash);    //Update the graph for hashrate 
             var all = esp[0] + avr[0];
             var effavr = 100;
@@ -428,15 +445,16 @@ function minerdata(username, chart_hash, chart_con){  //This function is sorting
 
 
 //Calculate daily ducos 
+let daily = 0; 
 function calculdaily(newb, oldb){
- 
+
     //Duco made in last 15 seconds
     var ducomadein = newb - oldb;
     //Calculate per day
     var dayduco = ducomadein * 5760;   //86400 seconds daily / 15s = 5760
     //round daily duco value
     daily = Math.round(dayduco * 100) / 100;
-
+    
     //Get duco since start of the page
     
     var ducomadesincestart = newb-balance;
@@ -450,14 +468,18 @@ function calculdaily(newb, oldb){
     document.getElementById("permonth").innerHTML = Math.round(daily*30) + " ᕲ";
 }
 
+
+//Global vars from this function:
+let inv1 = 0;                  // Global var for Interval - callback checker function
+let callback = 0;              // Global callback for ping check
 //The function which gets exectuted after the user put in his username 
 //What does this function do?
 // 1. Dimm on an doff to the net windows
 // 2. Call the ping function to check for server issues before redirecting to main dashboard
 // 3. Add a loading screen while the code is fetching the first data
 // 4. Call the checker() function in Interval - callback function to see if the ping was successfull
+
 function btnfunc(){
-    clearInterval(inv2);  //Clear the Interval for the dashboard update
     var username = validate(document.getElementById("inputt").value); //Get the username
     callback = 0;                           //reset the callback
 
@@ -472,14 +494,14 @@ function btnfunc(){
 
     clearInterval(inv1); //reset the Interval for the callback function 
 
-    setTimeout(function(){      //Smooth dimm off and on from login to server check
+    setTimeout(()=>{     //Smooth dimm off and on from login to server check
         document.getElementById("ping").style.display= "";
         document.getElementById("ping").style.opacity = 100;
         document.getElementById("login").style.display = "none";
     }, 1000);
 
-    setTimeout(function(){ping(username);},1000);  //Call ping function after 1s
-    inv1 = setInterval(function(){checker(username);}, 500);  //Call the callback function every 500ms
+    setTimeout(()=>{ping(username);},1000);  //Call ping function after 1s
+    inv1 = setInterval(()=>{checker(username);}, 500);  //Call the callback function every 500ms
 
     
     
@@ -489,7 +511,7 @@ function btnfunc(){
 }
 function checker(username){ //Callback function
 
-    if(callback==3){            //If every ping was successfull
+    if(callback>=3){            //If every ping was successfull
         //Set the loadingbar to green 
         document.getElementById("loadingbar_2").style.animationName= "load2";
         document.getElementById("loadingbar_2").style.backgroundColor= "green";
@@ -499,14 +521,14 @@ function checker(username){ //Callback function
         clearInterval(inv1);
         //Dimm on the dashboard
         document.getElementById("dashboard").style.display= "";
-        setTimeout(function(){
+        setTimeout(()=>{
             document.getElementById("ping").style.opacity = 0; //Dimm off the server check page
             let pageloader = document.getElementById("pageloader"); //Activate the pageloader
             pageloader.setAttribute('class', "pageloader is-notification is-active is-primary is-left-to-right");
 
         }, 500);
 
-        setTimeout(function(){document.getElementById("ping").style.display= "none";document.getElementById("dashboard").style.opacity= 100;}, 3000);
+        setTimeout(()=>{document.getElementById("ping").style.display= "none";document.getElementById("dashboard").style.opacity= 100;}, 3000);
         
         //After the dashboard is set create the canvas elements
         var chart = makegraph();
@@ -514,7 +536,7 @@ function checker(username){ //Callback function
         var chart_hash = makehashratechart();
         var chart_con = makeconchart();
 
-        inv2 = setInterval(function(){ //Calll the dashboard loop function and disable the pageloader
+        setInterval(()=>{ //Calll the dashboard loop function and disable the pageloader
             dashboardloop(chart, username, chart_net, chart_hash, chart_con);
             
             pageloader.setAttribute('class', "pageloader is-primary is-bottom-to-top");
@@ -528,13 +550,11 @@ function checker(username){ //Callback function
     }
 }
 
-
+// Global vars used by this function:
+let tim01 = 0;              // for resetting the timeout when server responds
 //The ping function
 function ping(username){
-    var check = 0;
-
-
-
+    let socketcon=0; //Callback 
     let socket = new WebSocket("wss://server.duinocoin.com:15808", null, 5000, 5);
     socket.onmessage = function(event) {
         if(parseFloat(event.data) >= 2.4){
@@ -560,7 +580,7 @@ function ping(username){
         document.getElementById("s1").src = "img/error.png";
     };
 
-    tim01 = setTimeout(function(){
+    tim01 = setTimeout(()=>{
         if(socketcon==0){
             document.getElementById("s1").src = "img/error.png";
             document.getElementById("loadingbar_2").style.animationName= "load3";
@@ -574,7 +594,6 @@ function ping(username){
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-            
         if (this.readyState == "4") {   //Check if the website is not loading anymore and webserver returns status code 200
             if(this.status == 200){
                 document.getElementById("s2").src = "img/check.png";
@@ -593,7 +612,7 @@ function ping(username){
                     document.getElementById("console").innerHTML += "[WebAPI] Username: ✅ <br>";
                 
                     start = Date.now();
-                    balance = balanc[username].split(" ")[0];
+                    balance = validate(balanc[username]).split(" ")[0];
                 }
                 else{
                     document.getElementById("loadingbar_2").style.animationName= "load3";

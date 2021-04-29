@@ -34,6 +34,25 @@ body{
         padding: 3vh;
     }
 }
+
+@media only screen and (orientation: portrait) {
+
+    .middle {
+        position:absolute;
+        top: 50%;
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        min-width: 90%;
+    }
+    .middle2 {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 90%;
+        padding-top: 10px;
+        height:100%;
+    }
+  }
+
 @media only screen and (min-width: 393px) and (max-width: 767px) and (orientation: portrait) {
     .middle {
         position:absolute;
@@ -82,6 +101,7 @@ body{
 
 /*The genral dashboard styling*/
 #dashboard{
+    scrollbar-width: thin;
     background-color: white;
     border-radius: 20px;
     border: solid white;
@@ -396,6 +416,7 @@ border-collapse: separate;
 /*Style the table more*/
 #minerdata_data{
     padding: 8px;
+    width: 100%;
 }
 #minerdata_data tr:hover {
     background-color: rgb(231, 231, 231);

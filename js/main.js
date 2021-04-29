@@ -132,7 +132,6 @@ function networkgauges(chart_net, time){
                 gauge06(alltime);
 
                 //Update the text under the gauges 
-                document.getElementById("ducoprice").innerHTML=Math.round(userbalance*price*1000)/1000 + " €"; 
                 document.getElementById("gauge01_val").innerHTML = registeredusers;
                 document.getElementById("gauge02_val").innerHTML = connections;
                 document.getElementById("gauge03_val").innerHTML = roundedhashrate + " MH/s";

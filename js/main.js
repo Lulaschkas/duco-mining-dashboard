@@ -37,7 +37,7 @@ function showesp(){
     document.getElementById("minerdata_title").innerHTML="Mining ESPs:";
     document.getElementById("minerdata_data").innerHTML=tabletitle;
     let i = false;
-    miners.forEach(() => {
+    miners.forEach((element) => {
             if(element[0].includes("ESP")){
                 i =true;
                 document.getElementById("minerdata_data").innerHTML+="<tr><td><b>"+element[0]+"</b></td><td>" +element[7] +"</td><td>" +Math.round((element[1]/1000)*10)/10 +"KH/s</td><td>" + element[2] + "/" + element[3] + " (" + Math.round(element[3]/element[2]*10000)/100  + "%)</td><td>" +  element[4] + "</td><td>" + element[5] + "</td><td>" + element[6] + "</td>";
@@ -58,8 +58,7 @@ function showavr(){ //Show all miners (with popup) that are in the category Ardu
    document.getElementById("minerdata_title").innerHTML="Mining Arduinos:";
    document.getElementById("minerdata_data").innerHTML=tabletitle;
    let i = false;
-   miners.forEach(
-       function(element){
+   miners.forEach((element) => {
            if(element[0].includes("AVR")){ //For every miner with AVR in sofware name add a new row in the table
                document.getElementById("minerdata_data").innerHTML+="<tr><td><b>"+element[0]+"</b></td><td>" +element[7] +"</td><td>" +element[1] +"H/s</td><td>" + element[2] + "/" + element[3] + " (" + Math.round(element[3]/element[2]*10000)/100  + "%)</td><td>" +  element[4] + "</td><td>" + element[5] + "</td><td>" + element[6] + "</td>";
                 i=true;
@@ -80,8 +79,7 @@ function showpc(){ // Show ALl miners (with the popup) that are in the category 
    document.getElementById("minerdata_title").innerHTML="Mining PCs and other devices:";
    document.getElementById("minerdata_data").innerHTML=tabletitle;
    let i =false;
-   miners.forEach(
-       function(element){
+   miners.forEach((element) => {
            if(!element[0].includes("ESP") && !element[0].includes("AVR")){ //Show every other element that doesnt include ESP and AVR in softwarename
                document.getElementById("minerdata_data").innerHTML+="<tr><td><b>"+element[0]+"</b></td><td>" +element[7]+"</td><td>" +Math.round((element[1]/1000000)*100)/100 +"MH/s</td><td>" + element[2] + "/" + element[3] + " (" + Math.round(element[3]/element[2]*10000)/100  + "%)</td><td>" +  element[4] + "</td><td>" + element[5] + "</td><td>" + element[6] + "</td>";
                 i=true;
@@ -258,17 +256,19 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
             }
             if(element[0].includes("PC Miner") && element[5].includes("XXHASH")){
                 var info = "<p id='problems'><b>PC (XXHASH) with Rigname: </b>" + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
-                if(element[1]<30000){              //Too low Hashrate
-                    document.getElementById("problemt").innerHTML+=info +  " is mining too slow. " + fix;
-                    problems++;
-                }
-                if(element[1]>200000){              //Too high hashrate
-                    document.getElementById("problemt").innerHTML+=info +  " is mining too fast (thats not better). " + fix;
-                    problems++;
-                }
-                if((element[3] / element[2]) > 0.05){  //Too many rejected
-                    document.getElementById("problemt").innerHTML+=info + " has to many rejected Shares. (" + (element[3] / element[2]+element[3])+ ")" +fix;
-                    problems++;
+                if(element[2] > 3){ //Only check if more than 3 shares got submitted
+                    if(element[1]<30000){              //Too low Hashrate
+                        document.getElementById("problemt").innerHTML+=info +  " is mining too slow. " + fix;
+                        problems++;
+                    }
+                    if(element[1]>200000){              //Too high hashrate
+                        document.getElementById("problemt").innerHTML+=info +  " is mining too fast (thats not better). " + fix;
+                        problems++;
+                    }
+                    if((element[3] / element[2]) > 0.05){  //Too many rejected
+                        document.getElementById("problemt").innerHTML+=info + " has to many rejected Shares. (" + (element[3] / element[2]+element[3])+ ")" +fix;
+                        problems++;
+                    }
                 }
                 if(element[2]==0){                  //Not started mining
                     document.getElementById("problemt").innerHTML+=info+ " does not start mining. " + fix;
@@ -278,17 +278,19 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
             }
             if(element[0].includes("PC Miner") && element[5].includes("DUCO-S1")){
                 var info = "<p id='problems'><b>PC (DUCO-S1) with Rigname:</b> " + element[7] + " <b>and Softwarename: </b>" + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
-                if(element[1]<30000){              //Too low Hashrate
-                    document.getElementById("problemt").innerHTML+= info + " is mining too slow. " + fix;
-                    problems++;
-                }
-                if(element[1]>200000){              //Too high hashrate
-                    document.getElementById("problemt").innerHTML+= info + " is mining too fast (thats not better)." + fix;
-                    problems++;
-                }
-                if((element[3] / element[2]+element[3]) > 0.05){  //Too many rejected
-                    document.getElementById("problemt").innerHTML+= info + " has to many rejected Shares. "  + fix;
-                    problems++;
+                if(element[2] > 3){ //Only check if more than 3 shares got submitted
+                    if(element[1]<30000){              //Too low Hashrate
+                        document.getElementById("problemt").innerHTML+= info + " is mining too slow. " + fix;
+                        problems++;
+                    }
+                    if(element[1]>200000){              //Too high hashrate
+                        document.getElementById("problemt").innerHTML+= info + " is mining too fast (thats not better)." + fix;
+                        problems++;
+                    }
+                    if((element[3] / element[2]+element[3]) > 0.05){  //Too many rejected
+                        document.getElementById("problemt").innerHTML+= info + " has to many rejected Shares. "  + fix;
+                        problems++;
+                    }
                 }
                 if(element[2]==0){                  //Not started mining
                     document.getElementById("problemt").innerHTML+= info + " does not start mining. " + fix;
@@ -445,19 +447,35 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
 
 //Calculate daily ducos 
 let daily = 0; 
+let alreadyreset = false;
 function calculdaily(newb, oldb){
 
     //Duco made in last 15 seconds
     var ducomadein = newb - oldb;
+
     //Calculate per day
     var dayduco = ducomadein * 5760;   //86400 seconds daily / 15s = 5760
+
     //round daily duco value
     daily = Math.round(dayduco * 100) / 100;
     
     //Get duco since start of the page
-    
     var ducomadesincestart = newb-balance;
     var secondssincestart = (Date.now() - start) / 1000; //MIlliseconds since sart of the page
+
+    //smaller average time span 
+    if((Date.now() - start)>120000 && alreadyreset == false){    //If last date compared to date now is bigger than 1 minmute^
+        console.log("[DEBUG] reset avg (1/2)");
+        alreadyreset = true;
+        let start1 = Date.now(); 
+        let balance1 = userbalance;
+        setTimeout(()=>{     //Smooth dimm off and on from login to server check
+            console.log("[DEBUG] reset avg (2/2)");
+            start = start1;
+            balance = balance1;
+            alreadyreset = false;
+        }, 119900);
+    }
   
     ducomadesincesartdaily = Math.round(((86400/secondssincestart)*ducomadesincestart)*10)/10;
     //Update the tile "Estimated" with data

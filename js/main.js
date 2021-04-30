@@ -481,7 +481,7 @@ let callback = 0;              // Global callback for ping check
 function btnfunc(){
     var username = validate(document.getElementById("inputt").value); //Get the username
     callback = 0;                           //reset the callback
-
+    console.log(username);
     document.getElementById("login").style.opacity = 0;   // dimm off the login side
     document.getElementById("s1").src = "img/Spinner-2.gif";  // add a spinner to server check
     document.getElementById("s2").src = "img/Spinner-2.gif";  // add a spinner to API check
@@ -644,6 +644,6 @@ function ping(username){
 
 
 function validate(input){
-    var clean = input.replace(/(<([^>]+)>)/gi, "");
+    var clean = input.replace(/[|&;$%@"<>()+,]/g, "");
     return clean;
 }

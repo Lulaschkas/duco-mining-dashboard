@@ -1,5 +1,4 @@
-# duino-coin-mining-dashboard
-# STILL IN ALPHA - MUCH HAS TO BE FIXED
+# duino-coin-mining-dashboard | BETA V0.2.1
 <p align = "center">
    <table>
       <tr>
@@ -11,7 +10,7 @@
 <br>
 
 ## Features
-The Duino-Coin mining dashboard provides a lot of advanced features to monitor your miners, shows help if it detects a problem and can do much more. 
+The [Duino-Coin mining dashboard](https://lulaschkas.github.io/duco-mining-dashboard) provides a lot of advanced features to monitor your miners, shows help if it detects a problem and can do much more. 
 Here is a list of its features:
 * 💰 Show user-balance
 * ⚖ Calculate mining efficiency based on Kolka V4 rules

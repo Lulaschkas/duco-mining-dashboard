@@ -368,27 +368,27 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
             var effavr = 100;
             var geseffavr=0;
             var geseffpc=0;
-            while (all >0){
+            while (all >1){
                 all--;
                 effavr= effavr*0.96;
                 geseffavr+=effavr;
             }
             geseffavr = geseffavr/(esp[0] + avr[0]);
-            if(avr[0] + esp[0]==0){
+            if(avr[0] + esp[0]==0 || avr[0] + esp[0]==1){
                 geseffavr=100;
             }
             document.getElementById("efficiency_avr").innerHTML="AVR/ESP: " + Math.round(geseffavr*1000)/1000 + "%";
 
             all = pc[0]
             effpc = 100;
-            while (all >0){
+            while (all >1){
                 all--;
                 effpc= effpc*0.8;
                 geseffpc+=effpc;
             }
 
             geseffpc = geseffpc/(pc[0]);
-            if(pc[0]==0){
+            if(pc[0]==0 || pc[0]==1){
                 geseffpc=100;
             }
             document.getElementById("efficiency_pc").innerHTML= "PC: " + Math.round(geseffpc*10)/10 + "%";

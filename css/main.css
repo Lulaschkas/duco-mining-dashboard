@@ -77,9 +77,15 @@ body{
     border-radius: 40px;
     border: solid white;
     transition: opacity 1s ease-in-out;
+    padding:10px;
     
     
 }
+.button{
+    margin: 5px !important;
+}
+
+
 #login_header{
     text-align: center;
     font-size: 2rem;

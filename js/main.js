@@ -318,12 +318,33 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
     if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
             allminer = xmlhttp.response;
             miners = [];
+            let watt=0;
             for (const [key, value] of Object.entries(allminer)) {
                 if(value["User"]==username){   //If the miner-name is equal to the given username
                     miners.push([validate(value["Software"]), parseFloat(value["Hashrate"]), parseInt(value["Accepted"]), parseInt(value["Rejected"]), parseFloat(value["Sharetime"]), validate(value["Algorithm"]), parseInt(value["Diff"]), validate(value["Identifier"])]); //add a lot of data to the public array miners
                     //Array miners 0=sotware 1=hashrate 2=accepted shares 3= rejected shares 4=sharetime 5=algo 6=difficult 7=identifier
                 }
-              }
+                
+                if(value["Software"].includes("ESP32") || value["Software"].includes("esp32")){
+                    watt+=0.7;  //1,4W for ESP32 @ peak 480mA/3,3V but has 2 cores
+                }
+                else if(value["Software"].includes("ESP8266") || value["Software"].includes("esp8266") || value["Software"].includes("ESP") || value["Software"].includes("esp")){
+                    watt+=1.3; //1,3W for ESP8266 @ peak 400mA/3,3V
+                }
+                else if(value["Software"].includes("AVR") || value["Software"].includes("avr")){
+                    watt+=0.2; //0,2W for Arduino @ peak 40mA/5V
+                }
+                else{
+                    if(value["Identifier"].includes("Raspberry") || value["Identifier"].includes("pi")){
+                        watt+=3.875; // 3,875 for one Pi4 core - pi4 max 15,8W 
+                    }
+                    else{
+                        watt+=9; //~70W for normal CPU and 8 mining threads = 9W per mining thread
+                    }
+                } 
+            }
+            document.getElementById("allwatt").innerHTML="~" + Math.round(watt/10)/100 + "kW";
+            document.getElementById("allwattday").innerHTML="~" + Math.round((Math.round(watt/10)/100)*240)/10 + "kW/h per day";
             var avr = [0,0];
             var pc = [0,0];
             var esp = [0,0];

@@ -201,7 +201,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                     document.getElementById("problemt").innerHTML+=info + " is mining too slow. " + fix;
                     problems++;
                 }
-                if(element[1]>9000){              //Too high hashrate
+                if(element[1]>15000){              //Too high hashrate
                     document.getElementById("problemt").innerHTML+=info + " is mining too fast (thats not better). " + fix;
                     problems++;
                 }

@@ -33,6 +33,20 @@ body{
         max-height: 90vh;
         padding: 3vh;
     }
+    .notification{
+        background-color:rgb(248, 248, 248) !important;
+        width: 100%;
+        padding: -5px;
+    }
+    
+    /*Notificaion bubbles*/
+    .dot {
+        height: 17px;
+        width: 17px;
+        background-color: rgb(255, 50, 50);
+        border-radius: 50%;
+        position: absolute;
+    }
 }
 
 @media only screen and (orientation: portrait) {
@@ -51,24 +65,22 @@ body{
         padding-top: 10px;
         height:100%;
     }
-  }
+    .notification{
+        background-color:rgb(248, 248, 248) !important;
+        width: 100%;
+        padding: 0px;
+    }
 
-@media only screen and (min-width: 393px) and (max-width: 767px) and (orientation: portrait) {
-    .middle {
-        position:absolute;
-        top: 50%;
-        left: 50%; 
-        transform: translate(-50%, -50%);
-        min-width: 90%;
+    /*Notificaion bubbles*/
+    .dot {
+        height: 17px;
+        width: 17px;
+        background-color: rgb(255, 50, 50);
+        border-radius: 50%;
+        position: absolute;
     }
-    .middle2 {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 90%;
-        padding-top: 10px;
-        height:100%;
-    }
-  }
+
+}
 
 
 /*Styling the login */
@@ -76,7 +88,7 @@ body{
     background-color: white;
     border-radius: 40px;
     border: solid white;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
     padding:10px;
     
     
@@ -98,7 +110,7 @@ body{
     background-color: white;
     border-radius: 40px;
     border: solid white;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
     opacity:0;
     display: hidden;
     text-align: center;
@@ -346,6 +358,8 @@ input[type=text]:focus {
 /* Styling the title color*/
 .title{
     color: rgb(88, 88, 88) !important;
+    margin-left: 30px !important;
+    margin-right: 30px !important;
 }
 /* Estimated font size*/
 .estimated{
@@ -489,17 +503,13 @@ h4{
     font-size: 20px !important;
 
 }
-.notification{
-    background-color:rgb(248, 248, 248) !important;
-    width: 100%;
-    padding: -5px;
+
+.iconr{
+    position: absolute;
+    float: left;
+    margin: 5px;
 }
 
-/*Notificaion bubbles*/
-.dot {
-    height: 17px;
-    width: 17px;
-    background-color: rgb(255, 50, 50);
-    border-radius: 50%;
-    position: absolute;
+.card2{
+    margin:20px !important;
 }

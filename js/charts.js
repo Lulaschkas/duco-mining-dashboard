@@ -213,7 +213,7 @@ const config_hashrate = {
         'y2': {
           title:{
             display: true,
-            text: "Arduino",
+            text: "Arduino - H/s",
           },
             display: true,
             labelString: "H/s",
@@ -226,10 +226,10 @@ const config_hashrate = {
         'y3': {
           title:{
             display: true,
-            text: "ESP",
+            text: "ESP - kH/s",
           },
             display: true,
-            labelString: "H/s",
+            labelString: "kH/s",
             type: 'linear',
             position: "right",
             min: 0,
@@ -239,10 +239,10 @@ const config_hashrate = {
         'y4': {
           title:{
             display: true,
-            text: "PC",
+            text: "PC - kH/s",
           },
             display: true,
-            labelString: "H/s",
+            labelString: "kH/s",
             type: 'linear',
             position: "right",
             min: 0,

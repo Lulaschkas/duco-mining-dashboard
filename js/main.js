@@ -384,7 +384,7 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
             else{
                 document.getElementById("notification_on_3").style.display = "block";
             }
-            addgraphashnew(time, daily, avr[1], esp[1], pc[1], ducomadesincesartdaily, chart_hash);    //Update the graph for hashrate 
+            addgraphashnew(time, daily, avr[1], esp[1]/1000, pc[1]/1000, ducomadesincesartdaily, chart_hash);    //Update the graph for hashrate 
             var all = esp[0] + avr[0];
             var effavr = 100;
             var geseffavr=0;
@@ -467,7 +467,6 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
     xmlhttp.send();
 }
 
-
 //Calculate daily ducos 
 let daily = 0; 
 let alreadyreset = false;
@@ -538,10 +537,10 @@ function btnfunc(){
         document.getElementById("ping").style.display= "";
         document.getElementById("ping").style.opacity = 100;
         document.getElementById("login").style.display = "none";
-    }, 1000);
+    }, 500);
 
-    setTimeout(()=>{ping(username);},1000);  //Call ping function after 1s
-    inv1 = setInterval(()=>{checker(username);}, 500);  //Call the callback function every 500ms
+    setTimeout(()=>{ping(username);},500);  //Call ping function after 500ms
+    inv1 = setInterval(()=>{checker(username);}, 100);  //Call the callback function every 100ms
 
     
     
@@ -563,25 +562,22 @@ function checker(username){ //Callback function
         document.getElementById("dashboard").style.display= "";
         setTimeout(()=>{
             document.getElementById("ping").style.opacity = 0; //Dimm off the server check page
-            let pageloader = document.getElementById("pageloader"); //Activate the pageloader
-            pageloader.setAttribute('class', "pageloader is-notification is-active is-primary is-left-to-right");
 
-        }, 500);
+        }, 200);
 
-        setTimeout(()=>{document.getElementById("ping").style.display= "none";document.getElementById("dashboard").style.opacity= 100;}, 3000);
+        setTimeout(()=>{document.getElementById("ping").style.display= "none";document.getElementById("dashboard").style.opacity= 100;}, 1000);
         
         //After the dashboard is set create the canvas elements
         var chart = makegraph();
         var chart_net = makenetchart();
         var chart_hash = makehashratechart();
         var chart_con = makeconchart();
+        dashboardloop(chart, username, chart_net, chart_hash, chart_con);
 
-        setInterval(()=>{ //Calll the dashboard loop function and disable the pageloader
+        setInterval(()=>{ //Call the dashboard loop function
             dashboardloop(chart, username, chart_net, chart_hash, chart_con);
-            
-            pageloader.setAttribute('class', "pageloader is-primary is-bottom-to-top");
-        }
-        , 3000);
+
+        }, 3000);
 
     }
     else{

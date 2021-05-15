@@ -1,7 +1,7 @@
-# duino-coin-mining-dashboard | Beta
+# duino-coin-mining-dashboard
 ![GitHub followers](https://img.shields.io/github/followers/Lulaschkas?style=flat)
 ![GitHub Repo stars](https://img.shields.io/github/stars/Lulaschkas/duco-mining-dashboard?style=flat)
-![Version](https://img.shields.io/badge/Version-0.2.3-green?style=flat)
+![Version](https://img.shields.io/badge/Version-0.2.4-green?style=flat)
 ![Creator](https://img.shields.io/badge/Creator-Lulaschkas-blue?style=flat)
 
 <p align = "center">

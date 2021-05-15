@@ -274,7 +274,7 @@ input[type=text]:focus {
     float: left;
     width: 50px;
     margin: 20px;
-    
+
 }
 
 /*General gauge styling*/
@@ -528,7 +528,7 @@ h4{
     margin-left: 10px;
     top: -50%;
     font-size: 14px;
-    width: 1000%;
+    width: 200px;
     opacity: 90%;
 }
 

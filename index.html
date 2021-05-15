@@ -18,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
 
-        <link rel="shortcut icon" type="image/x-icon" href="img/ducominingdashboard.png">
+        <link rel="shortcut icon" type="image/x-icon" href="img/ducominingdashboarddark.png">
         <link type="text/css" rel="stylesheet" href="css/main.css">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
@@ -53,8 +53,11 @@
                                     <div class="tile">
                                         <div class="tile is-parent is-vertical">
                                             <article class="tile is-child has-background-light2">
-                                                <div class="iconr"><i class="fas fa-chart-line fa-2x"></i></div>
-                                                <p class="title">User Balance Graph</p>
+                                                <div class="iconr">
+                                                    <i class="fas fa-chart-line fa-2x"></i>
+                                                    <span class="helptext">The current user balance in Duino-Coin.</span>
+                                                </div>
+                                                <p class="title">User Balance</p>
                                                 <div style="width: 90%">
                                                     <canvas id="chart1" class="frontchart" width="200" height="120"></canvas>
                                                 </div>
@@ -66,7 +69,10 @@
                                             </article>
                                         
                                         <article class="tile is-child has-background-light2">
-                                            <div class="iconr"><i class="fas fa-percent fa-2x"></i></div>
+                                            <div class="iconr">
+                                                <i class="fas fa-percent fa-2x"></i>
+                                                <span class="helptext">This is the <u>total</u> efficiency for AVR/ESP and PC mining. Every new AVR/ESP mining connection has the efficiency of the connection before * 0,96 and every PC mining connection * 0,8 of the connection before.</span>
+                                            </div>
                                             <p class="title">Efficiency</p>
                                             <div id="efficiency">
                                                 
@@ -78,7 +84,10 @@
                                      </div>
                                         <div class="tile is-parent is-vertical">
                                             <article class="tile is-child has-background-light2">
-                                                <div class="iconr"><i class="fas fa-tachometer-alt fa-2x"></i></div>
+                                                <div class="iconr">
+                                                    <i class="fas fa-tachometer-alt fa-2x"></i>
+                                                    <span class="helptext">This card show the hashrate for each device group as well as the connections for each device group. On the left side are two gauges one for the total hashrate (maximum calculated by Kolkas max value) and the other one for the total user connections to the server.</span>
+                                                </div>
                                                 <p class="title">Hashrate</p>
                                                 <center>
                                                     <div class="columns">
@@ -109,7 +118,10 @@
                                                 </center>
                                             </article>
                                             <article class="tile is-child has-background-light2">
-                                                <div class="iconr"><i class="fas fa-cogs fa-2x"></i></div>
+                                                <div class="iconr">
+                                                    <i class="fas fa-cogs fa-2x"></i>
+                                                    <span class="helptext">With a click on an image there are all informations about your miners which belong to that category.</span>
+                                                </div>
                                                 <p class="title">All Miners</p>
                                                 <table>
                                                     <tr>
@@ -125,7 +137,10 @@
                                         </div>
                                         <div class="tile is-parent is-vertical">
                                             <article class="tile is-child has-background-light2">
-                                                <div class="iconr"><i class="fas fa-calendar-check fa-2x"></i></div>
+                                                <div class="iconr">
+                                                    <i class="fas fa-calendar-check fa-2x"></i>
+                                                    <span class="helptext">The estimated card calculates the estimated duco per day based on <br> changes on the users balance. Avg. daily is more accurat but slower because it takes the data from the last 2 minutes. </span>
+                                                </div>
                                                 <center>
                                                 <p class="title">Estimated</p>
                                                 <table id="estimatedtable">
@@ -150,7 +165,10 @@
                                                 
                                             </article>
                                             <article class="tile is-child has-background-light2">
-                                                <div class="iconr"><i class="fas fa-exclamation-circle fa-2x"></i></div>
+                                                <div class="iconr">
+                                                    <i class="fas fa-exclamation-circle fa-2x"></i>
+                                                    <span class="helptext">This card shows possible problems with your miners based on common issues. </span>
+                                                </div>
                                                 <p class="title" id="probtitle">Problems (Beta)</p>
                                                 <div class="subtitle" id="problemt" style="max-height: 300px; overflow:auto;">We have not been able to analyse your Miners. </div>
                                             </article>
@@ -318,7 +336,7 @@
                                     <div class="card-content">
                                           <p class="title">Miner distribution</p>
                                       <div class="content">
-                                        The Duino-Coin Miner chart shows the miner distribution from the main server. But keep in ming that one single PC can make multiple connections and thous shrink the Arduino/ESP side.
+                                        The Duino-Coin Miner chart shows the miner distribution from the main server. But keep in mind that one single PC can make multiple connections and thous shrink the Arduino/ESP side.
                                         <br>
                                       </div>
                                     </div>

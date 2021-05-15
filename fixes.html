@@ -41,25 +41,25 @@
                 <p id="pc" class="title">Problems while mining with PC</p>
                 <div class="line"></div>
                 <br>
-                <p class="subtitle"><b>Too high hashrate</b></p>
+                <p class="subtitle"><b>Is mining too fast</b></p>
                 </center>
-                <p>Yes, you've heard that right. Mining with too high hashrate is not good. DuinoCoin is using a 
+                <p>Yes, you've heard that right. Mining with too high hashrate is not good. Duino-Coin is using a 
                     System called 'Kolka' to make fair rewards for strong and weak miners. This system is for example raising the difficulty if someone is mining with a really powerful pc,
                     so it is not possible for people with GPUs or very strong CPUs to earn more than a few Arduinos would do.
                     Mining with strong devices also isn't the point of duinocoin. As the name suggests DuinoCoin is mostly
                     for Arduinos and other low power devices. What's more, hashrate isn't equal to earning more Coins in Duinocoin.
                     <br>
-                    If the mining dashboard showed you the Error, that you are mining with too high hashrate, you probably wont make more than 30-40 
-                    Coiny per day but spend a lot of energy on your device. In this case you should think about:
+                    If the mining dashboard showed you the Error, that you are mining with too high hashrate, you probably wont make more than a few 
+                    Coins per day but spend a lot of energy on your device. In this case you should think about:
                 </p>
                 <ol>
                     <li>Setting the difficulty setting to Net or Extreme depending on your device</li>
-                    <li>Not mining with big CPUs / GPUs</li>
+                    <li>Not mining with strong CPUs / GPUs</li>
                     <li>Lowering mining intensity</li>
                     <li>Mining another coin like Magi for example</li>
                 </ol>
                 <br>
-                <center><p class="subtitle">Too low Hashrate</p></center>
+                <center><p class="subtitle">Is mining too slow</p></center>
                 <p>Sometimes it can happen that you are mining with too low hashrate. This 
                     is mostly caused by a high difficult that got sended to your device or wrong difficult settings.
                     If you are mining with Raspberry Pi and other low Power devices, please double check your Miner settings.
@@ -76,7 +76,7 @@
                     <li>Old miner Version</li>
                     <li>Server has temporary issues</li>
                     <li>Using wrong difficult tier</li>
-                    <li>Hashing algorythm error </li>
+                    <li>Hashing algorithm error </li>
                     <li>Mining much to fast so Kolka limits you</li>
                 </ol>
                 <br>
@@ -101,14 +101,14 @@
                 <p id="avr" class="title">Problems while mining with AVR</p>
                 <div class="line"></div>
                 <br>
-                <p class="subtitle"><b>Too high hashrate</b></p>
+                <p class="subtitle"><b>TMining too fast</b></p>
                 </center>
                 <p>If you get the error, that you are mining too fast with your Arduino this is mostly no reason to worry about.
                     Sometimes the hashrate spikes very short or the server has an issue but if the problem stays you should take a look.
                     Check if you are using an unoffical miner which maybe tries to bypass Kolka limits (which doesnt work since V4).
                 </p>
                 <br>
-                <center><p class="subtitle">Too low Hashrate</p></center>
+                <center><p class="subtitle">Mining too slow</p></center>
                 <p>Sometimes your Arduino might mine with a hashrate lower than 100H/s. This can be caused by 
                     a short connection issue but also because the Arduino isnt flashed to the newest AVR code. 
                     You can download the new Arduino file with the newest duco release: <a href="https://github.com/revoxhere/duino-coin/releases">DuinoCoin Releases</a>
@@ -153,20 +153,22 @@
                     <p id="esp" class="title">Problems while mining with ESP</p>
                     <div class="line"></div>
                     <br>
-                    <p class="subtitle"><b>Too high hashrate</b></p>
+                    <p class="subtitle"><b>Mining too fast</b></p>
                     </center>
                     <p>If you get the error, that you are mining too fast with your ESP this is mostly no reason to worry about.
                         Sometimes the hashrate spikes very short or the server has an issue but if the problem stays you should take a look at it.
                         Check if you are using an unoffical miner which maybe tries to bypass Kolka limits (which doesnt work since V4).
                     </p>
                     <br>
-                    <center><p class="subtitle">Too low Hashrate</p></center>
+                    <center><p class="subtitle">Mining too slow</p></center>
                     <p>If you are using ESP32 and the hashrate drops you are very likely using an old version of the miner.
                         Because the old Versions didnt have a reset build in if the hashrate goes to low.</p>
                         <p>You should be able to get better resulty by improoving wifi quality and always upgrading to the newest Version.
                         You can download the new ESP32/8266 file with the newest duco release: <a href="https://github.com/revoxhere/duino-coin/releases">DuinoCoin Releases</a>
                     </p>
-        
+                    <p>
+                        Make sure that the correct CPU Frequency is set when uploading the sketch, i.e. 160 MHz for an ESP8266.
+                    </p>
                     <br>
                     <center><p class="subtitle">Too many rejected Shares</p></center>
                     <p>If this Error pops up, your ESP has more than 5% of his shares rejected by the main server.

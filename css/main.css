@@ -67,12 +67,12 @@ body{
     }
     .notification{
         background-color:rgb(248, 248, 248) !important;
-        width: 100%;
         padding: 0px;
     }
 
     /*Notificaion bubbles*/
     .dot {
+	    right:0px;
         height: 17px;
         width: 17px;
         background-color: rgb(255, 50, 50);
@@ -274,7 +274,7 @@ input[type=text]:focus {
     float: left;
     width: 50px;
     margin: 20px;
-
+    
 }
 
 /*General gauge styling*/
@@ -358,8 +358,8 @@ input[type=text]:focus {
 /* Styling the title color*/
 .title{
     color: rgb(88, 88, 88) !important;
-    margin-left: 30px !important;
-    margin-right: 30px !important;
+    margin-left: 37px !important;
+    margin-right: 37px !important;
 }
 /* Estimated font size*/
 .estimated{
@@ -512,4 +512,26 @@ h4{
 
 .card2{
     margin:20px !important;
+}
+
+/*help on hover*/
+  
+.iconr .helptext {
+    visibility: hidden;
+    background-color: rgb(104, 104, 104);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border-radius: 6px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    margin-left: 10px;
+    top: -50%;
+    font-size: 14px;
+    width: 1000%;
+    opacity: 90%;
+}
+
+.iconr:hover .helptext {
+    visibility: visible;
 }

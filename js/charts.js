@@ -123,8 +123,6 @@ const config_net = {
             type: 'linear',
             position: "right",
             min: 0,
-            max: 1500,
-
         },
     }
   }

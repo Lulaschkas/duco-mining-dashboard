@@ -157,7 +157,7 @@ function updateuserbalance(user, graph, time){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange =function(){
     if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
-            userbalance = parseFloat(validate(xmlhttp.response[user].split(" ")[0].toString())); //Update the global var
+            userbalance = parseFloat(validate(xmlhttp.response["result"][0]["balance"].toString())); //Update the global var
             var rounded = Math.round(userbalance * 100) / 100;
             document.getElementById("balance_dashboard").innerHTML = rounded + "ᕲ"; //Update userbalance text box
             
@@ -175,7 +175,7 @@ function updateuserbalance(user, graph, time){
 
     }
     };
-    xmlhttp.open("GET", "https://server.duinocoin.com/balances.json", true); //request the balances.json file
+    xmlhttp.open("GET", "https://server.duinocoin.com/balances?username=" + user, true); //request the balances.json file
     xmlhttp.responseType = 'json';
     xmlhttp.send();
 }
@@ -201,7 +201,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                     document.getElementById("problemt").innerHTML+=info + " is mining too slow. " + fix;
                     problems++;
                 }
-                if(element[1]>15000){              //Too high hashrate
+                if(element[1]>17000){              //Too high hashrate
                     document.getElementById("problemt").innerHTML+=info + " is mining too fast (thats not better). " + fix;
                     problems++;
                 }
@@ -298,53 +298,76 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                 }
 
             }
-            if(!element[0].includes("v2.3") && !element[0].includes("v2.45") && !element[0].includes("v2.4") && !element[0].includes("v2.5")){
-                document.getElementById("problemt").innerHTML+="<p id='problems'><b>Miner with Rigname:</b> " + element[7] + " <b>Full Software name:</b> " + element[0] + " <b>is using an old Version. Please upgrade.</b> <a href='problems.html'>How to fix</a></p>"
+            if(!element[0].includes("v2.3") && !element[0].includes("v2.45") && !element[0].includes("v2.46")&& !element[0].includes("v2.47") && !element[0].includes("v2.4") && !element[0].includes("v2.5")){
+                document.getElementById("problemt").innerHTML+="<p id='problems'><b>Miner with Rigname:</b> " + element[7] + " <b>Full Software name:</b> " + element[0] + " <b>is propably using an old Version. Please upgrade.</b> <a href='https://github.com/revoxhere/duino-coin/releases'>Download</a></p>"
                 problems++;
             }
         }
 
 );
 document.getElementById("probtitle").innerHTML="Problems (" + problems +")";  //Show the number of problems
-if(hashrate<100 || cpu>90 || connections<500){   //Show an extra error-message if the server is having problems 
+let hashratereal = 0;
+if(hashrate.split(" ")[1] == "GH/s"){             //To convert GH/s to MH/s 
+    hashratereal = hashrate.split(" ")[0]*1000;
+}
+else{
+    hashratereal = hashrate.split(" ")[0]*1000;
+}
+if(hashratereal<100 || cpu>90 || connections<500){   //Show an extra error-message if the server is having problems 
     document.getElementById("problemt").innerHTML+="<p id='problems'> The server is having issues, there might be mining problems. Please wait </p>";
 }
 
 }
 
-function minerdata(username, chart_hash, chart_con, time){  //This function is sorting all miners for the given username
+function minerenergy(){
+    console.log("[DEBUG] downloaded miners.json file");
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function(){
-    if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
+        if (this.readyState == "4" && this.status == 200) { 
             allminer = xmlhttp.response;
             miners = [];
             let watt=0;
-            for (const [key, value] of Object.entries(allminer)) {
-                if(value["User"]==username){   //If the miner-name is equal to the given username
-                    miners.push([validate(value["Software"]), parseFloat(value["Hashrate"]), parseInt(value["Accepted"]), parseInt(value["Rejected"]), parseFloat(value["Sharetime"]), validate(value["Algorithm"]), parseInt(value["Diff"]), validate(value["Identifier"])]); //add a lot of data to the public array miners
-                    //Array miners 0=sotware 1=hashrate 2=accepted shares 3= rejected shares 4=sharetime 5=algo 6=difficult 7=identifier
-                }
-                
-                if(value["Software"].includes("ESP32") || value["Software"].includes("esp32")){
-                    watt+=0.7;  //1,4W for ESP32 @ peak 480mA/3,3V but has 2 cores
-                }
-                else if(value["Software"].includes("ESP8266") || value["Software"].includes("esp8266") || value["Software"].includes("ESP") || value["Software"].includes("esp")){
-                    watt+=1.3; //1,3W for ESP8266 @ peak 400mA/3,3V
-                }
-                else if(value["Software"].includes("AVR") || value["Software"].includes("avr")){
-                    watt+=0.2; //0,2W for Arduino @ peak 40mA/5V
-                }
-                else{
-                    if(value["Identifier"].includes("Raspberry") || value["Identifier"].includes("pi")){
-                        watt+=3.875; // 3,875 for one Pi4 core - pi4 max 15,8W 
+            allminer["result"].forEach(
+                function(value){
+                    if(value["software"].includes("ESP32") || value["software"].includes("esp32")){
+                        watt+=0.7;  //1,4W for ESP32 @ peak 480mA/3,3V but has 2 cores
+                    }
+                    else if(value["software"].includes("ESP8266") || value["software"].includes("esp8266") || value["software"].includes("ESP") || value["software"].includes("esp")){
+                        watt+=1.3; //1,3W for ESP8266 @ peak 400mA/3,3V
+                    }
+                    else if(value["software"].includes("AVR") || value["software"].includes("avr")){
+                        watt+=0.2; //0,2W for Arduino @ peak 40mA/5V
                     }
                     else{
-                        watt+=9; //~70W for normal CPU and 8 mining threads = 9W per mining thread
-                    }
-                } 
-            }
+                        if(value["identifier"].includes("Raspberry") || value["identifier"].includes("pi")){
+                            watt+=3.875; // 3,875 for one Pi4 core - pi4 max 15,8W 
+                        }
+                        else{
+                            watt+=9; //~70W for normal CPU and 8 mining threads = 9W per mining thread
+                        }
+                    } 
+                }
+            );
             document.getElementById("allwatt").innerHTML="~" + Math.round(watt/10)/100 + "kW";
             document.getElementById("allwattday").innerHTML="~" + Math.round((Math.round(watt/10)/100)*240)/10 + "kW/h per day";
+        }
+    };
+    xmlhttp.open("GET", "https://server.duinocoin.com/miners", true);
+    xmlhttp.responseType = 'json';
+    xmlhttp.send();
+}
+
+function minerdata(username, chart_hash, chart_con, time){  //This function is sorting all miners for the given username
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function(){
+        if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
+            allminer = xmlhttp.response;
+            miners = [];
+            allminer["result"].forEach(
+                function(element){
+                    miners.push([validate(element["software"]), parseFloat(element["hashrate"]), parseInt(element["accepted"]), parseInt(element["rejected"]), parseFloat(element["sharetime"]), validate(element["algorithm"]), parseInt(element["diff"]), validate(element["identifier"])]); //add a lot of data to the public array miners
+                }
+            );
             var avr = [0,0];
             var pc = [0,0];
             var esp = [0,0];
@@ -365,7 +388,7 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
                         pc[1]+=element[1];
                     }
                 }
-                );
+            );
             if(esp[0]==0){
                 document.getElementById("notification_on_1").style.display = "none";
             }
@@ -405,9 +428,9 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
             effpc = 100;
             while (all >0){
                 all--;
-                 geseffpc+=effpc;
+                    geseffpc+=effpc;
                 effpc= effpc*0.8;
-               
+                
             }
 
             geseffpc = geseffpc/(pc[0]);
@@ -433,7 +456,7 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
             if(max==0){ //If the user is not mining set maximal hashrate to 1 (otherwise the gauge looks broken)
                 max = 1;
             }
-           
+            
 
             //Feed the HTML data tile (hashrate) with data to each device groupe
             document.getElementById("avr").innerHTML = "<b>Arduino: </b><br>" + Math.round((avr[1] / 1000)*1000)/1000 + " kH/s" + " (" + avr[0] + ")";
@@ -457,12 +480,9 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
 
             //Update the connection chart
             addgraphash(time, avr[0]+esp[0]+pc[0], avr[0], esp[0], pc[0], chart_con);
-
-            
-
         }
     };
-    xmlhttp.open("GET", "https://server.duinocoin.com/miners.json", true);
+    xmlhttp.open("GET", "https://server.duinocoin.com/miners?username="+ username, true);
     xmlhttp.responseType = 'json';
     xmlhttp.send();
 }
@@ -541,12 +561,6 @@ function btnfunc(){
 
     setTimeout(()=>{ping(username);},500);  //Call ping function after 500ms
     inv1 = setInterval(()=>{checker(username);}, 100);  //Call the callback function every 100ms
-
-    
-    
-
-    
-
 }
 function checker(username){ //Callback function
 
@@ -560,11 +574,7 @@ function checker(username){ //Callback function
         clearInterval(inv1);
         //Dimm on the dashboard
         document.getElementById("dashboard").style.display= "";
-        setTimeout(()=>{
-            document.getElementById("ping").style.opacity = 0; //Dimm off the server check page
-
-        }, 200);
-
+        setTimeout(()=>{document.getElementById("ping").style.opacity = 0;}, 200);//Dimm off the server check page
         setTimeout(()=>{document.getElementById("ping").style.display= "none";document.getElementById("dashboard").style.opacity= 100;}, 1000);
         
         //After the dashboard is set create the canvas elements
@@ -573,11 +583,12 @@ function checker(username){ //Callback function
         var chart_hash = makehashratechart();
         var chart_con = makeconchart();
         dashboardloop(chart, username, chart_net, chart_hash, chart_con);
-
         setInterval(()=>{ //Call the dashboard loop function
             dashboardloop(chart, username, chart_net, chart_hash, chart_con);
 
         }, 3000);
+        minerenergy();
+        setInterval(()=>{minerenergy();}, 15000);
 
     }
     else{
@@ -643,12 +654,13 @@ function ping(username){
                     document.getElementById("console").innerHTML += "[WebAPI] There was an error downloading the API please try again.<br>";
                 }
                 
-                if(balanc[username]!= undefined){
+                if(balanc["result"][0]!= undefined){
                     callback++;
                     document.getElementById("console").innerHTML += "[WebAPI] Username: ✅ <br>";
-                
+
+                    //Start values for average daily calculation
                     start = Date.now();
-                    balance = validate(balanc[username]).split(" ")[0];
+                    balance = validate(balanc["result"][0]["balance"].toString());
                 }
                 else{
                     document.getElementById("loadingbar_2").style.animationName= "load3";
@@ -670,16 +682,10 @@ function ping(username){
             }
         }
     };
-    xmlhttp.open("GET", "https://server.duinocoin.com/balances.json", true);
+    xmlhttp.open("GET", "https://server.duinocoin.com/balances?username=" + username, true);
     xmlhttp.responseType = 'json';
     xmlhttp.send();
-
-
-
-
 }
-
-
 function validate(input){
     var clean = input.replace(/[|&;$%@"<>()+,]/g, "");
     return clean;

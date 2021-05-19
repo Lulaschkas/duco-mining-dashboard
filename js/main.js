@@ -186,11 +186,11 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
     var problems = 0;
     if(geseffavr<50){
         problems++;
-        document.getElementById("problemt").innerHTML+="<p id='problems'><b>Too low efficiency on AVR/ESP:</b> Kolka V4 controls the reward of miners. Every new miner connection mines 4% less duco than the miner before. 1.=100%, 2.=96%, 3.=92%..<a href='fixes.html'>How to fix</a></p>"
+        document.getElementById("problemt").innerHTML+="<p id='problems'><b>Too low efficiency on AVR/ESP:</b> Kolka controls the reward of miners. Every new miner connection mines 4% less duco than the miner before. 1.=100%, 2.=96%, 3.=92%..<a href='fixes.html'>How to fix</a></p>"
     }
     if(geseffpc<50){
         problems++;
-        document.getElementById("problemt").innerHTML+="<p id='problems'><b>Too low efficiency on PC/other:</b> Kolka V4 controls the reward of miners. Every new PC miner connection mines 20% less duco than the miner before. 1.=100%, 2.=80%, 3.=64%...<a href='fixes.html'>How to fix</a></p>"
+        document.getElementById("problemt").innerHTML+="<p id='problems'><b>Too low efficiency on PC/other:</b> Kolka controls the reward of miners. Every new PC miner connection mines 20% less duco than the miner before. 1.=100%, 2.=80%, 3.=64%...<a href='fixes.html'>How to fix</a></p>"
     }
     miners.forEach(//For each mining device
         function(element){                        
@@ -459,9 +459,9 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
             
 
             //Feed the HTML data tile (hashrate) with data to each device groupe
-            document.getElementById("avr").innerHTML = "<b>Arduino: </b><br>" + Math.round((avr[1] / 1000)*1000)/1000 + " kH/s" + " (" + avr[0] + ")";
-            document.getElementById("pc").innerHTML = "<b>PC/Other: </b><br>" + Math.round((pc[1] / 1000000)*1000)/1000 + " MH/s" + " (" + pc[0] + ")";
-            document.getElementById("esp").innerHTML = "<b>ESP: </b><br>" + Math.round((esp[1] / 1000)*1000)/1000+ " kH/s" + " (" + esp[0] + ")";
+            document.getElementById("avr").innerHTML = "<b>Arduino: </b><br><div class='colorfult'>" + Math.round((avr[1] / 1000)*1000)/1000 + " kH/s" + " (" + avr[0] + ")</div>";
+            document.getElementById("pc").innerHTML = "<b>PC/Other: </b><br><div class='colorfult'>" + Math.round((pc[1] / 1000000)*1000)/1000 + " MH/s" + " (" + pc[0] + ")</div>";
+            document.getElementById("esp").innerHTML = "<b>ESP: </b><br><div class='colorfult'>" + Math.round((esp[1] / 1000)*1000)/1000+ " kH/s" + " (" + esp[0] + ")</div>";
             
             //Update the gauge for user hashrate 
             gauge07(hashrateallmh, max);

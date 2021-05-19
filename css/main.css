@@ -352,18 +352,21 @@ input[type=text]:focus {
     width: 80%;
     color: rgb(99, 99, 99);
     font-size:  1.1rem;
-    margin-top: -15px;
     margin-bottom: 5px;
 }
 /* Styling the title color*/
 .title{
-    color: rgb(88, 88, 88) !important;
+    color: rgb(61, 61, 61) !important;
     margin-left: 37px !important;
     margin-right: 37px !important;
 }
 /* Estimated font size*/
 .estimated{
-    font-size: 1.5rem;
+    font-size: 2rem;
+    padding: 3px;
+    background: linear-gradient(292deg, rgb(255, 41, 77) 0%, rgb(252, 203, 69) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 /*Override bulma bageloader*/
 .pageloader {
@@ -375,7 +378,6 @@ input[type=text]:focus {
     padding: 5px;
     margin-top: 10px;
     width: 80%;
-    box-shadow: 0px 5px 20px 3px rgba(68, 68, 68, 0.2);
     background-color:rgba(233, 233, 233, 0.521);
     border: solid 4px rgba(233, 233, 233, 0.521);
     border-radius: 10px;
@@ -383,7 +385,7 @@ input[type=text]:focus {
     color: rgb(99, 99, 99);
     font-size:  1.2rem;
     margin-top: 30px;
-    box-shadow: 0px 0px 20px 2px rgba(68, 68, 68, 0.2);  
+    box-shadow: 0px 0px 10px 2px rgba(68, 68, 68, 0.2);  
 }
 
 /*Changing the ducoprice font size*/
@@ -403,8 +405,8 @@ input[type=text]:focus {
 /*chnage the backgorund of the cards/tiles*/
 .has-background-light2{
     background-color:rgb(248, 248, 248) !important;
-    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14), 0 6px 6px rgba(0, 0, 0, 0.18);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14), 0 6px 6px rgba(0, 0, 0, 0.18);
+    -webkit-box-shadow: 0 10px 15px rgba(0, 0, 0, 0.14), 0 6px 6px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.14), 0 6px 6px rgba(0, 0, 0, 0.18);
 }
 
 /*The table for all minng devices*/
@@ -453,9 +455,10 @@ border-collapse: separate;
 
 /* style the table for estimated duco*/
 #estimatedtable{
-    text-align: center;
-    padding: 10px;
-    width: 80%;
+    text-align: left;
+    padding: 5px;
+    width: 90%;
+    height: 80%;
     color:rgb(124, 124, 124);
 }
 /* Change subtitle color*/
@@ -511,7 +514,8 @@ h4{
 }
 
 .card2{
-    margin:20px !important;
+    margin:10px !important;
+    padding: 10px !important;
 }
 
 /*help on hover*/
@@ -534,4 +538,23 @@ h4{
 
 .iconr:hover .helptext {
     visibility: visible;
+}
+
+.cardheader{
+    background: #f3f3f3;
+    border-bottom: solid 3px;
+    border-radius: 7px !important;
+    padding: 4px;
+    margin-bottom: 10px;
+}
+
+.is-child{
+    border: solid 0px !important;
+    border-radius: 7px !important;
+}
+
+.colorfult{
+    background: linear-gradient(90deg, rgba(255,67,67,1) 0%, rgb(252, 112, 69) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

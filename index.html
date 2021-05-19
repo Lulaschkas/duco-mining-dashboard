@@ -33,11 +33,10 @@
     </head>
     <body>
         <div class="container1" id="myd2">
-       
-            <article class="middle2">
+            
+            <article class="middle2">        
             <div id="dashboard">
-                
-                <p id="login_header">Duino-Coin mining dashboard</p>
+                <img src="img/banner.png" style="width:100%">
                 <center>
                     <div class="tabs">
                         <ul>
@@ -53,11 +52,13 @@
                                     <div class="tile">
                                         <div class="tile is-parent is-vertical">
                                             <article class="tile is-child has-background-light2">
-                                                <div class="iconr">
-                                                    <i class="fas fa-chart-line fa-2x"></i>
-                                                    <span class="helptext">The current user balance in Duino-Coin.</span>
+                                                <div class="cardheader">
+                                                    <div class="iconr">
+                                                        <i class="fas fa-chart-line fa-2x"></i>
+                                                        <span class="helptext">The current user balance in Duino-Coin.</span>
+                                                    </div>
+                                                    <p class="title">User Balance</p>
                                                 </div>
-                                                <p class="title">User Balance</p>
                                                 <div style="width: 90%">
                                                     <canvas id="chart1" class="frontchart" width="200" height="120"></canvas>
                                                 </div>
@@ -69,11 +70,13 @@
                                             </article>
                                         
                                         <article class="tile is-child has-background-light2">
-                                            <div class="iconr">
-                                                <i class="fas fa-percent fa-2x"></i>
-                                                <span class="helptext">This is the <u>total</u> efficiency for AVR/ESP and PC mining. Every new AVR/ESP mining connection has the efficiency of the connection before * 0,96 and every PC mining connection * 0,8 of the connection before.</span>
+                                            <div class="cardheader">
+                                                <div class="iconr">
+                                                    <i class="fas fa-percent fa-2x"></i>
+                                                    <span class="helptext">This is the <u>total</u> efficiency for AVR/ESP and PC mining. Every new AVR/ESP mining connection has the efficiency of the connection before * 0,96 and every PC mining connection * 0,8 of the connection before.</span>
+                                                </div>
+                                                <p class="title">Efficiency</p>
                                             </div>
-                                            <p class="title">Efficiency</p>
                                             <div id="efficiency">
                                                 
                                                 <p><b>Your Miners efficiency</b></p>
@@ -84,11 +87,13 @@
                                      </div>
                                         <div class="tile is-parent is-vertical">
                                             <article class="tile is-child has-background-light2">
-                                                <div class="iconr">
-                                                    <i class="fas fa-tachometer-alt fa-2x"></i>
-                                                    <span class="helptext">This card show the hashrate for each device group as well as the connections for each device group. On the left side are two gauges one for the total hashrate (maximum calculated by Kolkas max value) and the other one for the total user connections to the server.</span>
+                                                <div class="cardheader">
+                                                    <div class="iconr">
+                                                        <i class="fas fa-tachometer-alt fa-2x"></i>
+                                                        <span class="helptext">This card show the hashrate for each device group as well as the connections for each device group. On the left side are two gauges one for the total hashrate (maximum calculated by Kolkas max value) and the other one for the total user connections to the server.</span>
+                                                    </div>
+                                                    <p class="title">Hashrate</p>
                                                 </div>
-                                                <p class="title">Hashrate</p>
                                                 <center>
                                                     <div class="columns">
                                                         <div class="column is-half">
@@ -118,11 +123,13 @@
                                                 </center>
                                             </article>
                                             <article class="tile is-child has-background-light2">
-                                                <div class="iconr">
-                                                    <i class="fas fa-cogs fa-2x"></i>
-                                                    <span class="helptext">all informations about your miners which belong to that category.</span>
+                                                <div class="cardheader">
+                                                    <div class="iconr">
+                                                        <i class="fas fa-cogs fa-2x"></i>
+                                                        <span class="helptext">all informations about your miners which belong to that category.</span>
+                                                    </div>
+                                                    <p class="title">All Miners</p>
                                                 </div>
-                                                <p class="title">All Miners</p>
                                                 <table>
                                                     <tr>
                                                         
@@ -137,12 +144,14 @@
                                         </div>
                                         <div class="tile is-parent is-vertical">
                                             <article class="tile is-child has-background-light2">
-                                                <div class="iconr">
-                                                    <i class="fas fa-calendar-check fa-2x"></i>
-                                                    <span class="helptext">The estimated card calculates the estimated duco per day based on <br> changes on the users balance. Avg. daily is more accurat but slower because it takes the data from the last 2 minutes. </span>
+                                                <div class="cardheader">
+                                                    <div class="iconr">
+                                                        <i class="fas fa-calendar-check fa-2x"></i>
+                                                        <span class="helptext">The estimated card calculates the estimated duco per day based on <br> changes on the users balance. Avg. daily is more accurat but slower because it takes the data from the last 2 minutes. </span>
+                                                    </div>
+                                                    
+                                                    <p class="title">Estimated</p>
                                                 </div>
-                                                <center>
-                                                <p class="title">Estimated</p>
                                                 <table id="estimatedtable">
                                                     <tr>
                                                         <td class="subtitle">daily:</td>
@@ -160,17 +169,17 @@
                                                         <td class="subtitle">Per month:</td>
                                                         <b><td id="permonth" class="estimated">Loading...(15s)</td></b>
                                                     </tr>
-                                                </table>
-                                                </center>
-                                                
+                                                </table>    
                                             </article>
                                             <article class="tile is-child has-background-light2">
-                                                <div class="iconr">
-                                                    <i class="fas fa-exclamation-circle fa-2x"></i>
-                                                    <span class="helptext">This card shows possible problems with your miners based on common issues. </span>
+                                                <div class="cardheader">
+                                                    <div class="iconr">
+                                                        <i class="fas fa-exclamation-circle fa-2x"></i>
+                                                        <span class="helptext">This card shows possible problems with your miners based on common issues. </span>
+                                                    </div>
+                                                    <p class="title" id="probtitle">Problems (Beta)</p>
                                                 </div>
-                                                <p class="title" id="probtitle">Problems (Beta)</p>
-                                                <div class="subtitle" id="problemt" style="max-height: 300px; overflow:auto;">We have not been able to analyse your Miners. </div>
+                                                <div class="subtitle" id="problemt" style="height: 110%; max-height: 300px; min-height: 100px; overflow:auto;">We have not been able to analyse your Miners. </div>
                                             </article>
                                         </div>
                                     </div>
@@ -180,8 +189,11 @@
                             <div class="tile is-ancestor ">
                                 <div class="tile is-vertical is-12">
                                     <div class="tile">
+                                        
                                         <article class="tile is-child has-background-light2">
+                                            <div class="cardheader">
                                             <p class="title">Hashrate & Connection Graphs</p>
+                                        </div>
                                             <div class="tabs">
                                                 <ul>
                                                   <li id="tab3" class="is-active"><a onclick="showhashrate();">Hashrate and Daily</a></li>
@@ -401,6 +413,7 @@
                         </span>    
                     </button>
                 </a>
+                <img style="margin-bottom: -10px; width: 100%" src="img/banner2.png">
             </div>
         </article>
         <!-- MIner data popup here-->
@@ -479,6 +492,10 @@
                 <p id="info"></p>
             </div>
         </article>
+
+
+        <!--Home and login screen -->
+
         <article class="middle">
             <div id="login">
                 <a href="https://duinocoin.com"><img id="ducoimg" src="img/duco.png"></a>

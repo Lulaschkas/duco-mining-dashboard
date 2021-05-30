@@ -298,9 +298,11 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                 }
 
             }
-            if(!element[0].includes("v2.3") && !element[0].includes("v2.45") && !element[0].includes("v2.46")&& !element[0].includes("v2.47") && !element[0].includes("v2.4") && !element[0].includes("v2.5")){
-                document.getElementById("problemt").innerHTML+="<p id='problems'><b>Miner with Rigname:</b> " + element[7] + " <b>Full Software name:</b> " + element[0] + " <b>is propably using an old Version. Please upgrade.</b> <a href='https://github.com/revoxhere/duino-coin/releases'>Download</a></p>"
-                problems++;
+            if(element[0].includes("Official") || element[0].includes("ESP")){
+                if(!element[0].includes("v2.3") && !element[0].includes("v2.45") && !element[0].includes("v2.46")&& !element[0].includes("v2.47") && !element[0].includes("v2.4") && !element[0].includes("v2.5")){
+                    document.getElementById("problemt").innerHTML+="<p id='problems'><b>Miner with Rigname:</b> " + element[7] + " <b>Full Software name:</b> " + element[0] + " <b>is propably using an old Version. Please upgrade.</b> <a href='https://github.com/revoxhere/duino-coin/releases'>Download</a></p>"
+                    problems++;
+                }
             }
         }
 
@@ -657,6 +659,7 @@ function ping(username){
                 if(balanc["result"][0]!= undefined){
                     callback++;
                     document.getElementById("console").innerHTML += "[WebAPI] Username: ✅ <br>";
+                    document.getElementById("usernamei").innerHTML = validate(balanc["result"][0]["username"]) + " balance";
 
                     //Start values for average daily calculation
                     start = Date.now();

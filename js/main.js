@@ -157,7 +157,7 @@ function updateuserbalance(user, graph, time){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange =function(){
     if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
-            userbalance = parseFloat(validate(xmlhttp.response["result"][0]["balance"].toString())); //Update the global var
+            userbalance = parseFloat(validate(xmlhttp.response["result"]["balance"].toString())); //Update the global var
             var rounded = Math.round(userbalance * 100) / 100;
             document.getElementById("balance_dashboard").innerHTML = rounded + "ᕲ"; //Update userbalance text box
             
@@ -214,7 +214,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                     problems++;
                 }
             }
-            if(element[0].includes("ESP8266")){
+            if(element[0].includes("ESP8266") || element[0].includes("ESP")){
                 var info = "<p id='problems'><b>ESP8266 with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
                 if(element[1]<5000){              //Too low Hashrate
                     document.getElementById("problemt").innerHTML+=info + " is mining too slow. " + fix;
@@ -240,7 +240,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                     document.getElementById("problemt").innerHTML+=info +  " is mining too slow. " + fix;
                     problems++;
                 }
-                if(element[1]>200){              //Too high hashrate
+                if(element[1]>235){              //Too high hashrate
                     document.getElementById("problemt").innerHTML+=info + " is mining too fast (thats not better). " + fix;
                     problems++;
                 }
@@ -656,14 +656,14 @@ function ping(username){
                     document.getElementById("console").innerHTML += "[WebAPI] There was an error downloading the API please try again.<br>";
                 }
                 
-                if(balanc["result"][0]!= undefined){
+                if(balanc["result"]!= undefined){
                     callback++;
                     document.getElementById("console").innerHTML += "[WebAPI] Username: ✅ <br>";
-                    document.getElementById("usernamei").innerHTML = validate(balanc["result"][0]["username"]) + " balance";
+                    document.getElementById("usernamei").innerHTML = validate(balanc["result"]["username"]) + " balance";
 
                     //Start values for average daily calculation
                     start = Date.now();
-                    balance = validate(balanc["result"][0]["balance"].toString());
+                    balance = validate(balanc["result"]["balance"].toString());
                 }
                 else{
                     document.getElementById("loadingbar_2").style.animationName= "load3";

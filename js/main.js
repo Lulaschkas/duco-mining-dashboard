@@ -195,6 +195,25 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
     miners.forEach(//For each mining device
         function(element){                        
             var fix = "<a href='fixes.html'>How to fix</a></p>"
+            if((element[0].includes("ESP8266") || element[0].includes("ESP")) && !element[0].includes("ESP32")){
+                var info = "<p id='problems'><b>ESP8266 with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
+                if(element[1]<5000){              //Too low Hashrate
+                    document.getElementById("problemt").innerHTML+=info + " is mining too slow. " + fix;
+                    problems++;
+                }
+                if(element[1]>13000){              //Too high hashrate
+                    document.getElementById("problemt").innerHTML+=info + element[7] + " is mining too fast (thats not better). " + fix;
+                    problems++;
+                }
+                if((element[3] / element[2]) > 0.05){  //Too many rejected
+                    document.getElementById("problemt").innerHTML+=info + " has to many rejected Shares. " + fix;
+                    problems++;
+                }
+                if(element[2]==0){                  //Not started mining
+                    document.getElementById("problemt").innerHTML+=info + " does not start mining. " + fix;
+                    problems++;
+                }
+            }
             if(element[0].includes("ESP32")){     //checking for ESP32
                 var info = "<p id='problems'><b>ESP32 with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
                 if(element[1]<4000){              //Too low Hashrate
@@ -214,26 +233,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                     problems++;
                 }
             }
-            if(element[0].includes("ESP8266") || element[0].includes("ESP")){
-                var info = "<p id='problems'><b>ESP8266 with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
-                if(element[1]<5000){              //Too low Hashrate
-                    document.getElementById("problemt").innerHTML+=info + " is mining too slow. " + fix;
-                    problems++;
-                }
-                if(element[1]>13000){              //Too high hashrate
-                    document.getElementById("problemt").innerHTML+=info + element[7] + " is mining too fast (thats not better). " + fix;
-                    problems++;
-                }
-                if((element[3] / element[2]) > 0.05){  //Too many rejected
-                    document.getElementById("problemt").innerHTML+=info + " has to many rejected Shares. " + fix;
-                    problems++;
-                }
-                if(element[2]==0){                  //Not started mining
-                    document.getElementById("problemt").innerHTML+=info + " does not start mining. " + fix;
-                    problems++;
-                }
-
-            }
+            
             if(element[0].includes("AVR")){
                 var info = "<p id='problems'><b>Arduino with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
                 if(element[1]<40){              //Too low Hashrate

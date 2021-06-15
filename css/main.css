@@ -2,30 +2,30 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css";
 
 /*Change default font to Nunito from google fonts */
-body{
+body {
     font-family: "Nunito";
 }
 
-/*The div groupe for the background image*/
-.container1{
-
+/*The div group for the background image*/
+.container1 {
     height: 100vh;
     background-size: 100px;
     background-repeat: repeat;
-    background: rgb(61,61,61);
-    background: radial-gradient(circle, rgb(80, 80, 80) 0%, rgba(29,29,29,1) 100%) ;
+    background: linear-gradient(45deg, red, purple);
+    //background: radial-gradient(circle, rgb(80, 80, 80) 0%, rgba(29,29,29,1) 100%) ;
 }
 
 
 /*Middle position for the login and ping window*/
 @media only screen and (orientation: landscape) {
     .middle {
-        position:absolute;
+        position: absolute;
         top: 50%;
-        left: 50%; 
+        left: 50%;
         transform: translate(-50%, -50%);
-        min-width: 50%;   
+        min-width: 50%;
     }
+
     .middle2 {
         margin-left: auto;
         margin-right: auto;
@@ -33,12 +33,13 @@ body{
         max-height: 90vh;
         padding: 3vh;
     }
-    .notification{
-        background-color:rgb(248, 248, 248) !important;
+
+    .notification {
+        background-color: rgb(248, 248, 248) !important;
         width: 100%;
         padding: -5px;
     }
-    
+
     /*Notificaion bubbles*/
     .dot {
         height: 17px;
@@ -52,27 +53,29 @@ body{
 @media only screen and (orientation: portrait) {
 
     .middle {
-        position:absolute;
+        position: absolute;
         top: 50%;
-        left: 50%; 
+        left: 50%;
         transform: translate(-50%, -50%);
         min-width: 90%;
     }
+
     .middle2 {
         margin-left: auto;
         margin-right: auto;
         max-width: 90%;
         padding-top: 10px;
-        height:100%;
+        height: 100%;
     }
-    .notification{
-        background-color:rgb(248, 248, 248) !important;
+
+    .notification {
+        background-color: rgb(248, 248, 248) !important;
         padding: 0px;
     }
 
     /*Notificaion bubbles*/
     .dot {
-	    right:0px;
+        right: 0px;
         height: 17px;
         width: 17px;
         background-color: rgb(255, 50, 50);
@@ -89,61 +92,65 @@ body{
     border-radius: 40px;
     border: solid white;
     transition: opacity 0.5s ease-in-out;
-    padding:10px;
-    
-    
+    padding: 10px;
+
+
 }
-.button{
+
+.button {
     margin: 5px !important;
 }
 
 
-#login_header{
+#login_header {
     text-align: center;
     font-size: 2rem;
     margin-top: 20px;
-    clear:right;
+    clear: right;
 }
 
 /*Styling the ping window*/
-#ping{
+#ping {
     background-color: white;
     border-radius: 40px;
     border: solid white;
     transition: opacity 0.5s ease-in-out;
-    opacity:0;
+    opacity: 0;
     display: hidden;
     text-align: center;
-    
+
 }
 
 /*The genral dashboard styling*/
-#dashboard{
+#dashboard {
     scrollbar-width: thin;
     background-color: white;
     border-radius: 20px;
     border: solid white;
     transition: opacity 1s ease-in-out;
-    opacity:0;
+    opacity: 0;
     display: "none";
     overflow: auto;
-    height: 95vh; 
+    height: 95vh;
 
 
 }
 
 /*Styling the loading spinners */
-#s1,#s2{
+#s1,
+#s2 {
     max-height: 80px;
 }
+
 /*Styling the table for the ping window */
-#ping_table{
+#ping_table {
     margin-top: 30px;
     width: 90%;
     text-align: center;
 }
+
 /*The first loadingbar in the background (blue) not moving */
-#loadingbar_1{
+#loadingbar_1 {
     border: solid lightblue;
     border-radius: 10px;
     margin-top: 20px;
@@ -153,8 +160,9 @@ body{
     height: 30px;
     width: 60%;
 }
+
 /*The animated loadingbar */
-#loadingbar_2{
+#loadingbar_2 {
     border: solid lightblue;
     border-radius: 10px;
     border-width: 1px;
@@ -171,27 +179,48 @@ body{
 
 
 /*Normal loading*/
-@keyframes loading{
-    0% {width:0%; background-color: green}
+@keyframes loading {
+    0% {
+        width: 0%;
+        background-color: green
+    }
 
-    100% {width:100%; background-color: lightblue;}
+    100% {
+        width: 100%;
+        background-color: lightblue;
+    }
 }
+
 /*Done with loading*/
-@keyframes load2{
-    0% {width:0%; background-color: green}
-    100% {width:100%; background-color: green;}
-}
-/*Error while loading*/
-@keyframes load3{
-    0% {width:0%; background-color: red}
+@keyframes load2 {
+    0% {
+        width: 0%;
+        background-color: green
+    }
 
-    100% {width:100%; background-color: red;}
+    100% {
+        width: 100%;
+        background-color: green;
+    }
+}
+
+/*Error while loading*/
+@keyframes load3 {
+    0% {
+        width: 0%;
+        background-color: red
+    }
+
+    100% {
+        width: 100%;
+        background-color: red;
+    }
 }
 
 /*Seperator line - animated */
 
 .line {
-    border-bottom: 3px solid #646464; 
+    border-bottom: 3px solid #646464;
     max-width: 70%;
     margin-top: 20px;
     margin-left: auto;
@@ -200,13 +229,20 @@ body{
     animation-duration: 2s;
     animation-timing-function: ease-in-out;
 }
-@keyframes line{
-    0% {width:0%;}
-    100%{width:100%;}
+
+@keyframes line {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
 }
+
 /* Normal sperator line */
 .line3 {
-    border-bottom: 3px solid #646464; 
+    border-bottom: 3px solid #646464;
     max-width: 90%;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -216,11 +252,12 @@ body{
 }
 
 /*Styling the input form*/
-#usrname_input{
+#usrname_input {
     text-align: center;
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
 input[type=text] {
     border: solid rgb(180, 180, 180);
     padding: 4px;
@@ -230,6 +267,7 @@ input[type=text] {
     transition: width 0.4s ease-in-out;
     width: 55%;
 }
+
 input[type=text]:focus {
     background: rgb(240, 240, 240);
     width: 60%;
@@ -237,32 +275,34 @@ input[type=text]:focus {
 }
 
 /*The button for login*/
-#btn{
-	background: none;
-	color: inherit;
-	border: none;
-	cursor: pointer;
-	outline: inherit;
+#btn {
+    background: none;
+    color: inherit;
+    border: none;
+    cursor: pointer;
+    outline: inherit;
     margin-left: 10px;
 }
 
 /*The back button*/
-#btnback{
+#btnback {
     float: right;
-	background: none;
-	color: inherit;
-	border: none;
-	cursor: pointer;
-	outline: inherit;
+    background: none;
+    color: inherit;
+    border: none;
+    cursor: pointer;
+    outline: inherit;
     margin-left: 10px;
 }
+
 /*Footer text*/
-#footer{
+#footer {
     color: rgb(170, 170, 170);
-    font-size: 0,8rem;
+    font-size: 0, 8rem;
     margin-bottom: 10px;
     text-align: center;
 }
+
 /*Duco Image on start page */
 #ducoimg {
     float: right;
@@ -270,6 +310,7 @@ input[type=text]:focus {
     margin: 20px;
 
 }
+
 #ducoimg2 {
     float: left;
     width: 50px;
@@ -278,52 +319,59 @@ input[type=text]:focus {
 }
 
 /*General gauge styling*/
-.gauge{
+.gauge {
     min-width: 100px;
-    min-height:80px;
+    min-height: 80px;
 }
+
 /*The titles above the gauges on network tab*/
-#dashboard_title{
-    font-size:20px;
+#dashboard_title {
+    font-size: 20px;
 }
 
 /*The value below each gauge*/
-.gaugeval{
+.gaugeval {
     margin-top: -10px;
     font-size: 20px;
 }
+
 /*The network tab - for js*/
-#dashboardd{
+#dashboardd {
     display: none;
 }
+
 /*The debug console on ping window*/
-#consoleu{
+#consoleu {
     width: 80%;
     display: none;
     background-color: black;
     color: greenyellow;
     text-align: left;
 }
+
 /*User balance chart*/
-.frontchart{
- height: 200px;   
+.frontchart {
+    height: 200px;
 }
 
 /*Set the height of the charts different on mobile or PC*/
 @media only screen and (orientation: landscape) {
-    .chart-container{
+    .chart-container {
         height: 400px !important;
     }
-    #net_chart{
+
+    #net_chart {
         max-height: 300px !important;
         width: 30%;
     }
 }
+
 @media only screen and (orientation: portrait) {
-    #chart{
+    #chart {
         position: relative;
 
     }
+
     .chart-container {
         position: relative;
         margin: auto;
@@ -332,42 +380,46 @@ input[type=text]:focus {
     }
 }
 
-  
-    
+
+
 /*Styling the balance card */
-#balance{
+#balance {
     width: 80%;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14), 0 6px 6px rgba(0, 0, 0, 0.18);
-    background-color:rgba(233, 233, 233, 0.521);
+    background-color: rgba(233, 233, 233, 0.521);
     border: solid 4px rgba(233, 233, 233, 0.521);
     border-radius: 10px;
     min-height: 80px;
     color: rgb(99, 99, 99);
-    font-size:  2.8rem;
+    font-size: 2.8rem;
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
 /*Styling the efficiency card*/
-#efficiency{
+#efficiency {
     width: 80%;
     color: rgb(99, 99, 99);
-    font-size:  1.1rem;
+    font-size: 1.1rem;
     margin-bottom: 5px;
 }
+
 /* Styling the title color*/
-.title{
+.title {
     color: rgb(61, 61, 61) !important;
     margin-left: 37px !important;
     margin-right: 37px !important;
 }
+
 /* Estimated font size*/
-.estimated{
+.estimated {
     font-size: 2rem;
     padding: 3px;
     background: linear-gradient(292deg, rgb(255, 41, 77) 0%, rgb(252, 203, 69) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 /*Override bulma bageloader*/
 .pageloader {
     background: linear-gradient(190deg, #ea5920, #ffbb00) !important;
@@ -378,40 +430,44 @@ input[type=text]:focus {
     padding: 5px;
     margin-top: 10px;
     width: 80%;
-    background-color:rgba(233, 233, 233, 0.521);
+    background-color: rgba(233, 233, 233, 0.521);
     border: solid 4px rgba(233, 233, 233, 0.521);
     border-radius: 10px;
     min-height: 80px;
     color: rgb(99, 99, 99);
-    font-size:  1.2rem;
+    font-size: 1.2rem;
     margin-top: 30px;
-    box-shadow: 0px 0px 10px 2px rgba(68, 68, 68, 0.2);  
+    box-shadow: 0px 0px 10px 2px rgba(68, 68, 68, 0.2);
 }
 
 /*Changing the ducoprice font size*/
-#ducoprice{
+#ducoprice {
     font-size: 20px;
 }
+
 /*Small images to show miner table*/
-.imgi{
+.imgi {
     margin: 10px;
     max-height: 80px;
 }
+
 /*Small images for icons below dashboard */
-.imgi2{
+.imgi2 {
     margin: 10px;
-    max-height:40px;
+    max-height: 40px;
 }
+
 /*chnage the backgorund of the cards/tiles*/
-.has-background-light2{
-    background-color:rgb(248, 248, 248) !important;
+.has-background-light2 {
+    background-color: rgb(248, 248, 248) !important;
     -webkit-box-shadow: 0 10px 15px rgba(0, 0, 0, 0.14), 0 6px 6px rgba(0, 0, 0, 0.18);
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.14), 0 6px 6px rgba(0, 0, 0, 0.18);
 }
 
 /*The table for all minng devices*/
-#minerdata{
-    position: fixed; /* or absolute */
+#minerdata {
+    position: fixed;
+    /* or absolute */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -421,57 +477,61 @@ input[type=text]:focus {
     background-color: white;
     border-radius: 20px;
     border: solid white;
-    opacity:0%;
+    opacity: 0%;
     transition: opacity 0.5s ease-in-out;
-    box-shadow: 9px 9px 20px 10px rgba(68, 68, 68, 0.2);    
+    box-shadow: 9px 9px 20px 10px rgba(68, 68, 68, 0.2);
 }
 
-#devices{
+#devices {
     border-spacing: 10px;
-border-collapse: separate;
+    border-collapse: separate;
     padding: 10px;
     background-color: white;
-    box-shadow: 9px 9px 20px 10px rgba(68, 68, 68, 0.2);    
+    box-shadow: 9px 9px 20px 10px rgba(68, 68, 68, 0.2);
 }
 
 
 /*Style the table more*/
-#minerdata_data{
+#minerdata_data {
     padding: 8px;
     width: 100%;
 }
+
 #minerdata_data tr:hover {
     background-color: rgb(231, 231, 231);
 }
+
 #minerdata_data td {
     border-bottom: 1px solid rgb(184, 184, 184);
     padding: 8px;
 }
 
 /*Style te connection chart */
-#connection_chart_div{
+#connection_chart_div {
     display: none;
 }
 
 /* style the table for estimated duco*/
-#estimatedtable{
+#estimatedtable {
     text-align: left;
     padding: 5px;
     width: 90%;
     height: 80%;
-    color:rgb(124, 124, 124);
+    color: rgb(124, 124, 124);
 }
+
 /* Change subtitle color*/
-.subtitle{
-    color:rgb(92, 92, 92) !important;
+.subtitle {
+    color: rgb(92, 92, 92) !important;
 }
+
 /* Style the max hashrate data width*/
-#hashratetab{
+#hashratetab {
     max-width: 90%;
 }
 
 /*GO back to dashboard on pages fixes.html and privacy.html and about.html*/
-.fixedtainer{
+.fixedtainer {
     color: white;
     font-size: 20px;
     padding: 10px;
@@ -482,44 +542,47 @@ border-collapse: separate;
     position: sticky;
 
 }
+
 /*CHnage the fon size for the fixes.html page*/
-.fixes{
+.fixes {
     font-size: 18px;
 }
 
 /*Make the div groupe scrollable*/
-#fixes{
+#fixes {
     overflow: auto;
     height: 100vh;
 }
 
 /*Chnaging titles font size*/
-h2{
+h2 {
     font-size: 40px !important;
 
 }
-h3{
+
+h3 {
     font-size: 30px !important;
 
 }
-h4{
+
+h4 {
     font-size: 20px !important;
 
 }
 
-.iconr{
+.iconr {
     position: absolute;
     float: left;
     margin: 5px;
 }
 
-.card2{
-    margin:10px !important;
+.card2 {
+    margin: 10px !important;
     padding: 10px !important;
 }
 
 /*help on hover*/
-  
+
 .iconr .helptext {
     visibility: hidden;
     background-color: rgb(104, 104, 104);
@@ -540,7 +603,7 @@ h4{
     visibility: visible;
 }
 
-.cardheader{
+.cardheader {
     background: #f3f3f3;
     border-bottom: solid 3px;
     border-radius: 7px !important;
@@ -548,13 +611,13 @@ h4{
     margin-bottom: 10px;
 }
 
-.is-child{
+.is-child {
     border: solid 0px !important;
     border-radius: 7px !important;
 }
 
-.colorfult{
-    background: linear-gradient(90deg, rgba(255,67,67,1) 0%, rgb(252, 112, 69) 100%);
+.colorfult {
+    background: linear-gradient(90deg, rgba(255, 67, 67, 1) 0%, rgb(252, 112, 69) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

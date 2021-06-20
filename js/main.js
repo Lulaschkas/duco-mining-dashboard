@@ -685,7 +685,7 @@ function ping(username){
             }
         }
     };
-    xmlhttp.open("GET", "https://server.duinocoin.com/balances/username=" + username, true);
+    xmlhttp.open("GET", "https://server.duinocoin.com/balances/" + username, true);
     xmlhttp.responseType = 'json';
     xmlhttp.send();
 }

@@ -157,6 +157,7 @@ function updateuserbalance(user, graph, time){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange =function(){
     if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
+        if(xmlhttp.response["result"]["username"] == user){    
             userbalance = parseFloat(validate(xmlhttp.response["result"]["balance"].toString())); //Update the global var
             var rounded = Math.round(userbalance * 100) / 100;
             document.getElementById("balance_dashboard").innerHTML = rounded + "ᕲ"; //Update userbalance text box
@@ -172,6 +173,11 @@ function updateuserbalance(user, graph, time){
                 wait++;
             }
             addgraph(time, userbalance, graph);  //Update the userbalance graph
+        }
+        else{
+            document.getElementById("problemt").innerHTML="<p id='problems'><b>API ERROR:</b><br>The REST API is having issues - please try again later - delivered data may be delayed or wrong</p> ";
+            console.log("[ERROR] API gave data with wrong username")
+        }
 
     }
     };
@@ -364,124 +370,137 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
     xmlhttp.onreadystatechange = function(){
         if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
             allminer = xmlhttp.response;
-            miners = [];
-            allminer["result"].forEach(
-                function(element){
-                    miners.push([validate(element["software"]), parseFloat(element["hashrate"]), parseInt(element["accepted"]), parseInt(element["rejected"]), parseFloat(element["sharetime"]), validate(element["algorithm"]), parseInt(element["diff"]), validate(element["identifier"])]); //add a lot of data to the public array miners
+            let check = false;
+            if([0] in allminer["result"]){
+                if(allminer["result"][0]["username"] == username){
+                    check = true;
                 }
-            );
-            var avr = [0,0];
-            var pc = [0,0];
-            var esp = [0,0];
-            var hashrateall =0;
-            miners.forEach(                 //Sort which devices are mining and wit which hashrate
-                function(element){
-                    hashrateall += element[1];
-                    if(element[0].includes("ESP")){
-                        esp[0]+=1;                  //Add number to mining devices of this category
-                        esp[1]+=element[1];         //Add hashrate 
+            }
+            if(allminer["result"].length == 0 || check){
+                
+                miners = [];
+                allminer["result"].forEach(
+                    function(element){
+                        miners.push([validate(element["software"]), parseFloat(element["hashrate"]), parseInt(element["accepted"]), parseInt(element["rejected"]), parseFloat(element["sharetime"]), validate(element["algorithm"]), parseInt(element["diff"]), validate(element["identifier"])]); //add a lot of data to the public array miners
                     }
-                    else if(element[0].includes("AVR")){
-                        avr[0]+=1;
-                        avr[1]+=element[1];
+                );
+                var avr = [0,0];
+                var pc = [0,0];
+                var esp = [0,0];
+                var hashrateall =0;
+                miners.forEach(                 //Sort which devices are mining and wit which hashrate
+                    function(element){
+                        hashrateall += element[1];
+                        if(element[0].includes("ESP")){
+                            esp[0]+=1;                  //Add number to mining devices of this category
+                            esp[1]+=element[1];         //Add hashrate 
+                        }
+                        else if(element[0].includes("AVR")){
+                            avr[0]+=1;
+                            avr[1]+=element[1];
+                        }
+                        else{
+                            pc[0]+=1;
+                            pc[1]+=element[1];
+                        }
                     }
-                    else{
-                        pc[0]+=1;
-                        pc[1]+=element[1];
-                    }
+                );
+                if(esp[0]==0){
+                    document.getElementById("notification_on_1").style.display = "none";
                 }
-            );
-            if(esp[0]==0){
-                document.getElementById("notification_on_1").style.display = "none";
-            }
-            else{
-                document.getElementById("notification_on_1").style.display = "block";
-            }
-            if(avr[0]==0){
-                document.getElementById("notification_on_2").style.display = "none";
-            }
-            else{
-                document.getElementById("notification_on_2").style.display = "block";
-            }
-            if(pc[0]==0){
-                document.getElementById("notification_on_3").style.display = "none";
-            }
-            else{
-                document.getElementById("notification_on_3").style.display = "block";
-            }
-            addgraphashnew(time, daily, avr[1], esp[1]/1000, pc[1]/1000, ducomadesincesartdaily, chart_hash);    //Update the graph for hashrate 
-            var all = esp[0] + avr[0];
-            var effavr = 100;
-            var geseffavr=0;
-            var geseffpc=0;
-            while (all >0){
-                all--;
-                geseffavr+=effavr;
-                effavr= effavr*0.96;
+                else{
+                    document.getElementById("notification_on_1").style.display = "block";
+                }
+                if(avr[0]==0){
+                    document.getElementById("notification_on_2").style.display = "none";
+                }
+                else{
+                    document.getElementById("notification_on_2").style.display = "block";
+                }
+                if(pc[0]==0){
+                    document.getElementById("notification_on_3").style.display = "none";
+                }
+                else{
+                    document.getElementById("notification_on_3").style.display = "block";
+                }
+                addgraphashnew(time, daily, avr[1], esp[1]/1000, pc[1]/1000, ducomadesincesartdaily, chart_hash);    //Update the graph for hashrate 
+                var all = esp[0] + avr[0];
+                var effavr = 100;
+                var geseffavr=0;
+                var geseffpc=0;
+                while (all >0){
+                    all--;
+                    geseffavr+=effavr;
+                    effavr= effavr*0.96;
+                    
+                }
+                geseffavr = geseffavr/(esp[0] + avr[0]);
+                if(avr[0] + esp[0]==0){
+                    geseffavr=100;
+                }
+                document.getElementById("efficiency_avr").innerHTML="AVR/ESP: " + Math.round(geseffavr*1000)/1000 + "%";
+
+                all = pc[0]
+                effpc = 100;
+                while (all >0){
+                    all--;
+                        geseffpc+=effpc;
+                    effpc= effpc*0.8;
+                    
+                }
+
+                geseffpc = geseffpc/(pc[0]);
+                if(pc[0]==0){
+                    geseffpc=100;
+                }
+                document.getElementById("efficiency_pc").innerHTML= "PC: " + Math.round(geseffpc*10)/10 + "%";
+                if(geseffpc>50){
+                    document.getElementById("efficiency_pc").style.color = "green";
+                }
+                if(geseffpc<=50){
+                    document.getElementById("efficiency_pc").style.color= "red";
+                }
+                if(geseffavr>50){
+                    document.getElementById("efficiency_avr").style.color = "green";
+                }
+                if(geseffavr<=50){
+                    document.getElementById("efficiency_avr").style.color= "red";
+                }
+
+                var max = (esp[0]*13000 + avr[0]*180 + pc[0]*500000) / 1000000;  //Calculate the maximum possible hashrate for the user based on Kolka V4 
+                hashrateallmh = (Math.round((hashrateall /1000000)*1000))/1000;  //Calulate MH/s and round the value
+                if(max==0){ //If the user is not mining set maximal hashrate to 1 (otherwise the gauge looks broken)
+                    max = 1;
+                }
                 
-            }
-            geseffavr = geseffavr/(esp[0] + avr[0]);
-            if(avr[0] + esp[0]==0){
-                geseffavr=100;
-            }
-            document.getElementById("efficiency_avr").innerHTML="AVR/ESP: " + Math.round(geseffavr*1000)/1000 + "%";
 
-            all = pc[0]
-            effpc = 100;
-            while (all >0){
-                all--;
-                    geseffpc+=effpc;
-                effpc= effpc*0.8;
+                //Feed the HTML data tile (hashrate) with data to each device groupe
+                document.getElementById("avr").innerHTML = "<b>Arduino: </b><br><div class='colorfult'>" + Math.round((avr[1] / 1000)*1000)/1000 + " kH/s" + " (" + avr[0] + ")</div>";
+                document.getElementById("pc").innerHTML = "<b>PC/Other: </b><br><div class='colorfult'>" + Math.round((pc[1] / 1000000)*1000)/1000 + " MH/s" + " (" + pc[0] + ")</div>";
+                document.getElementById("esp").innerHTML = "<b>ESP: </b><br><div class='colorfult'>" + Math.round((esp[1] / 1000)*1000)/1000+ " kH/s" + " (" + esp[0] + ")</div>";
                 
-            }
+                //Update the gauge for user hashrate 
+                gauge07(hashrateallmh, max);
+                //Update the text under the gauge for user hashrate
+                document.getElementById("gauge07_val").innerHTML = hashrateallmh + " MH/s";
 
-            geseffpc = geseffpc/(pc[0]);
-            if(pc[0]==0){
-                geseffpc=100;
-            }
-            document.getElementById("efficiency_pc").innerHTML= "PC: " + Math.round(geseffpc*10)/10 + "%";
-            if(geseffpc>50){
-                document.getElementById("efficiency_pc").style.color = "green";
-            }
-            if(geseffpc<=50){
-                document.getElementById("efficiency_pc").style.color= "red";
-            }
-            if(geseffavr>50){
-                document.getElementById("efficiency_avr").style.color = "green";
-            }
-            if(geseffavr<=50){
-                document.getElementById("efficiency_avr").style.color= "red";
-            }
+                //Calculate how many connections the user has total
+                var allcons = avr[0] + esp[0] + pc[0];
+                //Update the gauge for user connections 
+                gauge08(allcons);
+                //Update the text under the gauge
+                document.getElementById("gauge08_val").innerHTML = allcons + "  Con";
 
-            var max = (esp[0]*13000 + avr[0]*180 + pc[0]*500000) / 1000000;  //Calculate the maximum possible hashrate for the user based on Kolka V4 
-            hashrateallmh = (Math.round((hashrateall /1000000)*1000))/1000;  //Calulate MH/s and round the value
-            if(max==0){ //If the user is not mining set maximal hashrate to 1 (otherwise the gauge looks broken)
-                max = 1;
+                //Call the problems functions and pass the miners array wih all important data 
+                problems(miners, geseffavr, geseffpc);
+
+                //Update the connection chart
+                addgraphash(time, avr[0]+esp[0]+pc[0], avr[0], esp[0], pc[0], chart_con);
             }
-            
-
-            //Feed the HTML data tile (hashrate) with data to each device groupe
-            document.getElementById("avr").innerHTML = "<b>Arduino: </b><br><div class='colorfult'>" + Math.round((avr[1] / 1000)*1000)/1000 + " kH/s" + " (" + avr[0] + ")</div>";
-            document.getElementById("pc").innerHTML = "<b>PC/Other: </b><br><div class='colorfult'>" + Math.round((pc[1] / 1000000)*1000)/1000 + " MH/s" + " (" + pc[0] + ")</div>";
-            document.getElementById("esp").innerHTML = "<b>ESP: </b><br><div class='colorfult'>" + Math.round((esp[1] / 1000)*1000)/1000+ " kH/s" + " (" + esp[0] + ")</div>";
-            
-            //Update the gauge for user hashrate 
-            gauge07(hashrateallmh, max);
-            //Update the text under the gauge for user hashrate
-            document.getElementById("gauge07_val").innerHTML = hashrateallmh + " MH/s";
-
-            //Calculate how many connections the user has total
-            var allcons = avr[0] + esp[0] + pc[0];
-            //Update the gauge for user connections 
-            gauge08(allcons);
-            //Update the text under the gauge
-            document.getElementById("gauge08_val").innerHTML = allcons + "  Con";
-
-            //Call the problems functions and pass the miners array wih all important data 
-            problems(miners, geseffavr, geseffpc);
-
-            //Update the connection chart
-            addgraphash(time, avr[0]+esp[0]+pc[0], avr[0], esp[0], pc[0], chart_con);
+            else{
+                document.getElementById("problemt").innerHTML="<p id='problems'><b>API ERROR:</b><br>The REST API is having issues - please try again later - delivered data may be delayed or wrong</p> ";
+                console.log("[ERROR] API gave data with wrong username")
+            }
         }
     };
     xmlhttp.open("GET", "https://server.duinocoin.com/miners?username="+ username, true);
@@ -599,6 +618,10 @@ function checker(username){ //Callback function
     }
 }
 
+function btnfuncskip(){
+    callback =3;
+}
+
 // Global vars used by this function:
 let tim01 = 0;              // for resetting the timeout when server responds
 //The ping function
@@ -657,13 +680,19 @@ function ping(username){
                 }
                 
                 if(balanc["result"]!= undefined){
-                    callback++;
-                    document.getElementById("console").innerHTML += "[WebAPI] Username: ✅ <br>";
-                    document.getElementById("usernamei").innerHTML = validate(balanc["result"]["username"]) + " balance";
+                    if(balanc["result"]["username"] == username){
+                        callback++;
+                        document.getElementById("console").innerHTML += "[WebAPI] Username: ✅ <br>";
+                        document.getElementById("usernamei").innerHTML = validate(balanc["result"]["username"]) + " balance";
 
-                    //Start values for average daily calculation
-                    start = Date.now();
-                    balance = validate(balanc["result"]["balance"].toString());
+                        //Start values for average daily calculation
+                        start = Date.now();
+                        balance = validate(balanc["result"]["balance"].toString());
+                    }
+                    else{
+                        document.getElementById("s2").src = "img/error.png";
+                        document.getElementById("console").innerHTML += "[WebAPI] The API responded a wrong username, please try again<br>";
+                    }
                 }
                 else{
                     document.getElementById("loadingbar_2").style.animationName= "load3";

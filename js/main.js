@@ -181,7 +181,7 @@ function updateuserbalance(user, graph, time){
 
     }
     };
-    xmlhttp.open("GET", "https://server.duinocoin.com/balances?username=" + user, true); //request the balances.json file
+    xmlhttp.open("GET", "https://server.duinocoin.com/balances/" + user, true); //request the balances.json file
     xmlhttp.responseType = 'json';
     xmlhttp.send();
 }
@@ -714,7 +714,7 @@ function ping(username){
             }
         }
     };
-    xmlhttp.open("GET", "https://server.duinocoin.com/balances?username=" + username, true);
+    xmlhttp.open("GET", "https://server.duinocoin.com/balances/" + username, true);
     xmlhttp.responseType = 'json';
     xmlhttp.send();
 }

@@ -662,7 +662,7 @@ function ping(username){
                 
 
         }
-    }, 10000);
+    }, 25000);
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {

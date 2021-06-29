@@ -17,16 +17,14 @@ function gauge01(inputval){//Registered Gauge
         highDpiSupport: true,     // High resolution support
         staticLabels: {
             font: "10px sans-serif",  // Specifies font
-            labels: [0, 1000, 3000],  // Print labels at these values
+            labels: [0,  18500],  // Print labels at these values
             color: "#000000",  // Optional: Label text color
             fractionDigits: 0  // Optional: Numerical precision. 0=round off.
         },
         staticZones: [
-            {strokeStyle: "#F03E3E", min: 0, max: 1000}, // Red from 100 to 130
-            {strokeStyle: "#FFDD00", min: 1000, max: 1500}, // Yellow
-            {strokeStyle: "#30B32D", min: 1500, max: 7000}, // Green
-            {strokeStyle: "#FFDD00", min: 7000, max: 7500}, // Yellow
-            {strokeStyle: "#F03E3E", min: 7500, max: 10000}  // Red
+            {strokeStyle: "#30B32D", min: 0, max: 18000}, // Green
+            {strokeStyle: "#FFDD00", min: 18000, max: 18500}, // Yellow
+            {strokeStyle: "#F03E3E", min: 18500, max: 20000}  // Red
          ],
           
 
@@ -38,7 +36,7 @@ function gauge01(inputval){//Registered Gauge
 
 
     
-    gauge.maxValue = 10000; // set max gauge value
+    gauge.maxValue = 20000; // set max gauge value
     gauge.minValue = 0;  // Prefer setter over gauge.minValue = 0
     gauge.animationSpeed = 1; // set animation speed (32 is default value)
     gauge.set(inputval); // set actual value
@@ -65,15 +63,15 @@ function gauge02(inputval){ //Connection Gauge for Network
         highDpiSupport: true,     // High resolution support
         staticLabels: {
             font: "10px sans-serif",  // Specifies font
-            labels: [0, 2000,8000],  // Print labels at these values
+            labels: [0, 2000,14000],  // Print labels at these values
             color: "#000000",  // Optional: Label text color
             fractionDigits: 0  // Optional: Numerical precision. 0=round off.
         },
         staticZones: [
             {strokeStyle: "#F03E3E", min: 0, max: 1000}, // Red from 100 to 130
-            {strokeStyle: "#30B32D", min: 1000, max: 7000}, // Green
-            {strokeStyle: "#FFDD00", min: 7000, max: 8000}, // Yellow
-            {strokeStyle: "#F03E3E", min: 8000, max: 10000}  // Red
+            {strokeStyle: "#30B32D", min: 1000, max: 14000}, // Green
+            {strokeStyle: "#FFDD00", min: 14000, max: 18000}, // Yellow
+            {strokeStyle: "#F03E3E", min: 18000, max: 20000}  // Red
          ],
           
 
@@ -83,7 +81,7 @@ function gauge02(inputval){ //Connection Gauge for Network
     var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
 
     
-    gauge.maxValue = 10000; // set max gauge value
+    gauge.maxValue = 20000; // set max gauge value
     gauge.minValue = 0;  // Prefer setter over gauge.minValue = 0
     gauge.animationSpeed = 1; // set animation speed (32 is default value)
     gauge.set(inputval); // set actual value

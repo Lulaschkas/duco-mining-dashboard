@@ -434,8 +434,8 @@
   
         <!--Server check page here-->
 
-        <article class="middle">
-            <div id="ping">
+        <article class="middle3">
+            <div id="ping" style="display: none;">
                <p id="login_header">Checking server</p>
                 
                 <div class="line"></div>
@@ -499,35 +499,59 @@
 
 
         <!--Home and login screen -->
-
+        
         <article class="middle">
-            <div id="login">
-                <a href="https://duinocoin.com"><img id="ducoimg" src="img/duco.png"></a>
-                <img id="ducoimg2" src="img/ducominingdashboarddark.png">
-                <p id="login_header">Duino-Coin mining Dashboard</p>
-                
-                <div class="line"></div>
+                <div id="login" class="columns">
+                    <div class="news column hidemobile">
+                        <div id="login2">
+                            <p style="text-align: center;"class="title">ᕲash. News</p>
+                            <div class="line"></div>
+                                <iframe id="newsframe" src="news.html" frameborder="0" width="100%" allowtransparency="true">Please wait...</iframe>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div id="login2">
+                            <a href="https://duinocoin.com"><img id="ducoimg" src="img/duco.png"></a>
+                            <img id="ducoimg2" src="img/ducominingdashboarddark.png">
+                            <p id="login_header">Duino-Coin mining Dashboard</p>
+                            
+                            <div class="line"></div>
 
-                <div id="usrname_input"> 
-                    <input type="text" id="inputt" placeholder="username"> 
-                    <button id="btn" onclick="btnfunc()">
-                        <span class="icon has-text-success">
-                            <i class="fas fa-arrow-circle-right  fa-3x"></i>
-                        </span>
-                    </button>
-                </div>
-                
-                
+                            <div id="usrname_input"> 
+                                <input type="text" id="inputt" placeholder="username"> 
+                                <button id="btn" onclick="btnfunc()">
+                                    <span class="icon has-text-success">
+                                        <i class="fas fa-arrow-circle-right  fa-3x"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            
+                            
 
-                <center>
-                    <a href="privacy.html"><button class="button is-info is-light">Privacy policy/Legal Notice</button></a>
-                    <a href="about.html"><button  class="button is-success is-light">About</button></a>
-                    <a href="fixes.html" ><button class="button is-danger is-light">Fix problems</button></a>
-                    <a href="whatsduco.html"><button  class="button is-warning is-light">What is duco?</button></a>
-                    <br>
-                </center>
+                            <center>
+                                <a href="privacy.html"><button class="button is-info is-light">Privacy policy/Legal Notice</button></a>
+                                <a href="about.html"><button  class="button is-success is-light">About</button></a>
+                                <a href="fixes.html" ><button class="button is-danger is-light">Fix problems</button></a>
+                                <a href="whatsduco.html"><button  class="button is-warning is-light">What is duco?</button></a>
+                                <br>
+                            </center>
+                        </div>
+                    </div>
+                    <div class=" news column hidedesktop">
+                        <div id="login2">
+                            <p style="text-align: center;"class="title">ᕲash. News</p>
+                            <div class="line"></div>
+                                <iframe id="newsframe" src="news.html" frameborder="0" width="100%" allowtransparency="true">Please wait...</iframe>
+                        </div>
+                    </div>
+                    <div class="column news">
+                        <div id="login2">
+                            <p style="text-align: center;"class="title">ᕲuco News</p>
+                            <div class="line"></div>
+                            <iframe id="newsframe" src="https://server.duinocoin.com/news.html" frameborder="0"  width="100%" allowtransparency="true">Please wait...</iframe>
+                        </div>
+                    </div>
 
-                
             </div>
         </article>
     </div>

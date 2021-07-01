@@ -575,7 +575,7 @@ function btnfunc(){
     clearInterval(inv1); //reset the Interval for the callback function 
 
     setTimeout(()=>{     //Smooth dimm off and on from login to server check
-        document.getElementById("ping").style.display= "";
+        document.getElementById("ping").style.display= 'block';
         document.getElementById("ping").style.opacity = 100;
         document.getElementById("login").style.display = "none";
     }, 500);
@@ -594,7 +594,7 @@ function checker(username){ //Callback function
         //Stop the callback function interval
         clearInterval(inv1);
         //Dimm on the dashboard
-        document.getElementById("dashboard").style.display= "";
+        document.getElementById("dashboard").style.display= "block";
         setTimeout(()=>{document.getElementById("ping").style.opacity = 0;}, 200);//Dimm off the server check page
         setTimeout(()=>{document.getElementById("ping").style.display= "none";document.getElementById("dashboard").style.opacity= 100;}, 1000);
         

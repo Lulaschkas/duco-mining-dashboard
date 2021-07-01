@@ -4,18 +4,13 @@
 /*Change default font to Nunito from google fonts */
 body{
     font-family: "Nunito";
-}
-
-/*The div groupe for the background image*/
-.container1{
-
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
     background-size: 100px;
     background-repeat: repeat;
     background: rgb(61,61,61);
     background: radial-gradient(circle, rgb(80, 80, 80) 0%, rgba(29,29,29,1) 100%) ;
 }
-
 
 /*Middle position for the login and ping window*/
 @media only screen and (orientation: landscape) {
@@ -24,7 +19,7 @@ body{
         top: 50%;
         left: 50%; 
         transform: translate(-50%, -50%);
-        min-width: 50%;   
+        min-width: 80%;   
     }
     .middle2 {
         margin-left: auto;
@@ -32,6 +27,13 @@ body{
         width: 90%;
         max-height: 90vh;
         padding: 3vh;
+    }
+    .middle3 {
+        position:absolute;
+        top: 50%;
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        min-width: 50%;   
     }
     .notification{
         background-color:rgb(248, 248, 248) !important;
@@ -47,23 +49,35 @@ body{
         border-radius: 50%;
         position: absolute;
     }
+    .hidedesktop{
+        display: none;
+    }
 }
 
 @media only screen and (orientation: portrait) {
 
     .middle {
-        position:absolute;
-        top: 50%;
-        left: 50%; 
-        transform: translate(-50%, -50%);
-        min-width: 90%;
+        top: 0%; 
+        width: 95%;
+        margin: auto;  
     }
+    .hidemobile{
+        display: none;
+    }
+    
     .middle2 {
         margin-left: auto;
         margin-right: auto;
         max-width: 90%;
         padding-top: 10px;
         height:100%;
+    }
+    .middle3 {
+        position:absolute;
+        top: 50%;
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        min-width: 95%;   
     }
     .notification{
         background-color:rgb(248, 248, 248) !important;
@@ -85,9 +99,7 @@ body{
 
 /*Styling the login */
 #login {
-    background-color: white;
-    border-radius: 40px;
-    border: solid white;
+
     transition: opacity 0.5s ease-in-out;
     padding:10px;
     
@@ -112,7 +124,7 @@ body{
     border: solid white;
     transition: opacity 0.5s ease-in-out;
     opacity:0;
-    display: hidden;
+
     text-align: center;
     
 }
@@ -125,7 +137,7 @@ body{
     border: solid white;
     transition: opacity 1s ease-in-out;
     opacity:0;
-    display: "none";
+    display: none;
     overflow: auto;
     height: 95vh; 
 
@@ -557,4 +569,28 @@ h4{
     background: linear-gradient(90deg, rgba(255,67,67,1) 0%, rgb(252, 112, 69) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+#newsframe{
+    word-break:break-all;
+    width:100%;
+    overflow:auto;
+    height: 70%;
+    padding: 10px;
+}
+#login2 {
+    background-color: white;
+    border-radius: 40px;
+    border: solid white;
+    transition: opacity 0.5s ease-in-out;
+    padding:10px;
+    height: 100%;
+}
+.news{
+    animation-duration: 3s;
+    animation-name: "dimmon";
+}
+@keyframes dimmon {
+    0%{opacity: 0%; }
+    30%{opacity: 0%;}
+    100%{opacity: 100%; }
 }

@@ -17,7 +17,7 @@ function gauge01(inputval){//Registered Gauge
         highDpiSupport: true,     // High resolution support
         staticLabels: {
             font: "10px sans-serif",  // Specifies font
-            labels: [0,  18500],  // Print labels at these values
+            labels: [0, 5000, 15000],  // Print labels at these values
             color: "#000000",  // Optional: Label text color
             fractionDigits: 0  // Optional: Numerical precision. 0=round off.
         },
@@ -54,7 +54,7 @@ function gauge02(inputval){ //Connection Gauge for Network
         strokeWidth: 0.051, // The thickness
         color: '#000000' // Fill color
         },
-        limitMax: false,     // If false, max value increases automatically if value > maxValue
+        limitMax: true,     // If false, max value increases automatically if value > maxValue
         
         limitMin: false,     // If true, the min value of the gauge will be fixed
         color: "#000000",
@@ -113,9 +113,9 @@ function gauge03(inputval){  //Hashrate
         },
         staticZones: [
             {strokeStyle: "#F03E3E", min: 0, max: 200}, // Red from 100 to 130
-            {strokeStyle: "#FFDD00", min: 200, max: 600}, // Yellow
-            {strokeStyle: "#30B32D", min: 600, max: 4000}, // green
-            {strokeStyle: "#F03E3E", min: 4000, max: 5000}  // Red
+            {strokeStyle: "#FFDD00", min: 200, max: 1000}, // Yellow
+            {strokeStyle: "#30B32D", min: 1000, max: 8000}, // green
+            {strokeStyle: "#F03E3E", min: 8000, max: 10000}  // Red
          ],
           
 
@@ -127,7 +127,7 @@ function gauge03(inputval){  //Hashrate
 
 
     
-    gauge.maxValue = 5000; // set max gauge value
+    gauge.maxValue = 10000; // set max gauge value
     gauge.minValue = 0;  // Prefer setter over gauge.minValue = 0
     gauge.animationSpeed = 1; // set animation speed (32 is default value)
     gauge.set(inputval); // set actual value
@@ -323,6 +323,52 @@ function gauge08(inputval){ //Price Gauge
 
     
     gauge.maxValue = 36; // set max gauge value
+    gauge.minValue = 0;  // Prefer setter over gauge.minValue = 0
+    gauge.animationSpeed = 1; // set animation speed (32 is default value)
+    gauge.set(inputval); // set actual value
+
+    
+}
+
+function gauge09(inputval){ //Network energy usage 
+    var opts = {
+        angle: -0.29, // The span of the gauge arc
+        lineWidth: 0.15, // The line thickness
+        radiusScale: 1, // Relative radius
+        pointer: {
+        length: 0.61, // // Relative to gauge radius
+        strokeWidth: 0.051, // The thickness
+        color: '#000000' // Fill color
+        },
+        limitMax: true,     // If false, max value increases automatically if value > maxValue
+        
+        limitMin: false,     // If true, the min value of the gauge will be fixed
+        color: "#000000",
+        strokeColor: '#EEEEEE',  // to see which ones work best for you
+        generateGradient: true,
+        highDpiSupport: true,     // High resolution support
+        staticLabels: {
+            font: "10px sans-serif",  // Specifies font
+            labels: [20, 40],  // Print labels at these values
+            color: "#000000",  // Optional: Label text color
+            fractionDigits: 0  // Optional: Numerical precision. 0=round off.
+        },
+        staticZones: [
+            {strokeStyle: "#F03E3E", min: 0, max: 10}, // Red 
+            {strokeStyle: "#30B32D", min: 10, max: 45}, // YGreen
+            {strokeStyle: "#F03E3E", min: 45, max: 50}  // Red
+         ],
+          
+
+        
+    };
+    var target = document.getElementById('gauge09'); // your canvas element
+    var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+
+
+
+    
+    gauge.maxValue = 50; // set max gauge value
     gauge.minValue = 0;  // Prefer setter over gauge.minValue = 0
     gauge.animationSpeed = 1; // set animation speed (32 is default value)
     gauge.set(inputval); // set actual value

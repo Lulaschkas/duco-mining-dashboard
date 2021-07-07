@@ -16,11 +16,36 @@ let ducomadesincesartdaily;   // Global variable for the total ducos made since 
 
 //The general function that gets executed every 3 seonds and calls all other functions to update smth on the dashboard
 function dashboardloop(chart,user,chart_net, chart_hash, chart_con){ //Every 3 seconds
-    var current = new Date();
-    var time = current.getHours() + ":" + current.getMinutes() +":" + current.getSeconds(); //calulcate time 
-    updateuserbalance(user, chart, time);            //Fetch data from balances.json AND Update the userbalance and graph
-    networkgauges(chart_net, time);                    //Fetch data from api.json AND Update the network gauges and graph 
-    minerdata(user, chart_hash, chart_con, time);       //Fetch data from miners.json AND Update the minerdata, call the problems function...
+    
+    //Get time 
+    let current = new Date();
+    let time = current.getHours() + ":" + current.getMinutes() +":" + current.getSeconds(); //calulcate time 
+    
+    //servers api file for network information
+    networkgauges(chart_net, time); 
+
+    //Fetch all user data
+    fetch('https://server.duinocoin.com/users/' + user)
+    .then(response => response.json())
+    .then((data) =>{ userdata=data["result"];
+        if(!userdata["balance"]["username"] === user){
+            document.getElementById("problemt").innerHTML="<p id='problems'><b>API ERROR:</b><br>The REST API is having issues - please try again later - delivered data may be delayed or wrong!</p> ";
+            console.log("[ERROR] API gave data with wrong username");
+        }
+        else{
+            console.log("[SUCCESS] Downloaded user api file");
+            updateuserbalance(user, chart, time, userdata["balance"]);            //Fetch data from balances.json AND Update the userbalance and graph
+            minerdata(user, chart_hash, chart_con, time, userdata["miners"]);       //Fetch data from miners.json AND Update the minerdata, call the problems function...
+
+        }
+    })
+    .catch((error) => {
+        document.getElementById("problemt").innerHTML="<p id='problems'><b>API ERROR:</b><br>The REST API is having issues - please try again later - delivered data may be delayed or wrong!</p> ";
+        console.log("[ERROR] API error");
+        console.error('Error:', error);
+        userdata=0;
+    });
+
 }
 
 
@@ -99,52 +124,54 @@ let hashrate;
 let connections;
 //Function to update the network gauges and also update the network graph - Data from the duco api "api.json"
 function networkgauges(chart_net, time){
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function(){
-        if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200#
-                var api = xmlhttp.response;
-                
-                //Get data from the JSON file and put it in Variables - First pass everything to validate function to prevent XSS
-                var registeredusers = validate(api["Registered users"].toString());
-                connections = validate(api["Active connections"].toString());
-                cpu = validate(api["Server CPU usage"].toString());
-                hashrate = validate(api["Pool hashrate"].toString());
-                var price = validate(api["Duco price"].toString());
-                var alltime = validate(api["All-time mined DUCO"].toString());
+    fetch("https://server.duinocoin.com/statistics")
+        .then(response => response.json())
+        .then((api)=>{                
+            //Get data from the JSON file and put it in Variables - First pass everything to validate function to prevent XSS
+            let registeredusers = validate(api["Registered users"].toString());
+            connections = validate(api["Active connections"].toString());
+            cpu = validate(api["Server CPU usage"].toString());
+            hashrate = validate(api["Pool hashrate"].toString());
+            let price = validate(api["Duco price"].toString());
+            let alltime = validate(api["All-time mined DUCO"].toString());
+            let watt = validate(api["Net energy usage"]);
+            let hashrate2 = hashrate.split(' ');
 
-                var hashrate2 = hashrate.split(' ');
+            if(hashrate2[1] == "GH/s"){             //To convert GH/s to MH/s 
+                hashrate2[0] = hashrate2[0]*1000;
+            }
 
-                if(hashrate2[1] == "GH/s"){             //To convert GH/s to MH/s 
-                    hashrate2[0] = hashrate2[0]*1000;
-                }
+            
+            var roundedhashrate = Math.round(hashrate2[0] * 100) / 100;    //Round hashrate
+            
+            //Update the gauges - see gauges.js file
+            gauge01(registeredusers);
+            gauge02(connections);
+            gauge03(roundedhashrate);
+            gauge04(price);
+            gauge05(cpu);
+            gauge06(alltime);
+            gauge09(watt);
 
-                
-                var roundedhashrate = Math.round(hashrate2[0] * 100) / 100;    //Round hashrate
-                
-                //Update the gauges - see gauges.js file
-                gauge01(registeredusers);
-                gauge02(connections);
-                gauge03(roundedhashrate);
-                gauge04(price);
-                gauge05(cpu);
-                gauge06(alltime);
-
-                //Update the text under the gauges 
-                document.getElementById("gauge01_val").innerHTML = registeredusers;
-                document.getElementById("gauge02_val").innerHTML = connections;
-                document.getElementById("gauge03_val").innerHTML = roundedhashrate + " MH/s";
-                document.getElementById("gauge04_val").innerHTML = price.toString() + " $";
-                document.getElementById("gauge05_val").innerHTML = cpu.toString() + " %" ;
-                document.getElementById("gauge06_val").innerHTML = Math.round(alltime);
+            //Update the text under the gauges 
+            document.getElementById("gauge01_val").innerHTML = registeredusers;
+            document.getElementById("gauge02_val").innerHTML = connections;
+            document.getElementById("gauge03_val").innerHTML = roundedhashrate + " MH/s";
+            document.getElementById("gauge04_val").innerHTML = price.toString() + " $";
+            document.getElementById("gauge05_val").innerHTML = cpu.toString() + " %" ;
+            document.getElementById("gauge06_val").innerHTML = Math.round(alltime);
+            document.getElementById("gauge09_val").innerHTML = watt;
 
 
-                //Update the graph
-                addgraphnet(time, cpu, connections, hashrate2[0], chart_net);
-        }
-    };
-    xmlhttp.open("GET", "https://server.duinocoin.com/api.json", true); //request the api.json file
-    xmlhttp.responseType = 'json';
-    xmlhttp.send();
+            //Update the graph
+            addgraphnet(time, cpu, connections, hashrate2[0], chart_net);
+        })
+        .catch((error) => {
+            document.getElementById("problemt").innerHTML="<p id='problems'><b>API ERROR:</b><br>The REST API (for network data) is having issues - please try again later - delivered data may be delayed or wrong!</p> ";
+            console.log("[ERROR] network API error");
+            console.error('Error:', error);
+            userdata=0;
+        });
 }
 
 
@@ -153,19 +180,16 @@ let wait=0;
 let oldb = 0;
 let userbalance;
 //This function updates the userbalane text and userbalance graph 
-function updateuserbalance(user, graph, time){
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange =function(){
-    if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
-        if(xmlhttp.response["result"]["username"] == user){    
-            userbalance = parseFloat(validate(xmlhttp.response["result"]["balance"].toString())); //Update the global var
+function updateuserbalance(user, graph, time, data){
+
+            userbalance = parseFloat(validate(data["balance"].toString())); //Update the global var
             var rounded = Math.round(userbalance * 100) / 100;
             document.getElementById("balance_dashboard").innerHTML = rounded + "ᕲ"; //Update userbalance text box
             
             if(wait==0){                   //set the firt userbalance for the Duco per day valculation tool
                 oldb = userbalance; 
             }
-            if(wait==5){                   //After 30s (because this gets executed every 3s) call the calculatedaily funtion and reset the counter
+            if(wait==10){                   //After 30s (because this gets executed every 3s) call the calculatedaily funtion and reset the counter
                 wait=0;
                 calculdaily(userbalance, oldb)
             }
@@ -173,17 +197,6 @@ function updateuserbalance(user, graph, time){
                 wait++;
             }
             addgraph(time, userbalance, graph);  //Update the userbalance graph
-        }
-        else{
-            document.getElementById("problemt").innerHTML="<p id='problems'><b>API ERROR:</b><br>The REST API is having issues - please try again later - delivered data may be delayed or wrong</p> ";
-            console.log("[ERROR] API gave data with wrong username")
-        }
-
-    }
-    };
-    xmlhttp.open("GET", "https://server.duinocoin.com/balances/" + user, true); //request the balances.json file
-    xmlhttp.responseType = 'json';
-    xmlhttp.send();
 }
 
 function problems(miners, geseffavr, geseffpc){                    //Check for possible problems while mining
@@ -327,59 +340,9 @@ if(hashratereal<100 || cpu>90 || connections<500){   //Show an extra error-messa
 
 }
 
-function minerenergy(){
-    console.log("[DEBUG] downloaded miners.json file");
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function(){
-        if (this.readyState == "4" && this.status == 200) { 
-            allminer = xmlhttp.response;
-            miners = [];
-            let watt=0;
-            allminer["result"].forEach(
-                function(value){
-                    if(value["software"].includes("ESP32") || value["software"].includes("esp32")){
-                        watt+=0.7;  //1,4W for ESP32 @ peak 480mA/3,3V but has 2 cores
-                    }
-                    else if(value["software"].includes("ESP8266") || value["software"].includes("esp8266") || value["software"].includes("ESP") || value["software"].includes("esp")){
-                        watt+=1.3; //1,3W for ESP8266 @ peak 400mA/3,3V
-                    }
-                    else if(value["software"].includes("AVR") || value["software"].includes("avr")){
-                        watt+=0.2; //0,2W for Arduino @ peak 40mA/5V
-                    }
-                    else{
-                        if(value["identifier"].includes("Raspberry") || value["identifier"].includes("pi")){
-                            watt+=3.875; // 3,875 for one Pi4 core - pi4 max 15,8W 
-                        }
-                        else{
-                            watt+=9; //~70W for normal CPU and 8 mining threads = 9W per mining thread
-                        }
-                    } 
-                }
-            );
-            document.getElementById("allwatt").innerHTML="~" + Math.round(watt/10)/100 + "kW";
-            document.getElementById("allwattday").innerHTML="~" + Math.round((Math.round(watt/10)/100)*240)/10 + "kW/h per day";
-        }
-    };
-    xmlhttp.open("GET", "https://server.duinocoin.com/miners", true);
-    xmlhttp.responseType = 'json';
-    xmlhttp.send();
-}
-
-function minerdata(username, chart_hash, chart_con, time){  //This function is sorting all miners for the given username
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function(){
-        if (this.readyState == "4" && this.status == 200) {   //Check if the website is not loading anymore and webserver returns status code 200
-            allminer = xmlhttp.response;
-            let check = false;
-            if([0] in allminer["result"]){
-                if(allminer["result"][0]["username"] == username){
-                    check = true;
-                }
-            }
-            if(allminer["result"].length == 0 || check){
-                
+function minerdata(username, chart_hash, chart_con, time, data){  //This function is sorting all miners for the given username
                 miners = [];
-                allminer["result"].forEach(
+                data.forEach(
                     function(element){
                         miners.push([validate(element["software"]), parseFloat(element["hashrate"]), parseInt(element["accepted"]), parseInt(element["rejected"]), parseFloat(element["sharetime"]), validate(element["algorithm"]), parseInt(element["diff"]), validate(element["identifier"])]); //add a lot of data to the public array miners
                     }
@@ -495,17 +458,7 @@ function minerdata(username, chart_hash, chart_con, time){  //This function is s
                 problems(miners, geseffavr, geseffpc);
 
                 //Update the connection chart
-                addgraphash(time, avr[0]+esp[0]+pc[0], avr[0], esp[0], pc[0], chart_con);
-            }
-            else{
-                document.getElementById("problemt").innerHTML="<p id='problems'><b>API ERROR:</b><br>The REST API is having issues - please try again later - delivered data may be delayed or wrong</p> ";
-                console.log("[ERROR] API gave data with wrong username")
-            }
-        }
-    };
-    xmlhttp.open("GET", "https://server.duinocoin.com/miners?username="+ username, true);
-    xmlhttp.responseType = 'json';
-    xmlhttp.send();
+                addgraphash(time, avr[0]+esp[0]+pc[0], avr[0], esp[0], pc[0], chart_con);  
 }
 
 //Calculate daily ducos 
@@ -517,7 +470,7 @@ function calculdaily(newb, oldb){
     var ducomadein = newb - oldb;
 
     //Calculate per day
-    var dayduco = ducomadein * 5760;   //86400 seconds daily / 15s = 5760
+    var dayduco = ducomadein * 2880;   //86400 seconds daily / 30s = 2880
 
     //round daily duco value
     daily = Math.round(dayduco * 100) / 100;
@@ -539,13 +492,12 @@ function calculdaily(newb, oldb){
             alreadyreset = false;
         }, 119900);
     }
-  
     ducomadesincesartdaily = Math.round(((86400/secondssincestart)*ducomadesincestart)*10)/10;
     //Update the tile "Estimated" with data
     document.getElementById("perday").innerHTML = daily + " ᕲ";
     document.getElementById("perdayc").innerHTML = ducomadesincesartdaily + " ᕲ";
-    document.getElementById("perweek").innerHTML = Math.round(daily*7) + " ᕲ";
-    document.getElementById("permonth").innerHTML = Math.round(daily*30) + " ᕲ";
+    document.getElementById("perweek").innerHTML = Math.round(ducomadesincesartdaily*7) + " ᕲ";
+    document.getElementById("permonth").innerHTML = Math.round(ducomadesincesartdaily*30) + " ᕲ";
 }
 
 
@@ -608,8 +560,6 @@ function checker(username){ //Callback function
             dashboardloop(chart, username, chart_net, chart_hash, chart_con);
 
         }, 3000);
-        minerenergy();
-        setInterval(()=>{minerenergy();}, 15000);
 
     }
     else{
@@ -680,14 +630,14 @@ function ping(username){
                 }
                 
                 if(balanc["result"]!= undefined){
-                    if(balanc["result"]["username"] == username){
+                    if(balanc["result"]["balance"]["username"] == username){
                         callback++;
                         document.getElementById("console").innerHTML += "[WebAPI] Username: ✅ <br>";
-                        document.getElementById("usernamei").innerHTML = validate(balanc["result"]["username"]) + " balance";
+                        document.getElementById("usernamei").innerHTML = validate(username) + " balance";
 
                         //Start values for average daily calculation
                         start = Date.now();
-                        balance = validate(balanc["result"]["balance"].toString());
+                        balance = validate(balanc["result"]["balance"]["balance"].toString());
                     }
                     else{
                         document.getElementById("s2").src = "img/error.png";
@@ -714,7 +664,7 @@ function ping(username){
             }
         }
     };
-    xmlhttp.open("GET", "https://server.duinocoin.com/balances/" + username, true);
+    xmlhttp.open("GET", "https://server.duinocoin.com/users/" + username, true);
     xmlhttp.responseType = 'json';
     xmlhttp.send();
 }

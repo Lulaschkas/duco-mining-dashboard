@@ -323,20 +323,24 @@
                                         <p id="gauge06_val" class="gaugeval"></p>
                                     </div>
                             </div>
+                            <div class="column">
+                        
+                                <div id="gauge">
+                                    <span class="icon">
+                                        <i class="fas fa-bolt fa-2x"></i>
+                                    </span>
+                                    <p id="dashboard_title">Net energy</p>
+                                    <canvas id="gauge09" class="gauge">
+                                        
+                                    </canvas>
+                                    <p id="gauge09_val" class="gaugeval"></p>
+                                </div>
+                        </div>
 
                         </div>
                         <div class="chart-container" id="chart">
                             <canvas id="net_chart"></canvas>
                         </div>
-                        <span class="icon">
-                            <i class="fas fa-bolt fa-3x"></i>
-                        </span>
-                        <div>
-                            <p class="subtitle">very rough network power consumption:</p>
-                            <p id="allwatt">loading</p>
-                            <p id="allwattday">loading</p>
-                        </div>
-                        <br>
                         <div class="columns">
                             <div class="column">
                                 <div class="card card2">
@@ -482,18 +486,17 @@
                         <i class="fas fa-bug fa-3x"></i>
                     </span>
                 </button>
-                
+                <button id="btn" onclick="btnfuncskip()">
+                    <span class="icon">
+                        <i class="fas fa-forward fa-3x"></i>
+                    </span>
+                </button>
                 <button id="btn" onclick="btnfuncret()">
                     <span class="icon">
                         <i class="fas fa-redo fa-3x"></i>
                     </span>
                 </button>
 
-                <p id="info"></p>
-                <a style="color: rgb(58, 58, 58); margin-top: 30px;" onclick="btnfuncskip()">
-                        <i class="fas fa-forward"></i>
-                        Skip check (unrecommended)
-                </a>
             </div>
         </article>
 

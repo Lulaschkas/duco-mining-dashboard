@@ -320,6 +320,99 @@ const config_connections = {
     }
 };
 
+function createbars(){
+  let newdata = [];
+  let labels = [];
+  fetch("/dailynewusers.json")
+    .then(response => response.json())
+    .then((api)=>{   
+      let data = Object.values(api);       
+      let label = Object.keys(api);
+      labels = [];
+      let i = 0;
+      data.reverse().forEach(element => {
+        i++;
+        if(i<7){
+          newdata.push(element["new"]);
+        }
+      });
+      i=0;
+      label.reverse().forEach(element => {
+        i++;
+        if(i<7){
+          labels.push(element);
+        }
+      });
+      labels = labels.reverse();
+      newdata = newdata.reverse();
+
+      
+  let Colors = ["#ff7700", "#ff8c00", "#ffa200", "#eb7734", "#ffc400", "#ffd900", "#ffea00"];
+  chart_users = document.getElementById("daily_users").getContext('2d');
+  barchart = new Chart(chart_users, {
+      type: 'bar',
+      data: {
+          datasets: [{
+              backgroundColor: Colors,
+              data: newdata,
+          }],
+          labels: labels,
+      },
+      options: {
+          responsive: true,
+          legend: {
+              position: 'bottom'
+          },
+          plugins: {
+            legend:{
+              display: false
+            },
+          }
+      }
+  });
+});
+}
+
+function createpie(){
+  let Labels = ["Arduino", "CPU", "ESP32", "ESP8266", "GPU", "Other", "RPi"];
+  let Colors = ["#ff7700", "#ff8c00", "#ffa200", "#eb7734", "#ffc400", "#ffd900", "#ffea00"];
+  chart_miner = document.getElementById("miner_distro").getContext('2d');
+  piechart = new Chart(chart_miner, {
+      type: 'pie',
+      data: {
+          datasets: [{
+              backgroundColor: Colors,
+              data: [10, 10, 10, 10, 10, 10, 10],
+          }],
+          labels: Labels,
+          
+      },
+      options: {
+          responsive: true,
+          legend: {
+              position: 'bottom'
+          },
+          plugins: {
+              datalabels: {
+                color: '#fff',
+                anchor: 'end',
+                align: 'start',
+                offset: -10,
+                borderWidth: 2,
+                borderColor: '#fff',
+                borderRadius: 25,
+                font: {
+                  weight: 'bold',
+                  size: '10'
+                }
+              }
+            }
+
+      }
+  });
+}
+
+
 
 function makegraph(){
 var ctx = document.getElementById('chart1');

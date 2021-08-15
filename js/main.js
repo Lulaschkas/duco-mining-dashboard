@@ -215,8 +215,8 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
         function(element){                        
             var fix = "<a href='fixes.html'>How to fix</a></p>"
             if((element[0].includes("ESP8266") || element[0].includes("ESP")) && !element[0].includes("ESP32")){
-                var info = "<p id='problems'><b>ESP8266 with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
-                if(element[1]<5000){              //Too low Hashrate
+                var info = "<p id='problems'><b>ESP8266 with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + Math.round(element[1]) + "H/s ";
+                if(element[1]<4000){              //Too low Hashrate
                     document.getElementById("problemt").innerHTML+=info + " is mining too slow. " + fix;
                     problems++;
                 }
@@ -234,7 +234,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                 }
             }
             if(element[0].includes("ESP32")){     //checking for ESP32
-                var info = "<p id='problems'><b>ESP32 with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
+                var info = "<p id='problems'><b>ESP32 with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + Math.round(element[1]) + "H/s ";
                 if(element[1]<4000){              //Too low Hashrate
                     document.getElementById("problemt").innerHTML+=info + " is mining too slow. " + fix;
                     problems++;
@@ -254,7 +254,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
             }
             
             if(element[0].includes("AVR")){
-                var info = "<p id='problems'><b>Arduino with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
+                var info = "<p id='problems'><b>Arduino with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + Math.round(element[1]) + "H/s ";
                 if(element[1]<40){              //Too low Hashrate
                     document.getElementById("problemt").innerHTML+=info +  " is mining too slow. " + fix;
                     problems++;
@@ -274,7 +274,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
 
             }
             if(element[0].includes("PC Miner") && element[5].includes("XXHASH")){
-                var info = "<p id='problems'><b>PC (XXHASH) with Rigname: </b>" + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
+                var info = "<p id='problems'><b>PC (XXHASH) with Rigname: </b>" + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + Math.round(element[1]) + "H/s ";
                 if(element[2] > 3){ //Only check if more than 3 shares got submitted
                     if(element[1]<30000){              //Too low Hashrate
                         document.getElementById("problemt").innerHTML+=info +  " is mining too slow. " + fix;
@@ -516,6 +516,8 @@ function btnfunc(){
     callback = 0;                           //reset the callback
     console.log(username);
     document.getElementById("login").style.opacity = 0;   // dimm off the login side
+    document.getElementById("servercheck").style.opacity = 0;   // dimm off the login side
+
     document.getElementById("s1").src = "img/Spinner-2.gif";  // add a spinner to server check
     document.getElementById("s2").src = "img/Spinner-2.gif";  // add a spinner to API check
     
@@ -530,6 +532,8 @@ function btnfunc(){
         document.getElementById("ping").style.display= 'block';
         document.getElementById("ping").style.opacity = 100;
         document.getElementById("login").style.display = "none";
+        document.getElementById("servercheck").style.display = "none";
+
     }, 500);
 
     setTimeout(()=>{ping(username);},500);  //Call ping function after 500ms
@@ -577,30 +581,26 @@ let tim01 = 0;              // for resetting the timeout when server responds
 //The ping function
 function ping(username){
     let socketcon=0; //Callback 
-    let socket = new WebSocket("wss://server.duinocoin.com:15808", null, 5000, 5);
-    socket.onmessage = function(event) {
-        if(parseFloat(event.data) >= 2.4){
-            document.getElementById("s1").src = "img/check.png";
-
-            clearTimeout(tim01);
+    document.getElementById("s1").src = "img/check.png";
+    fetch("/ducostats.json")
+    .then(response => response.json())
+    .then((api)=>{   
+        clearTimeout(tim01);
+        if(api["vps"]["online"]==true){
             callback++;
             socketcon++;
-            socket.close();
-            document.getElementById("console").innerHTML += "[Socket] Successfull ping to the Duco main server <br>";
-                
-
-            
+            document.getElementById("console").innerHTML += "[info] duco server is online<br>";
         }
         else{
-
+            document.getElementById("console").innerHTML += "[info] duco Server is offline<br>";
             document.getElementById("s1").src = "img/error.png";
-            document.getElementById("console").innerHTML += "[Socket] The server returned an invalid version number<br>";
         }
-    };
-    socket.onerror = function(error) {
-        document.getElementById("console").innerHTML += "[Socket] Server socket connection error";
+    })
+    .catch((error) => {
+        document.getElementById("console").innerHTML += "[info] error - duco Server is offline<br>";
         document.getElementById("s1").src = "img/error.png";
-    };
+        console.error('Error:', error);
+    })
 
     tim01 = setTimeout(()=>{
         if(socketcon==0){
@@ -671,4 +671,48 @@ function ping(username){
 function validate(input){
     var clean = input.replace(/[|&;$%@"<>()+,]/g, "");
     return clean;
+}
+
+
+setTimeout(()=>{
+    createpie();
+    createbars();
+    updatepie();
+}, 2000);
+setInterval(()=>{
+    updatepie();
+}, 20000)
+
+function updatepie(){
+    fetch("https://server.duinocoin.com/statistics")
+    .then(response => response.json())
+    .then((api)=>{                  
+        //Get data from the JSON file
+        let miners = api["Miner distribution"];
+        let d = piechart.data.datasets[0].data;
+        d=[];
+        values=[];
+        minerdataa = Object.values(miners);
+        let i=0;
+        minerdataa.forEach((element) => {
+            switch(i){
+                case 1:
+                    d.push(Math.round(element / 7));
+                    break;
+                case 2:
+                    d.push(Math.round(element / 2));
+                    break;
+                case 6:
+                    d.push(Math.round(element / 4));
+                    break;
+                default:
+                    d.push(element);
+            }
+            i++;
+            
+        });
+        piechart.data.datasets[0].data = d;
+        piechart.update();
+    });
+
 }

@@ -14,13 +14,24 @@ body{
 
 /*Middle position for the login and ping window*/
 @media only screen and (orientation: landscape) {
-    .middle {
-        position:absolute;
-        top: 50%;
-        left: 50%; 
-        transform: translate(-50%, -50%);
-        min-width: 80%;   
+    @media only screen and (max-height: 799px){
+        .middle {
+            margin-left: auto;
+            margin-right: auto;
+            width:95%;  
+
+        }
     }
+    @media only screen and (min-height: 800px){
+        .middle {
+            position:absolute;
+            top: 50%;
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            width: 80%;   
+        }
+    }
+
     .middle2 {
         margin-left: auto;
         margin-right: auto;
@@ -99,11 +110,12 @@ body{
 
 /*Styling the login */
 #login {
-
     transition: opacity 0.5s ease-in-out;
-    padding:10px;
-    
-    
+    padding:10px;  
+}
+/*Servercheck table below */
+#servercheck {
+    padding:10px;    
 }
 .button{
     margin: 5px !important;
@@ -212,10 +224,7 @@ body{
     animation-duration: 2s;
     animation-timing-function: ease-in-out;
 }
-@keyframes line{
-    0% {width:0%;}
-    100%{width:100%;}
-}
+
 /* Normal sperator line */
 .line3 {
     border-bottom: 3px solid #646464; 
@@ -250,6 +259,15 @@ input[type=text]:focus {
 
 /*The button for login*/
 #btn{
+	background: none;
+	color: inherit;
+	border: none;
+	cursor: pointer;
+	outline: inherit;
+    margin-left: 10px;
+}
+/*The button for the faucet*/
+#faucetbtn{
 	background: none;
 	color: inherit;
 	border: none;
@@ -315,6 +333,16 @@ input[type=text]:focus {
     background-color: black;
     color: greenyellow;
     text-align: left;
+}
+/*chat for the faucet*/
+.chat{
+    background-color: rgb(233, 233, 233);
+    color: rgb(32, 32, 32);
+    text-align: left;
+    border-radius: 10px;
+    border-style: solid 10px black;
+    padding: 6px;
+    margin-top: 5px;
 }
 /*User balance chart*/
 .frontchart{
@@ -570,27 +598,221 @@ h4{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-#newsframe{
+.newsframe{
     word-break:break-all;
     width:100%;
     overflow:auto;
-    height: 70%;
+    height: 80%;
     padding: 10px;
+    
 }
 #login2 {
     background-color: white;
     border-radius: 40px;
     border: solid white;
-    transition: opacity 0.5s ease-in-out;
-    padding:10px;
+    padding:7px;
     height: 100%;
 }
+
+#login3 {
+    background-color: white;
+    border-radius: 40px;
+    border: solid white;
+    padding:10px;
+    animation-name: dimmon;
+    animation-duration: 3.5s;
+}
+
 .news{
-    animation-duration: 3s;
-    animation-name: "dimmon";
+    animation-duration: 1.5s;
+    animation-name: dimmon;
 }
 @keyframes dimmon {
     0%{opacity: 0%; }
-    30%{opacity: 0%;}
+    50%{opacity: 0%;}
     100%{opacity: 100%; }
+}
+#server {
+    background-color: white;
+    border-radius: 40px;
+    border: solid white;
+    transition: opacity 0.5s ease-in-out;
+    padding:5px;
+    height: 385px;
+    animation-duration: 2.5s;
+    animation-name: dimmon;
+}
+
+#statustable{
+    padding: 8px;
+    border-collapse: collapse;
+    width: 100%;
+    overflow: auto;
+}
+
+.greenpulse {
+	background: rgb(22, 194, 22);
+	border-radius: 50%;
+	height: 20px;
+	width: 20px;
+    margin-left: auto;
+    margin-right: auto;
+	box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+	transform: scale(1);
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(41, 144, 27, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+.redpulse {
+	background: rgb(194, 22, 22);
+	border-radius: 50%;
+	height: 20px;
+	width: 20px;
+    margin-left: auto;
+    margin-right: auto;
+	box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+	transform: scale(1);
+	animation: redpulse 2s infinite;
+}
+
+@keyframes redpulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(224, 96, 10, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+
+.fadein{
+    font-size: 30px;
+    text-align: center;
+    animation-delay: 1s;
+    animation-duration: 2s;
+    animation-name: fadein;
+    position: relative;
+    margin-left: 0px;
+    margin-bottom: 10px;
+}
+@keyframes fadein {
+    0%{font-size:0px;}
+    50%{font-size: 0px;opacity: 0%;}
+    100%{font-size: 30px;opacity: 100%;}
+}
+#minerchart{
+    height: 300px;
+}
+
+#miner_distro{
+    max-height: 290px;
+}
+#duconi {
+    display: none;
+}
+
+.faucet{
+    margin-top: 20px;
+    text-align: center;
+}
+#faucetinput{
+    max-width: 70%;
+    margin-top: -5px;
+}
+#faucetsolution{
+    max-width: 90%;
+    margin-top: -5px;
+}
+.vignette {
+    position: relative;
+}
+.vignette img {
+    display: block;
+  }
+  
+  .vignette:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right:0;
+    bottom: 0;
+    left:0;
+    box-shadow: 0px 0px 15px 20px rgba(255, 255, 255, 0.9) inset;
+  }
+#faucetpopup{
+    display: none;
+    position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+margin-left: auto;
+margin-right: auto;
+  
+    background-color: rgb(240, 240, 240);
+    border-radius: 40px;
+    border: solid rgb(255, 255, 255) 0px;
+    transition: opacity 0.5s ease-in-out;
+    padding: 20px;
+    -webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+
+}
+.btn{
+    background: none;
+	color: inherit;
+	border: none;
+	cursor: pointer;
+	outline: inherit;
+    margin-left: 10px;
+}
+
+#solutionclosebtn{
+    margin-top: 15px;
+    margin-right: 15px;
+    position:absolute;
+    top:0;
+    right:0;
+}
+.cookie-banner {
+	position: fixed;
+	bottom: 10px;
+	left: 10%;
+  right: 10%;
+  width: 80%;
+  padding: 30px;
+
+  background-color: #eee;
+  border-radius: 5px;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#banner{
+    display: none;
+    line-height: 1;
+}
+
+.cookieinfo{
+    border-radius: 15px;
+    text-align: right;
+    margin-right: 15px;
 }

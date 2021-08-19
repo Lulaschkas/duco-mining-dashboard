@@ -517,6 +517,8 @@ function btnfunc(){
     console.log(username);
     document.getElementById("login").style.opacity = 0;   // dimm off the login side
     document.getElementById("servercheck").style.opacity = 0;   // dimm off the login side
+    document.getElementById("rewards").style.opacity = 0;   // dimm off the rewards card
+
 
     document.getElementById("s1").src = "img/Spinner-2.gif";  // add a spinner to server check
     document.getElementById("s2").src = "img/Spinner-2.gif";  // add a spinner to API check
@@ -533,6 +535,8 @@ function btnfunc(){
         document.getElementById("ping").style.opacity = 100;
         document.getElementById("login").style.display = "none";
         document.getElementById("servercheck").style.display = "none";
+        document.getElementById("rewards").style.display = "none";
+
 
     }, 500);
 

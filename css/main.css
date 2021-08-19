@@ -14,7 +14,7 @@ body{
 
 /*Middle position for the login and ping window*/
 @media only screen and (orientation: landscape) {
-    @media only screen and (max-height: 799px){
+    @media only screen and (max-height: 1500px){
         .middle {
             margin-left: auto;
             margin-right: auto;
@@ -22,7 +22,7 @@ body{
 
         }
     }
-    @media only screen and (min-height: 800px){
+    @media only screen and (min-height: 1500px){
         .middle {
             position:absolute;
             top: 50%;

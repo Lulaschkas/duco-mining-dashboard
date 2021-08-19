@@ -623,7 +623,7 @@
                             <p style="text-align: center;" class="fadein">Daily new users:</p>
                             <div style="margin-top: -10px" class="line3"></div>
                             <div id="minerchart" style="padding: 20px;">
-                                <canvas id="daily_users" style="margin-bottom: 30px;"width="100%" height="80%"></canvas>
+                                <canvas id="daily_users" style="margin-bottom: 30px; max-height: 95%;"width="100%" height="100%"></canvas>
                             </div>
                         </div>
                     </div>
@@ -690,11 +690,57 @@
                             <p style="text-align: center;" class="fadein">Miner distribution:</p>
                             <div style="margin-top: -10px" class="line3"></div>
                             <div id="minerchart">
-                                <canvas id="miner_distro" width="100%" height="80%"></canvas>
+                                <canvas id="miner_distro" width="100%" height="100%"></canvas>
                             </div>
                         </div>
                     </div>
-                    </div>                         
+                    
+                    </div> 
+                    <div id="rewards">
+                    <div id="login3">
+                        <div style="position: absolute;"class="button is-primary is-light is-rounded">BETA</div>
+
+                            <p style="text-align: center;" class="title ">Current rewards:</p>
+                            <div style="margin-top: -10px" class="line3"></div>
+                            <?php
+                                $data = file_get_contents("ducorewards.json");
+                                $rewards = json_decode($data, true);
+                            ?>
+                        <nav class="level" style="margin:5px;">
+                            <div class="level-item has-text-centered">
+                                <div>
+                                <p class="heading">Arduino daily coins</p>
+                                <p class="title"><?php echo htmlspecialchars(round($rewards["avr"]["dailycoins"],2));?></p>
+                                </div>
+                            </div>
+                            <div class="level-item has-text-centered">
+                                <div>
+                                <p class="heading">ESP8266 daily coins:</p>
+                                <p class="title"><?php echo htmlspecialchars(round($rewards["esp8266"]["dailycoins"],2));?></p>
+                                </div>
+                            </div>
+                              <p class="level-item has-text-centered">
+                                <img src="img/ducominingdashboarddark.png" alt="" style="height: 30px;">
+                            </p>
+                            <div class="level-item has-text-centered">
+                                <div>
+                                <p class="heading">ESP32 daily coins:</p>
+                                <p class="title"><?php echo htmlspecialchars(round($rewards["esp32"]["dailycoins"],2));?></p>
+                                </div>
+                            </div>
+                            <div class="level-item has-text-centered">
+                                <div>
+                                <p class="heading">Rpi 4 dailycoins:</p>
+                                <p class="title"><?php echo htmlspecialchars(round($rewards["pc/pi"]["dailycoins"],2));?></p>
+                                </div>
+                            </div>
+                            </nav>
+                            <br>
+                            <div class="content has-text-centered">
+                            <p>This data gets updated every 30 minutes and was created by the real made ducos in this time period by the duco community.</p>
+                            <p><strong>Thanks to Mikailelele and LooTTaxi for supporting this test</strong></p>
+                            </div>
+                        </div>  
                     <div :style="faucetpopup" class="middle3" id="faucetpopup">
                         <button v-on:click="solutionclose()"class="btn" id="solutionclosebtn">
                                     <span class="icon">
@@ -721,6 +767,7 @@
                                     <i class="fas fa-play-circle  fa-3x"></i>
                                 </span>
                             </button>
+                    </div>
                     </div>
                 
             </div>

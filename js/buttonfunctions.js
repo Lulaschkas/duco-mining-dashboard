@@ -67,7 +67,8 @@ function btnfuncback(){
     document.getElementById("ping").style.opacity = 0;
     document.getElementById("ping").style.display= 'none';
     document.getElementById("dashboard").style.opacity = 0;
-    
+    document.getElementById("rewards").style.display = "block";
+
     setTimeout(function(){
         document.getElementById("login").style.display = "";
         document.getElementById("servercheck").style.display = "";
@@ -77,6 +78,8 @@ function btnfuncback(){
     setTimeout(function(){
         document.getElementById("servercheck").style.opacity = 100;
         document.getElementById("login").style.opacity = 100;
+        document.getElementById("rewards").style.opacity = 100;
+
 
     },  500);
 }

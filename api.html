@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="img/ducominingdashboard.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <title>dashboard api's</title>
+
+</head>
+<body>
+    <div class="container1" id="myd2">
+        <article class="middle2">
+            <div id="fixes">
+                <div class="fixedtainer">
+
+                <a href="index.php">
+                    <button id="btn">
+                        <span class="icon">
+                            <i class="fas fa-arrow-circle-left fa-3x"></i>
+                            
+                        </span>
+                    </button>
+                </a>
+                    Back to dashboard
+                </div>
+                <div class="content card" style="padding: 20px">
+                    <div class="line"></div>
+                    <center><h3>Introduction:</h3></center>
+                    <p>
+                        The guide for the official Duino-Coin API's can be read on <a href="https://github.com/revoxhere/duino-coin/tree/useful-tools">GitHub</a>.<br>
+                        The dahsboard also provides its own API for more functionality which is listed below. You can use them if:
+                        <ul>
+                            <li>You credit the dashboard visible with it's link (duco.sytes.net)</li>
+                            <li>You only use it on websites with less than 1000 clicks per hour.</li>
+                            <li>You use them only on websites with non adult content</li>
+                            <li>Your website is legally in order and not doing spam, phishing or anything similiar.</li>
+                        </ul>
+                        In the event of a breach of the rules, the domain (or IP) will be blocked.
+                    </p>
+                    <div class="line"></div>
+                    <center><h3>API's:</h3></center>
+                    <p class="title">Daily new users</p>
+                    <p class="subtitle">The dashboard gets the number of uses every night and refreshes this JSON file:</p>
+                    <p><a href="https://duco.sytes.net/dailynewusers.json">https://duco.sytes.net/dailynewusers.json</a></p>
+                   
+                    <p class="title">Server status</p>
+                    <p class="subtitle">Every 6 minutes the duino-coin services are pinged multiple times and a status file gets updated.<br> <code>node1=pulsepool, node2=starpool, node3=beyondpool, general_master=general tcp ports</code>:</p>
+                    <p><a href="https://duco.sytes.net/ducostats.json">https://duco.sytes.net/ducostats.json</a></p>
+                    
+                    <p class="title">Duco rewards (Beta)</p>
+                    <p class="subtitle">This file is for getting the real duco rewards for each device. It gets its data from the real mined ducos in 15 minutes but is still in beta.</p>
+                    <p><a href="https://duco.sytes.net/ducorewards.json">https://duco.sytes.net/ducorewards.json</a></p>
+
+                    <p class="title">Background-image</p>
+                    <p class="subtitle">This API creates an background-image based on the parameters submitted. It selects randomly on out of 7 Duino-Coin wallpapers. The scheme is:
+                        <code>backgroundimage.php/arg1/arg2    arg1=desktop;mobile arg2=white;dark;normal</code>
+                        it is not allowed to crop the image so that the copyright text would no longer be visible. <br>
+                    </p>
+                    <p><a href="https://duco.sytes.net/backgroundimage.php/desktop/normal">https://duco.sytes.net/backgroundimage.php/desktop/normal</a></p>
+                   
+
+                    <p class="title">Faucet informations</p>
+                    <p class="subtitle">For every new donator or faucet user of the dashboard this file gets updated. :</p>
+                    <p><a href="https://duco.sytes.net/faucetinfo.json">https://duco.sytes.net/faucetinfo.json</a></p>
+                   
+
+                    <center>
+                        <a href="privacy.html"><button class="button is-dark">Privcy policy/Legal Notice</button></a>
+                        <a href="about.html"><button  class="button is-dark">About</button></a>
+                        <a href="fixes.html" ><button class="button is-dark">Fix problems</button></a>
+                        <a href="whatsduco.html"><button  class="button is-dark">What is duco?</button></a>
+                    </center>
+            </div>
+     </article>
+     </div>
+</body>
+</html>

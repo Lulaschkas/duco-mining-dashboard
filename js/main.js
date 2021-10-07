@@ -124,7 +124,7 @@ let hashrate;
 let connections;
 //Function to update the network gauges and also update the network graph - Data from the duco api "api.json"
 function networkgauges(chart_net, time){
-    fetch("https://server.duinocoin.com/statistics")
+    fetch("/statistics.json")
         .then(response => response.json())
         .then((api)=>{                
             //Get data from the JSON file and put it in Variables - First pass everything to validate function to prevent XSS
@@ -191,11 +191,11 @@ function updateuserbalance(user, graph, time, data){
             }
             if(wait==10){                   //After 30s (because this gets executed every 3s) call the calculatedaily funtion and reset the counter
                 wait=0;
-                calculdaily(userbalance, oldb)
             }
             else{                       //If shorter than 15s since last recalculation add 1 to i
                 wait++;
             }
+            calculdaily(userbalance, oldb)
             addgraph(time, userbalance, graph);  //Update the userbalance graph
 }
 
@@ -216,7 +216,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
             var fix = "<a href='fixes.html'>How to fix</a></p>"
             if((element[0].includes("ESP8266") || element[0].includes("ESP")) && !element[0].includes("ESP32")){
                 var info = "<p id='problems'><b>ESP8266 with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + Math.round(element[1]) + "H/s ";
-                if(element[1]<4000){              //Too low Hashrate
+                if(element[1]<9000){              //Too low Hashrate
                     document.getElementById("problemt").innerHTML+=info + " is mining too slow. " + fix;
                     problems++;
                 }
@@ -235,7 +235,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
             }
             if(element[0].includes("ESP32")){     //checking for ESP32
                 var info = "<p id='problems'><b>ESP32 with Rigname:</b> " + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + Math.round(element[1]) + "H/s ";
-                if(element[1]<4000){              //Too low Hashrate
+                if(element[1]<13000){              //Too low Hashrate
                     document.getElementById("problemt").innerHTML+=info + " is mining too slow. " + fix;
                     problems++;
                 }
@@ -276,11 +276,11 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
             if(element[0].includes("PC Miner") && element[5].includes("XXHASH")){
                 var info = "<p id='problems'><b>PC (XXHASH) with Rigname: </b>" + element[7] + " <b>and Softwarename:</b> " + element[0] + " <b>with Hashrate:</b> " + Math.round(element[1]) + "H/s ";
                 if(element[2] > 3){ //Only check if more than 3 shares got submitted
-                    if(element[1]<30000){              //Too low Hashrate
+                    if(element[1]<100000){              //Too low Hashrate
                         document.getElementById("problemt").innerHTML+=info +  " is mining too slow. " + fix;
                         problems++;
                     }
-                    if(element[1]>200000){              //Too high hashrate
+                    if(element[1]>300000){              //Too high hashrate
                         document.getElementById("problemt").innerHTML+=info +  " is mining too fast (thats not better). " + fix;
                         problems++;
                     }
@@ -298,11 +298,11 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
             if(element[0].includes("PC Miner") && element[5].includes("DUCO-S1")){
                 var info = "<p id='problems'><b>PC (DUCO-S1) with Rigname:</b> " + element[7] + " <b>and Softwarename: </b>" + element[0] + " <b>with Hashrate:</b> " + element[1] + "H/s ";
                 if(element[2] > 3){ //Only check if more than 3 shares got submitted
-                    if(element[1]<30000){              //Too low Hashrate
+                    if(element[1]<100000){              //Too low Hashrate
                         document.getElementById("problemt").innerHTML+= info + " is mining too slow. " + fix;
                         problems++;
                     }
-                    if(element[1]>200000){              //Too high hashrate
+                    if(element[1]>300000){              //Too high hashrate
                         document.getElementById("problemt").innerHTML+= info + " is mining too fast (thats not better)." + fix;
                         problems++;
                     }
@@ -318,8 +318,8 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
 
             }
             if(element[0].includes("Official") || element[0].includes("ESP")){
-                if(!element[0].includes("v2.3") && !element[0].includes("v2.45") && !element[0].includes("v2.46")&& !element[0].includes("v2.47") && !element[0].includes("v2.4") && !element[0].includes("v2.5")){
-                    document.getElementById("problemt").innerHTML+="<p id='problems'><b>Miner with Rigname:</b> " + element[7] + " <b>Full Software name:</b> " + element[0] + " <b>is propably using an old Version. Please upgrade.</b> <a href='https://github.com/revoxhere/duino-coin/releases'>Download</a></p>"
+                if(!element[0].includes("v2.6") && !element[0].includes("2.7")){
+                    document.getElementById("problemt").innerHTML+="<p id='problems'><b>Miner with Rigname:</b> " + element[7] + " <b>Full Software name:</b> " + element[0] + " <b>is probably using an old Version. Please upgrade.</b> <a href='https://github.com/revoxhere/duino-coin/releases'>Download</a></p>"
                     problems++;
                 }
             }
@@ -465,16 +465,6 @@ function minerdata(username, chart_hash, chart_con, time, data){  //This functio
 let daily = 0; 
 let alreadyreset = false;
 function calculdaily(newb, oldb){
-
-    //Duco made in last 15 seconds
-    var ducomadein = newb - oldb;
-
-    //Calculate per day
-    var dayduco = ducomadein * 2880;   //86400 seconds daily / 30s = 2880
-
-    //round daily duco value
-    daily = Math.round(dayduco * 100) / 100;
-    
     //Get duco since start of the page
     var ducomadesincestart = newb-balance;
     var secondssincestart = (Date.now() - start) / 1000; //MIlliseconds since sart of the page
@@ -485,7 +475,7 @@ function calculdaily(newb, oldb){
         alreadyreset = true;
         let start1 = Date.now(); 
         let balance1 = userbalance;
-        setTimeout(()=>{     //Smooth dimm off and on from login to server check
+        setTimeout(()=>{ 
             console.log("[DEBUG] reset avg (2/2)");
             start = start1;
             balance = balance1;
@@ -494,7 +484,6 @@ function calculdaily(newb, oldb){
     }
     ducomadesincesartdaily = Math.round(((86400/secondssincestart)*ducomadesincestart)*10)/10;
     //Update the tile "Estimated" with data
-    document.getElementById("perday").innerHTML = daily + " ᕲ";
     document.getElementById("perdayc").innerHTML = ducomadesincesartdaily + " ᕲ";
     document.getElementById("perweek").innerHTML = Math.round(ducomadesincesartdaily*7) + " ᕲ";
     document.getElementById("permonth").innerHTML = Math.round(ducomadesincesartdaily*30) + " ᕲ";
@@ -531,8 +520,8 @@ function btnfunc(){
     clearInterval(inv1); //reset the Interval for the callback function 
 
     setTimeout(()=>{     //Smooth dimm off and on from login to server check
-        document.getElementById("ping").style.display= 'block';
-        document.getElementById("ping").style.opacity = 100;
+        document.getElementById("pingjs").style.display= 'block';
+        document.getElementById("pingjs").style.opacity = 100;
         document.getElementById("login").style.display = "none";
         document.getElementById("servercheck").style.display = "none";
         document.getElementById("rewards").style.display = "none";
@@ -555,8 +544,8 @@ function checker(username){ //Callback function
         clearInterval(inv1);
         //Dimm on the dashboard
         document.getElementById("dashboard").style.display= "block";
-        setTimeout(()=>{document.getElementById("ping").style.opacity = 0;}, 200);//Dimm off the server check page
-        setTimeout(()=>{document.getElementById("ping").style.display= "none";document.getElementById("dashboard").style.opacity= 100;}, 1000);
+        setTimeout(()=>{document.getElementById("pingjs").style.opacity = 0;}, 200);//Dimm off the server check page
+        setTimeout(()=>{document.getElementById("pingjs").style.display= "none";document.getElementById("dashboard").style.opacity= 100;}, 1000);
         
         //After the dashboard is set create the canvas elements
         var chart = makegraph();
@@ -629,7 +618,7 @@ function ping(username){
 
                 if(balanc == null){
                     document.getElementById("s2").src = "img/error.png";
-                    document.getElementById("console").innerHTML += "[WebAPI] The response of the balances API is null <br>";
+                    document.getElementById("console").innerHTML += "[WebAPI] The response of the  API is null <br>";
                     document.getElementById("console").innerHTML += "[WebAPI] There was an error downloading the API please try again.<br>";
                 }
                 
@@ -660,7 +649,7 @@ function ping(username){
             }
             else{
               
-                document.getElementById("console").innerHTML += "[WebAPI] The Server for balances.json returned an invalid status code: "+ this.status +" and loading status: " + this.readyState+"<br>";
+                document.getElementById("console").innerHTML += "[WebAPI] The API  returned an invalid status code: "+ this.status +" and loading status: " + this.readyState+"<br>";
                 document.getElementById("s2").src = "img/error.png";
                 document.getElementById("loadingbar_2").style.animationName= "load3";
                 document.getElementById("loadingbar_2").style.backgroundColor= "red";
@@ -688,7 +677,7 @@ setInterval(()=>{
 }, 20000)
 
 function updatepie(){
-    fetch("https://server.duinocoin.com/statistics")
+    fetch("/statistics.json")
     .then(response => response.json())
     .then((api)=>{                  
         //Get data from the JSON file
@@ -704,11 +693,13 @@ function updatepie(){
                     d.push(Math.round(element / 7));
                     break;
                 case 2:
-                    d.push(Math.round(element / 2));
-                    break;
-                case 6:
                     d.push(Math.round(element / 4));
                     break;
+                case 5:
+                    d.push(Math.round(element / 2));
+                    break;
+		case 9:
+		    break;
                 default:
                     d.push(element);
             }

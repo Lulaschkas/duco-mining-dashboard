@@ -26,7 +26,6 @@ try {
     require_once("quiz.php");
     //Start the session
     session_start();
-
     //If all values got set correctly over GET request and a correct session cookie was set continue
     if(isset($_SESSION["quiz"]) && isset($_GET["solution"]) && isset($_GET["captcha"])){
         //require passwords
@@ -102,8 +101,8 @@ try {
                                 $bala_dash = json_decode($response2, true);
                                     //If teh balance is hgiher than 10 continue
                                     if($bala_dash["result"]["balance"] > 10){
-                                        //random amount of ducos (between 0.1 and 0.3)
-                                        $duco = rand(100, 300) / 1000;
+                                        //random amount of ducos (between 0.1 and 0.5)
+                                        $duco = rand(300, 600) / 1000;
                                         //Sleep for not sending too many requests to the faucet at once
                                         sleep(1); 
                                         //Send the ducos to the user over the REST-Api
@@ -114,6 +113,29 @@ try {
                                         if($servermessage[0] == "OK"){
                                             $_SESSION["time"] = time();
                                             echo replacebad("DONE+" . strval($duco) . "+" . $servermessage[2]);
+                                            //Write to statistic JSON file
+                                            $jsonfile = file_get_contents('faucetinfo.json');
+                                            $data = json_decode($jsonfile,true);
+                                            //+1 transaction
+                                            $data["transactions"]++;
+                                            //+1 new user if not listed
+                                            if(!isset($data["users"][$username])){
+                                                $data["individual_users"]++;
+                                                $data["users"][$username]["claimed"] = $duco;
+                                                $data["users"][$username]["transactions"] = 1;
+                                            }
+                                            else{
+                                                $data["users"][$username]["claimed"] += $duco;
+                                                $data["users"][$username]["transactions"] += 1;
+                                            }
+                                            //Extend by new send ducos
+                                            $data["total_ducos"]+=$duco;
+                                            $data["last_user"]=replacebad($username);
+                                            //new faucet balance
+                                            $data["faucet_balance"]=replacebad(strval($bala_dash["result"]["balance"]));
+                                            $newjson = json_encode($data);
+                                            $data["last_user_coin"] = strval($duco);
+					    file_put_contents('faucetinfo.json', $newjson);
                                         }
                                         //If the transaction wasnt successfull set the old time in the json and show an error
                                         else{
@@ -149,7 +171,7 @@ try {
                 }
             }
             else{
-                echo "ERROR+wrong answer! Reload the page to try again.";
+                echo "ERROR+wrong answer! Try again.";
             }
         }
         else{

@@ -64,8 +64,8 @@ function btnfuncret(){
 
 function btnfuncback(){
     document.getElementById("console").innerHTML = "[System] Main menu <br>";
-    document.getElementById("ping").style.opacity = 0;
-    document.getElementById("ping").style.display= 'none';
+    document.getElementById("pingjs").style.opacity = 0;
+    document.getElementById("pingjs").style.display= 'none';
     document.getElementById("dashboard").style.opacity = 0;
     document.getElementById("rewards").style.display = "block";
 

@@ -10,10 +10,35 @@ const app = Vue.createApp({
             },
             faucetpopup:{
                 display: "none",
-            }
+            },
+            transactions: "loading...",
+            users: "loading...",
+            balance: "loading...",
+            donator: "loading...",
+            last: "loading..."
         }
     },
     methods:{
+        updatefaucetstats() {
+            fetch("/faucetinfo.json")
+            .then(response => response.json())
+            .then((response)=>{
+                this.transactions = validate(String(response["transactions"]));
+                this.balance = Math.round(String(response["faucet_balance"]*100)/100) + " ᕲ";
+                this.users = validate(String(response["individual_users"]));
+                this.last =  "'" + validate(response["last_user"])+  "'" + " got " + validate(String(response["last_user_coins"])) + " ᕲ";
+                let lastelement=[];
+                for (const [key, value] of Object.entries(response["donators"])) {
+                    if(value["time"]>lastelement["time"]){
+                        var lastdonator = key;
+                        var lastdonatorduco = value["duco"];
+                    }
+                    lastelement = value;
+                };
+                this.donator = "'" + validate(lastdonator) + "'" + " donated " + validate(String(lastdonatorduco)) + " ᕲ";
+
+            })
+        },
         startfaucet() {
             if(this.tos == true){
                 const getCookieValue = (name) => (
@@ -46,7 +71,6 @@ const app = Vue.createApp({
             fetch("/faucet.php?username=" + this.username + "&solution=" + this.solution + "&captcha=" + response)
             .then(response => response.text())
             .then((response)=>{
-                console.log(response);
                 let serverre = response.split("+")
                 if(serverre[0]=="DONE"){
                     this.faucetimage = 'img/check.png'
@@ -54,13 +78,15 @@ const app = Vue.createApp({
                     this.items.push("Ok, we have sent " + validate(serverre[1]) + " DUCO to your account.");
                     this.link = "https://explorer.duinocoin.com/?search=" + validate(serverre[2]);
                     this.ducoexplorer = "see the transaction on DUCO explorer";
-
+                    hcaptcha.reset();
+                    this.updatefaucetstats();
                 }
                 else{
                     this.items = [];
                     this.faucetimage = 'img/error.png'
                     this.items.push("An error occured!");
                     this.items.push("Server response: " + validate(serverre[1]));
+                    hcaptcha.reset();
                 }
             })
         },
@@ -68,6 +94,10 @@ const app = Vue.createApp({
             this.faucetpopup.display = "none"
 
         }
-    }
+    },
+    created(){
+        this.updatefaucetstats();
+        setInterval(()=>this.updatefaucetstats(), 5000);
+    },
 })
 app.mount('#vueappfaucet');

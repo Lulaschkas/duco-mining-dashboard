@@ -37,7 +37,7 @@
         <meta charset="UTF-8">
 
         <link rel="shortcut icon" type="image/x-icon" href="img/ducominingdashboarddark.png">
-        <link type="text/css" rel="stylesheet" href="css/main.css">
+        <link type="text/css" rel="stylesheet" href="css/main.css?version=2.2">
 
         <!--Google libarys-->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet"> 
@@ -65,7 +65,7 @@
         
     </head>
     <body>
-        <div class="container1" id="myd2">
+        <div class="container1">
             
             <article class="middle2">        
             <div id="dashboard">
@@ -187,19 +187,15 @@
                                                 </div>
                                                 <table id="estimatedtable">
                                                     <tr>
-                                                        <td class="subtitle">fast daily:</td>
-                                                        <b><td id="perday" class="estimated">Loading</td></b>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="subtitle">accurate daily:</td>
+                                                        <td class="subtitle">DUCOs Per day:</td>
                                                         <b><td id="perdayc" class="estimated">Loading</td></b>
                                                     </tr>
                                                     <tr>
-                                                        <td class="subtitle">Per week:</td>
+                                                        <td class="subtitle">DUCOs Per week:</td>
                                                         <b><td id="perweek" class="estimated">Loading</td></b>
                                                     </tr>
                                                     <tr>
-                                                        <td class="subtitle">Per month:</td>
+                                                        <td class="subtitle">DUCOs Per month:</td>
                                                         <b><td id="permonth" class="estimated">Loading</td></b>
                                                     </tr>
                                                 </table>    
@@ -474,64 +470,65 @@
         <!--Server check page here-->
 
         <article class="middle3">
-            <div id="ping" style="display: none;">
-               <p id="login_header">Checking server</p>
+            <div id="pingjs" style="display: none;">
+                <div id="card">
+                <p id="login_header">Checking server</p>
+                    
+                    <div class="line"></div>
+
+                    <table id="ping_table">
+                        <tr>
+                            <td>Duino-Coin Main Server</td>
+                            <td>Duino-Coin APIs</td>
+                        </tr>
+                        <tr>
+                            <td><img loading="lazy" id="s1" src="img/Spinner-2.gif"></td>
+                            <td><img loading="lazy" id="s2" src="img/Spinner-2.gif"></td>
+                        </tr>
+                    </table>
+                    <div id="loadingbar_1">
+                        <div id="loadingbar_2">
+                            
+                        </div>
+                        <div id="loadingbar_3">
+                            
+                        </div>
+                    </div>
+                    <br>
                 
-                <div class="line"></div>
 
-                <table id="ping_table">
-                    <tr>
-                        <td>Duino-Coin Main Server</td>
-                        <td>Duino-Coin APIs</td>
-                    </tr>
-                    <tr>
-                        <td><img loading="lazy" id="s1" src="img/Spinner-2.gif"></td>
-                        <td><img loading="lazy" id="s2" src="img/Spinner-2.gif"></td>
-                    </tr>
-                </table>
-                <div id="loadingbar_1">
-                    <div id="loadingbar_2">
-                        
-                    </div>
-                    <div id="loadingbar_3">
-                        
-                    </div>
+                    <br>
+                    <center>
+                        <div id="consoleu">
+                            <p id="inputz">[Info] Waiting for username verification</p>
+                            <p id="console"></p>
+
+                        </div>
+                    </center>
+                    <br>
+                
+                    <button id="btn" onclick="btnfuncback()">
+                        <span class="icon">
+                            <i class="fas fa-arrow-circle-left fa-3x"></i>
+                        </span>
+                    </button>
+
+                    <button onclick="showdebug()"id="btn">
+                        <span class="icon">
+                            <i class="fas fa-bug fa-3x"></i>
+                        </span>
+                    </button>
+                    <button id="btn" onclick="btnfuncskip()">
+                        <span class="icon">
+                            <i class="fas fa-forward fa-3x"></i>
+                        </span>
+                    </button>
+                    <button id="btn" onclick="btnfuncret()">
+                        <span class="icon">
+                            <i class="fas fa-redo fa-3x"></i>
+                        </span>
+                    </button>
                 </div>
-                <br>
-            
-
-                <br>
-                <center>
-                    <div id="consoleu">
-                        <p id="inputz">[Info] Waiting for username verification</p>
-                        <p id="console"></p>
-
-                    </div>
-                </center>
-                <br>
-            
-                <button id="btn" onclick="btnfuncback()">
-                    <span class="icon">
-                        <i class="fas fa-arrow-circle-left fa-3x"></i>
-                    </span>
-                </button>
-
-                <button onclick="showdebug()"id="btn">
-                    <span class="icon">
-                        <i class="fas fa-bug fa-3x"></i>
-                    </span>
-                </button>
-                <button id="btn" onclick="btnfuncskip()">
-                    <span class="icon">
-                        <i class="fas fa-forward fa-3x"></i>
-                    </span>
-                </button>
-                <button id="btn" onclick="btnfuncret()">
-                    <span class="icon">
-                        <i class="fas fa-redo fa-3x"></i>
-                    </span>
-                </button>
-
             </div>
         </article>
 
@@ -541,37 +538,58 @@
             <article class="middle">
                 <div id="login" class="columns">
                     <div class="news column">
-                        <div id="login2">
-                            
-                                <p style="text-align: center;"class="title">ᕲuco Faucet</p>
-                                <div style="margin-bottom: 0px; margin-top: -20px;" class="line3"></div>
-                                <center>
-                                    <div class="vignette">
-                                        <img id="faucetimg" v-bind:src="faucetimage" :style="imagestyle">
-                                    </div>
-                                </center>   
+                        <div id="card">
+                            <center>
+                                <img  id="faucetimg" v-bind:src="faucetimage" :style="imagestyle">
+                            </center>
+                            <div style="margin-bottom: 0px; margin-top: -20px;" class="line3"></div>
                                 <div v-if="items.length">
                                     <p class="chat" v-for="item in items">{{ item }} <a :href="link">{{ ducoexplorer }}</a></li>
                                 </div>
                                 <div class="faucet">
-                                    <input v-model="username" :class="faucetinput" id="faucetinput" placeholder="duco username"> 
-                                    <button v-on:click="startfaucet()" id="faucetbtn">
-                                        <span class="icon has-text-success">
-                                            <i class="fas fa-play-circle  fa-3x"></i>
-                                        </span>
-                                    </button>
-
-                                    <label style="margin-top: 10px;" class="checkbox">
+                                <label style="margin-bottom: 10px;" class="checkbox">
                                     <input v-model="tos"type="checkbox">
                                     I accept the <a href="tos.html">terms of service</a>
-                                    </label>
-                                    <p style="margin-top: 10px;">With the duco faucet, you can get some free duco every 24h. Just try it!</p>
+                                </label>
+                                <input v-model="username" :class="faucetinput" id="faucetinput" placeholder="duco username"> 
+                                <button v-on:click="startfaucet()" id="faucetbtn">
+                                    <span class="icon has-text-success">
+                                        <i class="fas fa-play-circle  fa-3x"></i>
+                                    </span>
+                                </button>
                                 </div>
-                            
+                                <br>
+                                <table class="table transparent is-narrow is-hoverable is-fullwidth">
+                                    <tr>
+                                        <th>Balance</th>
+                                        <th>{{ balance }}</th>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Transactions</th>
+                                        <th>{{ transactions }}</th>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Users</th>
+                                        <th>{{ users }}</th>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Last user</th>
+                                        <th>{{ last }}</th>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Last donator</th>
+                                        <th>{{ donator }}</th>
+
+                                    </tr>
+                                </table>                            
                         </div>
                     </div>
                     <div class="column is-6">
-                        <div id="login2">
+                        <div id="card">
                             <a href="https://duinocoin.com"><img id="ducoimg" src="img/duco.png"></a>
                             <img id="ducoimg2" src="img/ducominingdashboarddark.png">
                             <p id="login_header">Duino-Coin mining Dashboard</p>
@@ -588,19 +606,20 @@
                             </div>
                             
                             
-
-                            <center>
-                                <a href="privacy.html"><button class="button is-info is-light">Privacy policy&Legal notice</button></a>
-                                <a href="about.html"><button  class="button is-success is-light">About</button></a>
-                                <a href="fixes.html" ><button class="button is-danger is-light">Fix problems</button></a>
-                                <a href="whatsduco.html"><button  class="button is-warning is-light">What is duco?</button></a>
-
-                                <br>
-                            </center>
+                            <div style="text-size: 0.8rem;">
+                                <center>
+                                    <a href="privacy.html"><button class="button is-small is-info is-light">Privacy policy&Legal notice</button></a>
+                                    <a href="about.html"><button  class="button is-small is-success is-light">About</button></a>
+                                    <a href="fixes.html" ><button class="button is-small is-danger is-light">Fix problems</button></a>
+                                    <a href="whatsduco.html"><button  class="button is-small is-warning is-light">What is Duino-Coin?</button></a>
+                                    <a href="api.html"><button  class="button is-small is-primary is-light">APIs</button></a>
+                                    <br>
+                                </center>
+                            </div>
                         </div>
                     </div>
                     <div class="column news">
-                        <div id="login2">
+                        <div id="card">
                             <div class="tabs">
                                 <ul>
                                     <li id="tabn1" class="is-active"><a onclick="dashn();">Dash. updates</a></li>
@@ -618,8 +637,8 @@
 
             </div>
             <div id="servercheck" class="columns">
-                    <div class="column">
-                        <div id="login3" >
+                    <div class="column" >
+                        <div id="card" class="cardfade">
                             <p style="text-align: center;" class="fadein">Daily new users:</p>
                             <div style="margin-top: -10px" class="line3"></div>
                             <div id="minerchart" style="padding: 20px;">
@@ -628,24 +647,22 @@
                         </div>
                     </div>
                     <div class="column is-6">
-                        <div id="server">
+                        <div id="card"  class="cardfade">
                             <p style="text-align: center;" class="title">Server status:</p>
                                 <div style="margin-top: -10px" class="line3"></div>
                                     <div style="overflow:auto;">
-                                        <table id="statustable"class="table" style="text-align: center; margin-bottom: 60px;">
+                                        <table id="statustable"class="table transparent" style="text-align: center; margin-bottom: 60px;">
                                             <tbody>
                                                 <tr>
-                                                    <th><u>Service</u></th>
-                                                    <th>Wallet</th>
+                                                    <th>Api (for wallet etc)</th>
+                                                    <th>General ports</th>
+                                                    <th>Pulse pool</th>
+                                                    <th>Star pool</th>
+                                                    <th>Beyond pool</th>
                                                     <th>Website</th>
-                                                    <th>REST-API</th>
-                                                    <th>Mining (pool)</th>
-                                                    <th>Software Wallet</th>
-                                                    <th>AVR mining</th>
                                                     <th>main server</th>
                                                 </tr>
                                                 <tr>
-                                                    <th><u>Status</u></th>
                                                     <?php
                                                     //Print out all data from the json file
                                                     $data = file_get_contents("ducostats.json");
@@ -664,7 +681,6 @@
                                                     ?>
                                                 </tr>
                                                 <tr>
-                                                <th><u>Since</u></th>
                                                 
                                                 <?php
                                                 //print last update form json file
@@ -672,6 +688,7 @@
                                                     $stats = json_decode($data, true);
                                                     foreach($stats as $value => $row){
                                                         if(isset($stats[$value]["online"])){
+                                                            date_default_timezone_set('UTC');
                                                             echo"<td>" . date('H:i d/m/y', $stats[$value]["since"]) . "</td>";
                                                         }
                                                     }
@@ -680,13 +697,13 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <?php echo "<center><p style='margin-bottom: 10px;'>Last update:  " . date("H:i", $stats["lastupdate"]). "</p></center>"?>
+                                    <?php echo "<center><p style='margin-bottom: 10px;'>Last update:  " . date("H:i", $stats["lastupdate"]). " UTC</p></center>"?>
                         </div>
                                 
                     </div>
 
-                    <div class="column">
-                        <div id="login3">
+                    <div class="column" >
+                        <div id="card" class="cardfade">
                             <p style="text-align: center;" class="fadein">Miner distribution:</p>
                             <div style="margin-top: -10px" class="line3"></div>
                             <div id="minerchart">
@@ -697,7 +714,7 @@
                     
                     </div> 
                     <div id="rewards">
-                    <div id="login3">
+                    <div id="card" class="cardfade">
                         <div style="position: absolute;"class="button is-primary is-light is-rounded">BETA</div>
 
                             <p style="text-align: center;" class="title ">Current rewards:</p>
@@ -705,6 +722,7 @@
                             <?php
                                 $data = file_get_contents("ducorewards.json");
                                 $rewards = json_decode($data, true);
+
                             ?>
                         <nav class="level" style="margin:5px;">
                             <div class="level-item has-text-centered">
@@ -737,8 +755,9 @@
                             </nav>
                             <br>
                             <div class="content has-text-centered">
-                            <p>This data gets updated every 30 minutes and was created by the real made ducos in this time period by the duco community.</p>
-                            <p><strong>Thanks to Mikailelele and LooTTaxi for supporting this test</strong></p>
+                            <p>Last update: <?php echo date('H:i d/m/y', $rewards["lastupdate"]); ?></p>
+                            <p>This data gets updated every 15 minutes and was created by the real made ducos in this time period by the duco community. If some value is 0 this is propably due to an error of our test devices and doesn't mean you will get 0 ducos/d.</p>
+                            <p><strong>Thanks to LooTTaxi for supporting this test</strong></p>
                             </div>
                         </div>  
                     <div :style="faucetpopup" class="middle3" id="faucetpopup">
@@ -799,8 +818,8 @@
     <script src="js/cookiebanner.js" type="text/javascript"></script>
         <!--Main JS code-->
     <script type="text/javascript" src="js/gauges.js"></script>
-    <script type="text/javascript" src="js/buttonfunctions.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/buttonfunctions.js?version=2.1"></script>
+    <script type="text/javascript" src="js/main.js?version=2.2"></script>
     <script type="text/javascript" src="js/charts.js"></script>
 
     </body>

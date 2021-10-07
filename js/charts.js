@@ -332,14 +332,14 @@ function createbars(){
       let i = 0;
       data.reverse().forEach(element => {
         i++;
-        if(i<7){
+        if(i<10){
           newdata.push(element["new"]);
         }
       });
       i=0;
       label.reverse().forEach(element => {
         i++;
-        if(i<7){
+        if(i<10){
           labels.push(element);
         }
       });

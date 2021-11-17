@@ -1,0 +1,131 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="img/ducominingdashboard.png">
+    <link rel="stylesheet" href="css/duinotest.css?v=1.4">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <!--Meta data-->
+    <meta name="title" content="Duino-Coin test">
+    <meta name="description" content="The Duino-Coin dashboard provides a miner analysis, duco faucet, server information and more!">
+    <meta name="keywords" content="duino-coin, mining, dashboard">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    
+    <!--open graph meta tags-->
+    <meta property="og:title" content="Duino-Coin test">
+    <meta property="og:description" content="The Duino-Coin dashboard provides a miner analysis, duco faucet, server information and more!">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Lulaschkas/duco-mining-dashboard/main/ducomining.png">
+    <meta property="og:url" content="https://lulaschkas.github.io/duco-mining-dashboard/index.php">
+
+    <title>Duino-Coin test</title>
+</head>
+<body>
+    <article class="middle2">
+        <div id="fixes">
+            <div class="fixedtainer">
+                <a href="index.php">
+                <button class="btn">
+                    <span class="icon">
+                        <i class="fas fa-arrow-circle-left fa-2x"></i>
+                    </span>
+                </button>
+            </a>
+             Is Duino-Coin for you?
+            </div>
+            <div id="card" class="card" style="padding: 20px;" :style="colorstyle">
+                <div style="height:100%" class="columns  is-mobile ">
+                        <div v-on:click="previous()" style="cursor: pointer;" class="arrow column is-1">
+                            <i class="fas hmid fa-arrow-left"></i>
+                        </div>
+                    <div class="maincontent column">
+                        <transition-group tag="div" name="list">
+                            <div class="une" v-if="items[0]['name'] === 'active'">
+                                <p class="title">Question1:</p>
+                                <p class="subtitle">Do you already own an ESP32, ESP8266 or Arduino?</p>
+                                <div style="text-align: center;">
+                                    <button v-on:click="yes()" class="is-rounded button is-large is-light is-success">YES</button>
+                                    <button v-on:click="no()" class="is-rounded button is-large is-light is-link">NO</button>
+                                </div>
+
+                            </div>                        
+                            <div class="une" v-if="items[1]['name'] === 'active'">
+                                <p class="title">Question2:</p>
+                                <p class="subtitle">Whats your personal goal with Duino-Coin?</p>
+                                <div style="text-align: center;">
+                                    <button v-on:click="yes()" class="is-rounded button is-light is-success">Making some money</button>
+                                    <button v-on:click="no()" class="is-rounded button is-light is-link">Learning & fun</button>
+                                </div>
+                            </div>
+                            <div class="une" v-if="items[2]['name'] === 'active'">
+                                <p class="title">Question3:</p>
+                                <p class="subtitle">Do you have experience with microcontrollers and programming?</p>
+                                <div style="text-align: center;">
+                                    <button v-on:click="yes()" class="is-rounded button is-large is-light is-success">YES</button>
+                                    <button v-on:click="no()" class="is-rounded button is-large is-light is-link">NO</button>
+                                </div>
+                            </div>
+                            <div class="une" v-if="items[3]['name'] === 'active'">
+                                <p class="title">Question4:</p>
+                                <p class="subtitle">{{questionfour}}</p>
+                                <div style="text-align: center;">
+                                    <button v-on:click="yes()" class="is-rounded button is-large is-light is-success">YES</button>
+                                    <button v-on:click="no()" class="is-rounded button is-large is-light is-link">NO</button>
+                                </div>
+                            </div>
+                            <div class="une" v-if="items[4]['name'] === 'active'">
+                                <p class="title">Question5:</p>
+                                <p class="subtitle">For what do you plan using Duino-Coins?</p>
+                                <ol>
+                                    <li>Holding or Exchanging</li>
+                                    <li>Using in the Duco Eco-System</li>
+                                </ol>
+                                <div style="text-align: center;">
+                                    <button v-on:click="yes()" class="is-rounded button is-large is-light is-success">1</button>
+                                    <button v-on:click="no()" class="is-rounded button  is-large is-light is-link">2</button>
+                                </div>
+                            </div>
+                            <div class="une" v-if="items[5]['name'] === 'active'">
+                                <p class="title">Question6:</p>
+                                <p class="content">Do you understand that because it is a centralized very young currency and mainly for entertainment, we are susceptible to problems in our servers? (Often downtimes)</p>
+                                <div style="margin-top: -30px; text-align: center;">
+                                    <button v-on:click="yes()" style="margin-right: -2px;"  class="is-rounded button is-light is-small is-success">Not really</button>
+                                    <button v-on:click="no()" style="margin-left : -2px;" class="is-rounded button is-light is-small is-link">Yeah ok</button>
+                                </div>
+                            </div>
+                            <div class="une" v-if="items[6]['name'] === 'active'">
+                                <p class="title">Result:</p>
+                                <p style="margin-top: -34px !important;" class="important is-size-1">{{final}}%</p>
+                                <p class="important is-size-6">{{finalwords}}</p>
+                                <br>
+                                <p style="margin-top: -20px !important;" class="has-text-centered is-size-7"><a href="https://duinocoin.com/getting-started">Get started</a> | <a href="https://wallet.duinocoin.com">Wallet</a> | <a href="https://github.com/revoxhere/duino-coin/blob/gh-pages/assets/whitepaper.pdf">Whitepaper</a></p>
+                            </div>
+                        </transition-group>
+
+                    </div>
+                    <div v-on:click="next()" style="cursor: pointer;" class="arrow column is-1">
+                        <i class="fas hmid fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="fixedtainer">
+                <div class="columns  is-centered  is-mobile ">
+                        <div  v-for="(item, index) in items" class="column" >
+                            <div v-if="item.name === 'active'">
+                                <div class="circle"></div>
+                            </div>
+                            <div v-else>
+                                <div class="circle2"></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="js/duinotest.js?v=1" type="text/javascript"></script>
+</body>
+</html>

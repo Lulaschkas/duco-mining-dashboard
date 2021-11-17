@@ -654,19 +654,22 @@
                                         <table id="statustable"class="table transparent" style="text-align: center; margin-bottom: 60px;">
                                             <tbody>
                                                 <tr>
-                                                    <th>Api (for wallet etc)</th>
-                                                    <th>General ports</th>
-                                                    <th>Pulse pool</th>
-                                                    <th>Star pool</th>
-                                                    <th>Beyond pool</th>
-                                                    <th>Website</th>
-                                                    <th>main server</th>
-                                                </tr>
-                                                <tr>
-                                                    <?php
+                                                <?php
                                                     //Print out all data from the json file
                                                     $data = file_get_contents("ducostats.json");
                                                     $stats = json_decode($data, true);
+                                                    $stats = (array) $stats;
+                                                    $keys = array_keys($stats);
+                                                    foreach($keys as $elements){
+                                                        if($elements == "lastupdate"){
+                                                            break;
+                                                        }
+                                                        print("<th>" . $elements . "</th>");
+                                                    }
+                                                ?>
+                                                </tr>
+                                                <tr>
+                                                    <?php
                                                     foreach($stats as $value => $row){
                                                         if(isset($stats[$value]["online"])){
                                                             if($stats[$value]["online"]==True){
@@ -684,8 +687,6 @@
                                                 
                                                 <?php
                                                 //print last update form json file
-                                                    $data = file_get_contents("ducostats.json");
-                                                    $stats = json_decode($data, true);
                                                     foreach($stats as $value => $row){
                                                         if(isset($stats[$value]["online"])){
                                                             date_default_timezone_set('UTC');
@@ -713,7 +714,8 @@
                     </div>
                     
                     </div> 
-                    <div id="rewards">
+                    <div class="columns" id="rewards">
+                    <div class="column is-9">
                     <div id="card" class="cardfade">
                         <div style="position: absolute;"class="button is-primary is-light is-rounded">BETA</div>
 
@@ -728,13 +730,13 @@
                             <div class="level-item has-text-centered">
                                 <div>
                                 <p class="heading">Arduino daily coins</p>
-                                <p class="title"><?php echo htmlspecialchars(round($rewards["avr"]["dailycoins"],2));?></p>
+                                <p class="title"><?php echo htmlspecialchars(round($rewards["avr"]["dailycoins"],1));?></p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">
                                 <div>
                                 <p class="heading">ESP8266 daily coins:</p>
-                                <p class="title"><?php echo htmlspecialchars(round($rewards["esp8266"]["dailycoins"],2));?></p>
+                                <p class="title"><?php echo htmlspecialchars(round($rewards["esp8266"]["dailycoins"],1));?></p>
                                 </div>
                             </div>
                               <p class="level-item has-text-centered">
@@ -743,13 +745,13 @@
                             <div class="level-item has-text-centered">
                                 <div>
                                 <p class="heading">ESP32 daily coins:</p>
-                                <p class="title"><?php echo htmlspecialchars(round($rewards["esp32"]["dailycoins"],2));?></p>
+                                <p class="title"><?php echo htmlspecialchars(round($rewards["esp32"]["dailycoins"],1));?></p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">
                                 <div>
                                 <p class="heading">Rpi 4 dailycoins:</p>
-                                <p class="title"><?php echo htmlspecialchars(round($rewards["pc/pi"]["dailycoins"],2));?></p>
+                                <p class="title"><?php echo htmlspecialchars(round($rewards["pc/pi"]["dailycoins"],1));?></p>
                                 </div>
                             </div>
                             </nav>
@@ -759,7 +761,19 @@
                             <p>This data gets updated every 15 minutes and was created by the real made ducos in this time period by the duco community. If some value is 0 this is propably due to an error of our test devices and doesn't mean you will get 0 ducos/d.</p>
                             <p><strong>Thanks to LooTTaxi for supporting this test</strong></p>
                             </div>
-                        </div>  
+                        </div>
+                        </div>
+                        <div class="column">
+                            <div id="card" class="cardfade">
+                                <p style="text-align: center;" class="title ">Duco test:</p>
+                                <div style="margin-top: -10px" class="line3"></div>
+                                <p class="is-3">This test determines with 6 easy questions if Duino-Coin is something for you.</p>
+                                <center>
+                                    <a href="ducotest.html"><button style="background: linear-gradient(90deg, rgba(251,140,63,1) 0%, rgba(252,70,103,1) 100%); " class="button is-large is-rounded"><i class="fas fa-arrow-right"></i>Duco-test</button></a>
+                                </center>                            
+                            </div>
+                        </div>
+                    </div>  
                     <div :style="faucetpopup" class="middle3" id="faucetpopup">
                         <button v-on:click="solutionclose()"class="btn" id="solutionclosebtn">
                                     <span class="icon">
@@ -814,13 +828,13 @@
     </div>
 
     <script type="text/javascript" src="js/vue.global.prod.js"></script>
-    <script type="text/javascript" src="js/faucet.js"></script>
+    <script type="text/javascript" src="js/faucet.js?version=1.12"></script>
     <script src="js/cookiebanner.js" type="text/javascript"></script>
         <!--Main JS code-->
-    <script type="text/javascript" src="js/gauges.js"></script>
-    <script type="text/javascript" src="js/buttonfunctions.js?version=2.1"></script>
-    <script type="text/javascript" src="js/main.js?version=2.2"></script>
-    <script type="text/javascript" src="js/charts.js"></script>
+    <script type="text/javascript" src="js/gauges.js?version=1"></script>
+    <script type="text/javascript" src="js/buttonfunctions.js?version=2.2"></script>
+    <script type="text/javascript" src="js/main.js?version=2.34"></script>
+    <script type="text/javascript" src="js/charts.js?v=1"></script>
 
     </body>
 </html>

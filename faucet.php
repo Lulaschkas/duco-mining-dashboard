@@ -102,7 +102,7 @@ try {
                                     //If teh balance is hgiher than 10 continue
                                     if($bala_dash["result"]["balance"] > 10){
                                         //random amount of ducos (between 0.1 and 0.5)
-                                        $duco = rand(300, 600) / 1000;
+                                        $duco = rand(800, 1200) / 1000;
                                         //Sleep for not sending too many requests to the faucet at once
                                         sleep(1); 
                                         //Send the ducos to the user over the REST-Api
@@ -130,12 +130,12 @@ try {
                                             }
                                             //Extend by new send ducos
                                             $data["total_ducos"]+=$duco;
+                                            $data["last_coins"] = strval($duco);
                                             $data["last_user"]=replacebad($username);
                                             //new faucet balance
                                             $data["faucet_balance"]=replacebad(strval($bala_dash["result"]["balance"]));
                                             $newjson = json_encode($data);
-                                            $data["last_user_coin"] = strval($duco);
-					    file_put_contents('faucetinfo.json', $newjson);
+					                        file_put_contents('faucetinfo.json', $newjson);
                                         }
                                         //If the transaction wasnt successfull set the old time in the json and show an error
                                         else{
@@ -143,6 +143,7 @@ try {
                                             $data = json_decode($jsonfile,true);
                                             $data[$username] = $oldtime;
                                             $newjson = json_encode($data);
+
                                             file_put_contents('usertimeouts.json', $newjson);
                                             echo "ERROR+There was an error while sending the coins. Please try again later.";
                                         }

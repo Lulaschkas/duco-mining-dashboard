@@ -1,0 +1,157 @@
+/*Import Bulma */
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css";
+body{
+    font-family: "Nunito";
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+}
+
+#card {
+    /*background-color: white;*/
+    border-radius: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.411);
+    padding:5px;
+    height: 50vh;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.7);  
+    transition: background-color 400ms linear;
+}
+@media only screen and (orientation: landscape) {
+    body{
+        background-image: url("https://duco.sytes.net/backgroundimage.php/desktop/white");
+    }
+    .middle2 {
+        position:absolute;
+        top: 50%;
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        width: 30%;   
+    }
+    @media (min-height: 750px) {
+        #card{
+            height: 40vh; 
+        }
+        .is-small{
+            font-size: 20px !important;
+        }
+        .une{
+            font-size: 18px !important;
+        }
+    }
+    @media (min-height: 950px) {
+        #card{
+            height: 35vh; 
+        }
+        .is-size-6{
+            font-size: 20px !important;
+        }
+
+    }
+
+}
+
+@media only screen and (orientation: portrait) {
+    body{
+        background-image: url("https://duco.sytes.net/backgroundimage.php/mobile/white");
+    }
+    .middle2 {
+        position:absolute;
+        top: 50%;
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        width: 90%;   
+    }
+    .is-large{
+        font-size: 18px !important;
+    }
+    .button{
+        margin-left: -2px !important;
+        margin-right: -2px !important;
+    }
+}
+
+
+.fixedtainer{
+    margin: 10px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.7);  
+    color: rgb(19, 19, 19);
+    font-size: 30px;
+    padding: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.411);
+    border-radius: 20px;
+}
+.btn{
+    background: none;
+	color: inherit;
+	border: none;
+	cursor: pointer;
+	outline: inherit;
+    margin-left: 10px;
+}
+
+
+.circle{
+    height:20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: rgb(245, 14, 91);
+    margin: 2px;
+    animation-name: glowup;
+    animation-duration: 1s;
+
+
+}
+.circle2{
+    height:20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: rgb(136, 136, 136);
+    margin: 2px;
+    animation-name: glowup;
+    animation-duration: 4s;
+}
+
+@keyframes glowup {
+    0%{opacity: 0%;}
+    100%{opacity: 100%}
+}
+.arrow{
+    height:100%;
+    background-color: rgba(98, 98, 98, 0.061);
+    border-radius: 20px;
+}
+.hmid{
+    top: 44%;
+    position: absolute;
+}
+
+  .une{
+    animation-name: glowup;
+    animation-duration: 0.5s;
+    position: absolute;
+    top:20;
+    left: 20%;
+    right: 20%;
+  }
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 1s ease;
+  }
+  .list-enter-from,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  .button{
+      margin:10px;
+  }
+  .important{
+    background: -webkit-linear-gradient(90deg, rgb(251, 138, 63) 0%, rgba(252,70,107,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

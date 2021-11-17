@@ -239,7 +239,7 @@ function problems(miners, geseffavr, geseffpc){                    //Check for p
                     document.getElementById("problemt").innerHTML+=info + " is mining too slow. " + fix;
                     problems++;
                 }
-                if(element[1]>17000){              //Too high hashrate
+                if(element[1]>25000){              //Too high hashrate
                     document.getElementById("problemt").innerHTML+=info + " is mining too fast (thats not better). " + fix;
                     problems++;
                 }
@@ -481,7 +481,7 @@ function calculdaily(newb, oldb){
             balance = balance1;
             alreadyreset = false;
         }, 119900);
-    }
+    } 
     ducomadesincesartdaily = Math.round(((86400/secondssincestart)*ducomadesincestart)*10)/10;
     //Update the tile "Estimated" with data
     document.getElementById("perdayc").innerHTML = ducomadesincesartdaily + " ᕲ";
@@ -579,7 +579,7 @@ function ping(username){
     .then(response => response.json())
     .then((api)=>{   
         clearTimeout(tim01);
-        if(api["vps"]["online"]==true){
+        if(api["masterweb"]["online"]==true){
             callback++;
             socketcon++;
             document.getElementById("console").innerHTML += "[info] duco server is online<br>";
@@ -680,33 +680,18 @@ function updatepie(){
     fetch("/statistics.json")
     .then(response => response.json())
     .then((api)=>{                  
+        var d1 = piechart.data.datasets[0].data;
         //Get data from the JSON file
         let miners = api["Miner distribution"];
-        let d = piechart.data.datasets[0].data;
-        d=[];
-        values=[];
         minerdataa = Object.values(miners);
-        let i=0;
-        minerdataa.forEach((element) => {
-            switch(i){
-                case 1:
-                    d.push(Math.round(element / 7));
-                    break;
-                case 2:
-                    d.push(Math.round(element / 4));
-                    break;
-                case 5:
-                    d.push(Math.round(element / 2));
-                    break;
-		case 9:
-		    break;
-                default:
-                    d.push(element);
-            }
-            i++;
-            
-        });
-        piechart.data.datasets[0].data = d;
+        keys = Object.keys(miners);
+        keys.shift();
+        minerdataa.shift();
+        minerdataa["CPU"] =  minerdataa["CPU"]/4;
+        piechart.data.labels.pop();
+        piechart.data.labels = keys;
+        d1 = minerdataa;
+        piechart.data.datasets[0].data = d1;
         piechart.update();
     });
 

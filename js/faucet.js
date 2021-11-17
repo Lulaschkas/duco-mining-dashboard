@@ -26,7 +26,7 @@ const app = Vue.createApp({
                 this.transactions = validate(String(response["transactions"]));
                 this.balance = Math.round(String(response["faucet_balance"]*100)/100) + " ᕲ";
                 this.users = validate(String(response["individual_users"]));
-                this.last =  "'" + validate(response["last_user"])+  "'" + " got " + validate(String(response["last_user_coins"])) + " ᕲ";
+                this.last =  "'" + validate(response["last_user"])+  "'" + " got " + validate(String(response["last_coins"])) + " ᕲ";
                 let lastelement=[];
                 for (const [key, value] of Object.entries(response["donators"])) {
                     if(value["time"]>lastelement["time"]){

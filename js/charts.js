@@ -374,7 +374,6 @@ function createbars(){
 }
 
 function createpie(){
-  let Labels = ["Arduino", "CPU", "ESP32", "ESP8266", "GPU", "Other", "RPi"];
   let Colors = ["#ff7700", "#ff8c00", "#ffa200", "#eb7734", "#ffc400", "#ffd900", "#ffea00"];
   chart_miner = document.getElementById("miner_distro").getContext('2d');
   piechart = new Chart(chart_miner, {
@@ -382,9 +381,8 @@ function createpie(){
       data: {
           datasets: [{
               backgroundColor: Colors,
-              data: [10, 10, 10, 10, 10, 10, 10],
+              data: [10, 10, 10, 10, 10, 10, 10, 10, 10],
           }],
-          labels: Labels,
           
       },
       options: {
